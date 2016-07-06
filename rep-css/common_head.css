@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+body{
+    font-size: 14px;
+    color: #333333;
+    background-color: #f8f8f8;
+}
+.rel{
+    position: relative;
+}
+.new_head{
+    width: 100%;
+    background-color: #ffffff;
+}
+.logo_info{
+    width: 1000px;
+    margin: 0 auto;
+}
+.logo_info .logo{
+    display: block;
+    height: 60px;
+    overflow: hidden;
+}
+.logo_info .logo span{
+    display: table-cell;
+    height: 60px;
+    vertical-align: middle;
+    *display: block;
+    *font-family: arial;
+    *font-size: 52px;
+}
+.logo_info .logo span img{
+    width: auto !important;
+    height: auto !important;
+    vertical-align: middle;
+}
+.personal li{
+    float: left;
+}
+.personal li a{
+    display: block;
+    line-height: 60px;
+    font-size: 14px;
+    color: #999999;
+    padding-left: 30px;
+    background: url("../images_new/new_head_icon.png") no-repeat;
+    margin-left: 20px;
+}
+.personal li a.ves_index{
+    background-position: 0 -211px;
+}
+.personal li a.ves_letter{
+    background-position: 0 -260px;
+}
+.personal li a.system{
+    position: relative;
+    background-position: 0 21px;
+}
+.personal li a.center{
+    background-position: 8px -29px;
+}
+.personal li a.out{
+    background-position: 0 -414px;
+}
+.personal li a:hover{
+    color: #0dc2b3;
+}
+.personal li a.ves_index:hover{
+    background-position: 0 -312px;
+}
+.personal li a.ves_letter:hover{
+    background-position: 0 -361px;
+}
+.personal li a.system:hover{
+    position: relative;
+    background-position: 0 -116px;
+}
+.personal li a.center:hover{
+    background-position: 8px -166px;
+}
+.personal li a.out:hover{
+    background-position: 0 -460px;
+}
+.personal li a.system i{
+    display: block;
+    position: absolute;
+    top: 20px;
+    *top: 0;
+    right: -5px;
+    width: 5px;
+    height: 5px;
+    background-color: #ff673e;
+    border-radius: 50%;
+}
+.head_nav{
+    width: 100%;
+    height: 45px;
+    background-color: #404145;
+}
+.head_nav ul{
+    width: 1000px;
+    margin: 0 auto;
+}
+.head_nav li{
+    float: left;
+}
+.head_nav li>a{
+    display: block;
+    width: 105px;
+    line-height: 45px;
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    margin-right: 25px;
+}
+.head_nav li>a:hover,.head_nav li>a.on{
+    color: #ffffff;
+    background-color: #0dc2b3;
+}
+.head_nav li>a i.hot,.drop_more dd a i.hot{
+    display: block;
+    position: absolute;
+    top: -5px;
+    left: 88px;
+    min-width: 15px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 2px;
+    font-size: 12px;
+    font-style: normal;
+    color: #ffffff;
+    background: #ff5e34;
+    border-radius: 3px;
+    white-space: nowrap;
+    text-align: center;
+}
+.head_nav li>a i.hot:before,.drop_more dd a i.hot:before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 18px;
+    left: 6px;
+    width: 0;
+    height: 0;
+    border-top: 3px solid #ff5e34;
+    border-right: 5px dashed transparent;
+}
+.head_nav li>a i.up,.head_nav li>a i.down{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: 2px;
+    *vertical-align: middle;
+    margin-left: 5px;
+    float: none !important;
+    margin-right: 0 !important;
+}
+.head_nav li>a i.down{
+    border-top: 6px solid #ffffff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.head_nav li>a i.up{
+    border-bottom: 6px solid #ffffff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.head_nav li.rel{
+    z-index: 9;
+}
+.drop_more{
+    position: absolute;
+    width: 105px;
+    padding: 10px 0;
+    background-color: #000000;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    text-align: center;
+}
+.drop_more dd a{
+    display: block;
+    line-height: 36px;
+    font-size: 16px;
+    color: #ffffff;
+}
+.drop_more dd a:hover,.drop_more dd a.on{
+    color: #0dc2b3;
+}
+
+/*主体框架*/
+.new_warp{
+    width: 1000px;
+    min-height: 420px;
+    background-color: #f3f3f3;
+    padding: 20px 0;
+    margin: 0 auto;
+}
+.new_main{
+    float: right;
+    width: 830px;
+}
+.layout{
+    float: left;
+    width: 615px;
+    word-wrap: break-word;
+}
+.layout_rgt{
+    float: left;
+    width: 200px;
+    margin-left: 15px;
+}
+.layout_lft{
+    float: right;
+    width: 170px;
+}
+
+/*面包屑*/
+.bread_crumbs{
+    line-height: 34px;
+    color: #999999;
+    border-bottom: 1px dashed #ededed;
+    background-color: #ffffff;
+    padding: 0 15px;
+}
+.bread_crumbs a{
+    color: #999999;
+}
+.bread_crumbs a.current{
+    color: #0dc2b3;
+}
+.bread_crumbs span{
+    margin: 0 5px;
+}

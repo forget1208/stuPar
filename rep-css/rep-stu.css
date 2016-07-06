@@ -1,0 +1,1151 @@
+/*学生全学科报告*/
+
+.rep-sa-tit {
+	width: 1000px;
+	color: #344251;
+	background: url(../rep-images/rep-sa-tit.png) no-repeat left top;
+	text-align: center;
+}
+
+.rep-sa-read {
+	width: 980px;
+	margin: 20px auto 0;
+	color: #666;
+}
+
+.rep-sa-read .hd {
+	padding: 0 20px;
+	font-size: 20px;
+	font-weight: bold;
+	background: url(../rep-images/rep-comm.png) no-repeat left -2434px;
+	line-height: 85px;
+}
+
+.rep-sa-read .bd {
+	margin: -10px 11px 0 10px;
+	padding: 0 20px;
+	background: #fff;
+	font-size: 16px;
+	text-align: left;
+	text-indent: 2em;
+	line-height: 30px;
+}
+
+.rep-sa-read .ft {
+	padding: 0 20px;
+	background: url(../rep-images/rep-comm.png) no-repeat left -2592px;
+	height: 114px;
+}
+
+
+/*我考得怎么样？*/
+
+.stu-paper li {
+	margin: 15px;
+}
+
+.stu-paper .stu-paperli {
+	width: 130px;
+	height: 175px;
+	border-radius: 3px;
+	border: 1px solid #b6b6b6;
+}
+
+.stu-paper .stu-paperli .cover {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.stu-paper {
+	width: 820px;
+	margin-left: 96px;
+}
+
+.stu-paper li {
+	float: left;
+}
+
+.stu-paper .stu-paperli p {
+	line-height: 83px;
+	font-size: 40px;
+	color: #ff6f3d;
+	text-align: center;
+}
+
+.stu-paper .stu-paperli a {
+	display: block;
+	width: 120px;
+	height: 28px;
+	line-height: 28px;
+	margin: 2px 0 2px 5px;
+	color: #fff;
+	border-radius: 3px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.stu-paper .stu-paperli .score {
+	background: #ffb03e;
+}
+
+.stu-paper .stu-paperli .ana {
+	background: #06c1ae;
+}
+
+.stu-paper .stu-paperli .know {
+	background: #5685db;
+}
+
+
+/*与同学的对比*/
+
+.fircompare {}
+
+
+.fircompare-tit {
+	display: inline-block;
+	margin: 25px auto;
+	color: #344251;
+	padding-left: 40px;
+	font-size: 20px;
+	background: url(../rep-images/rep-comm.png) no-repeat left -794px;
+}
+
+.fircompare-cont {
+	font-size: 14px;
+}
+
+.fircompare-cont .next {
+	display: block;
+	width: 12px;
+	height: 22px;
+	float: left;
+	margin: 15px 0px 0 0;
+	background: url(../rep-images/rep-comm.png) no-repeat -267px -240px;
+}
+
+.fircompare-cont .pre {
+	display: block;
+	width: 12px;
+	height: 22px;
+	float: left;
+	margin: 15px 0 0 30px;
+	background: url(../rep-images/rep-comm.png) no-repeat -162px -240px;
+}
+
+.fircompare-modwarp {
+	width: 875px;
+	margin: 0 20px;
+	overflow: hidden;
+}
+
+.fircompare-mod .moda {
+	width: 152px;
+	line-height: 50px;
+	float: left;
+	background: #f9f9f9;
+	border: 1px solid #dddddd;
+	margin-bottom: -1px;
+	color: #344251;
+	text-align: center;
+}
+
+.fircompare-mod .moda.my,
+.fircompare-mod .modb.my {
+	color: #ff6f3d;
+	font-weight: bold;
+}
+
+.fircompare-mod .modb {
+	width: 108px;
+	line-height: 50px;
+	float: left;
+	margin-left: 10px;
+	background: #f9f9f9;
+	border: 1px solid #dddddd;
+	margin-bottom: -1px;
+	color: #344251;
+	text-align: center;
+}
+
+.fircompare-mod .modb-bg {
+	background: #06c1ae;
+	border: 1px solid #06c1ae;
+	color: #fff;
+}
+
+.fircompare-modwarp .firfive .left {
+	width: 100px;
+	padding: 100px 26px 0;
+	height: 154px;
+	float: left;
+	background: #f9f9f9;
+	border: 1px solid #dddddd;
+	margin-bottom: -1px;
+	color: #344251;
+	text-align: center;
+}
+
+.fircompare-look {
+	display: block;
+	width: 255px;
+	padding-left: 15px;
+	line-height: 38px;
+	margin: 50px auto 0;
+	color: #06c1ae;
+	border: 1px solid #06c1ae;
+	border-radius: 3px;
+}
+
+.fircompare-look .arror-up {
+	display: inline-block;
+	margin: 15px 0px 0 8px;
+	border-top: none;
+	border-bottom: 6px solid #06c1ae;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	vertical-align: 2px;
+}
+
+.fircompare-look .arror-down {
+	display: inline-block;
+	margin: 15px 0px 0 8px;
+	border-bottom: none;
+	border-top: 6px solid #06c1ae;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	vertical-align: 2px;
+}
+
+
+/*成绩在全班的位置*/
+
+.proposi-tit {
+	display: inline-block;
+	margin: 25px auto;
+	color: #344251;
+	padding-left: 40px;
+	font-size: 20px;
+	background: url(../rep-images/rep-comm.png) no-repeat left -848px;
+}
+
+
+/*成绩与全班平均分、最高分的对比*/
+
+.procomp-tit {
+	display: inline-block;
+	margin: 25px auto;
+	color: #344251;
+	padding-left: 40px;
+	font-size: 20px;
+	background: url(../rep-images/rep-comm.png) no-repeat left -1224px;
+}
+
+
+/*这次考试有进步吗?*/
+
+.protest {
+	width: 940px;
+	margin: 0 auto;
+}
+
+.protest .left {
+	width: 240px;
+	padding: 0 20px;
+	background: #f6f6f6;
+	font-size: 14px;
+	color: #666;
+	line-height: 26px;
+}
+
+.protest .left b {
+	font-weight: bold;
+	color: #ed7449;
+	font-size: 20px;
+	margin-bottom: 7px;
+	display: block;
+	line-height: 30px;
+}
+
+.protest .right {
+	border: 1px solid #ececec;
+}
+
+.protest .tab {
+	margin: 25px 0 0 80px;
+	border: 1px solid #cadae0;
+	border-radius: 3px;
+}
+
+.protest .tab a {
+	display: block;
+	float: left;
+	width: 72px;
+	text-align: center;
+	color: #666;
+	font-size: 14px;
+	line-height: 30px;
+}
+
+.protest .tab a.on {
+	background: #06c1ae;
+	color: #fff;
+}
+
+.protest .tab .gradeall {
+	border-radius: 3px 3px 0 0;
+}
+
+.protest .tab .grade {
+	border-radius: 0 0 3px 3px;
+}
+
+
+/*par-chartk*/
+
+.par-chartk-warp {
+	padding-top: 70px;
+	height: 380px;
+}
+
+.par-chartk {
+	width: 563px;
+	margin: 0 auto;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat top left;
+}
+
+.par-chartk .pane {
+	margin-top: 20px;
+	width: 141px;
+}
+
+.par-chartk .pane .inner {
+	width: 141px;
+	height: 200px;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat -544px -355px;
+}
+
+.par-chartk .pane .inner-s {
+	height: 100px;
+}
+
+.par-chartk .pane .inner-0 {
+	height: 0;
+}
+
+.par-chartk .pane h1 {
+	position: absolute;
+	top: -35px;
+	left: 0px;
+	width: 141px;
+	text-align: center;
+}
+
+.par-chartk .pane h1 i {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #ffb03e;
+	font-size: 24px;
+}
+
+.par-chartk .pane h2 {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	color: #fff;
+	width: 141px;
+	text-align: center;
+	font-size: 16px;
+}
+
+.par-chartk-bottom {
+	margin-top: 306px;
+	width: 563px;
+	height: 28px;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat left -307px;
+}
+
+.par-chartk .easy {
+	position: absolute;
+	bottom: 28px;
+	left: 10px;
+	padding-top: 90px;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat -181px -344px;
+}
+
+.par-chartk .nor {
+	position: absolute;
+	bottom: 28px;
+	left: 214px;
+	padding-top: 90px;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat -181px -344px;
+}
+
+.par-chartk .hard {
+	position: absolute;
+	bottom: 28px;
+	left: 417px;
+	padding-top: 90px;
+	background: url(../rep-images/par-qk-chartk.png) no-repeat -181px -344px;
+}
+
+
+/*我该怎么办*/
+
+.pro-urge-ul ul {
+	width: 680px;
+	margin: 20px auto;
+}
+
+.pro-urge-ul ul li {
+	float: left;
+	margin: 10px 59px;
+}
+
+.pro-urge-ul ul li .p-a {
+	width: 74px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	margin-left: 142px;
+	font-size: 20px;
+	color: #fff;
+}
+
+.pro-urge-ul ul li .p-b {
+	margin: 35px 0 0 62px;
+	font-size: 20px;
+	color: #666666;
+	font-weight: bold;
+	line-height: 23px;
+	height: 23px;
+}
+
+.pro-urge-ul ul li span {
+	display: block;
+	width: 107px;
+	margin: 130px 0 0 55px;
+	font-size: 18px;
+	color: #fff;
+	line-height: 33px;
+	height: 33px;
+	text-align: center;
+}
+
+.pro-urge-ul ul .bga {
+	width: 220px;
+	height: 300px;
+	background: url(../rep-images/stu.png) no-repeat left top;
+}
+
+.pro-urge-ul ul .bgb {
+	width: 220px;
+	height: 300px;
+	background: url(../rep-images/stu.png) no-repeat -333px top;
+}
+
+
+/*学生单学科*/
+
+.rep-ss-tit {
+	width: 1000px;
+	height: 193px;
+	color: #344251;
+	background: url(../rep-images/rep-comm.png) no-repeat left top;
+	text-align: center;
+}
+
+.rep-ss-tit .look-ana {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	display: block;
+	width: 130px;
+	line-height: 39px;
+	background: #06c1ae;
+	font-size: 16px;
+	color: #fff;
+	border-radius: 3px;
+}
+
+.rep-ss-tit .look-ana:hover {
+	background: #06a292;
+}
+
+.stus-comp {
+	width: 900px;
+	margin: 0 auto;
+}
+
+.stus-comp li {
+	float: left;
+	margin: 0 5px;
+}
+
+.stus-comp .hd {
+	width: 168px;
+	font-size: 14px;
+	border: 1px solid #06c1ae;
+	background: #06c1ae;
+	color: #fff;
+	text-align: center;
+	line-height: 50px;
+}
+
+.stus-comp .bd {
+	width: 168px;
+	font-size: 16px;
+	border: 1px solid #e3eaed;
+	color: #4d4d4d;
+	text-align: center;
+	line-height: 50px;
+}
+
+.stu-yel {
+	color: #ff6f3d;
+}
+
+.down-dtk {
+	display: inline-block;
+	width: 160px;
+	margin-top: 50px;
+	padding-left: 20px;
+	line-height: 40px;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 3px;
+	text-align: center;
+	background: #ff9f39 url(../rep-images/rep-comm.png) no-repeat -821px -846px;
+}
+
+.down-paper {
+	display: inline-block;
+	width: 160px;
+	padding-left: 20px;
+	margin: 50px 0 0 80px;
+	line-height: 40px;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 3px;
+	text-align: center;
+	background: #ff9f39 url(../rep-images/rep-comm.png) no-repeat -814px -955px;
+}
+
+.down-dtk:hover,
+.down-paper:hover {
+	background-color: #ffbb39;
+}
+
+.stu-gary {
+	color: #344251;
+}
+
+
+/*题目汇总*/
+
+.stus-topic .next {
+	display: block;
+	width: 12px;
+	height: 22px;
+	position: absolute;
+	right: -40px;
+	top: 10px;
+	background: url(../rep-images/rep-comm.png) no-repeat -267px -240px;
+}
+
+.stus-topic .pre {
+	display: block;
+	width: 12px;
+	height: 22px;
+	position: absolute;
+	left: -40px;
+	top: 10px;
+	background: url(../rep-images/rep-comm.png) no-repeat -162px -240px;
+}
+
+.stus-topic .hd-ul,
+.stus-topic .hd {
+	display: inline-block;
+}
+
+.stus-topic ul {}
+
+.stus-topic .wrong {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 38px;
+	font-size: 14px;
+	display: inline-block;
+	width: 42px;
+	text-align: center;
+	padding-top: 4px;
+	color: #4b4b4b;
+	background: url(../rep-images/stu.png) no-repeat left -544px;
+}
+
+.stus-topic .wrong.on {
+	background-position: left -586px;
+	color: #ff6a60;
+}
+
+.stus-topic .both {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 38px;
+	font-size: 14px;
+	display: inline-block;
+	width: 42px;
+	text-align: center;
+	padding-top: 4px;
+	color: #4b4b4b;
+	background: url(../rep-images/stu.png) no-repeat left -376px;
+}
+
+.stus-topic .both.on {
+	background-position: left -418px;
+	color: #f4a701;
+}
+
+.stus-topic .right {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 38px;
+	color: #4b4b4b;
+	font-size: 14px;
+	display: inline-block;
+	width: 42px;
+	text-align: center;
+	padding-top: 4px;
+	background: url(../rep-images/stu.png) no-repeat left -460px;
+}
+
+.stus-topic .right.on {
+	background-position: left -502px;
+	color: #06c1ae;
+}
+
+.stus-topic ul li {
+	float: left;
+	margin: 0 10px;
+}
+
+.stus-topic .rep-modtit-bd {
+	width: 940px;
+	margin: 30px auto 50px;
+	border: 1px solid #ececec;
+	
+padding: 15px 0;
+border-radius: 6px;
+
+color: #4b4b4b;
+}
+.stu-find-title {
+	margin: 0 40px;
+	line-height: 23px;
+}
+.stu-find-title .widtha {
+	width: 25%;
+	float: left;
+}
+.stu-find-part {
+	height: 48px;
+	background: #f5f5f5;
+	line-height: 48px;
+	padding: 0 40px;
+	
+	font-size: 14px;
+}
+.stu-find-part .left {
+	width: 200px;
+}
+.stu-find-part .star {
+	width: 265px;
+}
+.stu-find-part .star_a {
+	display: block;
+	width: 26px;
+	height: 26px;
+	float: left;
+	margin: 11px 5px;
+	background: url(../rep-images/stu.png) no-repeat left -649px;
+	overflow: hidden;
+}
+.stu-find-part .num span {
+	float: left;
+}
+.stu-find-part .num i {
+	float: left;
+	display: inline-block;
+	font-size: 30px;
+	padding: 5px 5px;
+	line-height: 34px;
+	color: #ff6a60;
+}
+.stus-topicput {
+	display: block;
+	width: 334px;
+	margin: 0 auto;
+	padding-left: 20px;
+	line-height: 45px;
+	color: #fff;
+	font-size: 20px;
+	border-radius: 3px;
+	text-align: center;
+	background: #06c1ae url(../rep-images/rep-comm.png) no-repeat -730px -1019px;
+}
+
+.stus-topicput:hover {
+	background-color: #09d1bd;
+}
+.master-infor{
+	margin:5px  30px 10px 30px;
+	
+}
+.master-infor span{
+	display: inline-block;
+	margin:10px 10px 0 0;
+	padding: 0 5px;
+	line-height: 30px;
+	background: #f5fffb;
+	border:1px solid #94d5ce;
+	color: #06c1ae;
+	font-size: 14px;
+}
+/*知识点掌握情况*/
+.stu-know-table {
+	width: 940px;
+	margin:0 auto;
+}
+.stu-know-table th {
+	border: 1px solid #dbdbdb;
+	background: #f4f4f4;
+	color: #4b4b4b;
+	font-size: 14px;
+	line-height: 44px;
+	text-align: center;
+}
+.stu-know-table td {
+	border: 1px solid #dbdbdb;
+	color: #4b4b4b;
+	border-top: none;
+	font-size: 14px;
+	color: #4b4b4b;
+	line-height: 44px;
+	text-align: center;
+}
+.stu-know-table_b {
+	max-height: 360px;
+	overflow-y: auto;
+}
+.stu-know-table .bga {
+	background: #f2f2f2;
+}
+.stu-know-table .percent {
+	width: 310px;
+	height: 6px;
+	margin: 18px 27px 0 30px;
+	background: url(../rep-images/stu.png) no-repeat -168px -385px;
+}
+.stu-know-table .percent-cont {
+	width: 310px;
+	height: 6px;
+	background: url(../rep-images/stu.png) no-repeat -168px -433px;
+}
+.stu-know-main {
+	padding-bottom: 45px;
+}
+.stu-know-table .percent-new {
+	width: 310px;
+	height: 6px;
+	margin: 20px 27px 0 30px;
+	background: none;
+}
+.stu-know-table .percent-cont-city {
+	width: 310px;
+	height: 6px;
+	background: url(../rep-images/stu.png) no-repeat -168px -385px;
+}
+.stu-know-table .percent-count-num {
+	line-height: 20px;
+	margin-top: 12px;
+}
+.stu-know-table td.td-new {
+	padding-bottom: 20px;
+}
+.per-left, .pre-right {
+	display: inline-block;
+	width: 26px;
+	height: 6px;
+	margin-bottom: 2px;
+	border-radius: 6px;
+}
+.per-left {
+	background-color: #ed7449;
+	margin-bottom: 2px;
+	border-radius: 6px;
+}
+.pre-right {
+	background-color: #dcdcdc;
+}
+.stu-know-table-sh {
+	width: 904px;
+	margin: 0 0 0 28px;
+	line-height: 24px;
+}
+.stu-know-table-sh tr th:last-child, .stu-know-table-sh tr td:last-child {
+	border-right: none;
+}
+.stu-know-table .percent-new-sh {
+	margin: 20px 27px 0 30px;
+	width: 170px;
+}
+.stu-know-table td.tl {
+	text-align: left;
+	padding: 0 20px;
+	line-height: 24px;
+}
+.w-large {
+	width: 61.5%;
+}
+.rep-botbg-b {
+	height: auto;
+}
+.br1 {
+	width: 932px;
+	border-right: 1px #ed7449 solid;
+	padding-bottom: 0;
+	background: #fcfcfc;
+}
+.btn-sh {
+	width: 39px;
+	height: 215px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #ff8b5d;
+	border-radius: 0 20px 20px 0;
+	border: none;
+	position: absolute;
+	right: -40px;
+	top: 50%;
+	margin-top: -107px;
+	padding: 0 10px 0 11px;
+	line-height: 1.25em;
+	cursor: pointer;
+}
+span.no1, span.no2, span.no3 {
+	display: block;
+	width: 38px;
+	height: 49px;
+	background: url("../rep-images/add-icon.png") no-repeat;
+	margin: 0 auto;
+}
+span.no2 {
+	background-position: 0 -50px;
+}
+span.no3 {
+	background-position: 0 -100px;
+}
+.stu-know-table td.no-num {
+	font-size: 24px;
+	color: #28a9eb;
+	font-style: italic;
+	height: 84px;
+}
+.btn-sh-s, .btn-sh-h {
+	width: 8px;
+	height: 16px;
+	display: inline-block;
+	background: url("../rep-images/add-icon.png") 0 -150px no-repeat;
+	margin-bottom: 5px;
+}
+.btn-sh-h {
+	background: url("../rep-images/add-icon.png") 0 -167px no-repeat;
+}
+.bth-sh-txt-s {
+	display: none;
+}
+.bth-sh-txt-h {
+	display: block;
+}
+.s-h {
+	display: none;
+}
+.stu-know-table-new th div {
+	display: inline-block;
+}
+.stu-know-table-sh th:first-child, .stu-know-table-sh td:first-child {
+	width: 9.5%;
+}
+.stu-know-table-sh th:nth-child(2n+0), .stu-know-table-sh td:nth-child(2n+0) {
+	width: 16%;
+}
+.stu-know-table-sh th:nth-child(3n+0), .stu-know-table-sh td:nth-child(3n+0) {
+	width: 13%;
+}
+.stu-know-table-sh th:nth-child(4n+0), .stu-know-table-sh td:nth-child(4n+0) {
+	width: 30.5%;
+}
+.stu-know-table-sh th:nth-child(4n+0).w-large, .stu-know-table-sh td:nth-child(4n+0).w-large {
+	width: 61.5%;
+	border-right: none;
+}
+.stu-know-table-sh th:last-child, .stu-know-table-sh td:last-child {
+	width: 42%;
+}
+/*非vip全学科成绩报告*/
+
+@media screen and (max-width: 767px) {
+	.fircompare-tit {
+		margin: 10px auto;
+		font-size: 1em;
+		line-height: 26px;
+	}
+	.fircompare-cont {
+		font-size: .85em;
+	}
+	.fircompare-cont .pre {
+		width: 10%;
+		margin-left: 5%;
+	}
+	.fircompare-modwarp {
+		width: 70%;
+		margin: 0;
+	}
+	.fircompare-cont .next {
+		width: 10%;
+		margin-right: 5%;
+		background: url(../rep-images/rep-comm.png) no-repeat -247px -240px;
+	}
+	.modb:nth-child(5n+0), .modb:nth-child(6n+0) {
+		display: none;
+	}
+	.fircompare-mod, .firfive {
+		width: 100%;
+		font-size: 12px;
+	}
+	.fircompare-mod .moda {
+		width: 20%;
+		line-height: normal;
+		height: 36px;
+		padding-top: 4px;
+	}
+	.fircompare-mod .modb {
+		width: 17.5%;
+		margin-left: 1%;
+		line-height: 40px;
+	}
+	.fircompare-modwarp .firfive .left {
+		width: 20%;
+		padding: 30px 0 0;
+		height: 174px;
+	}
+	.fircompare-modwarp .firfive .right {
+		width: 79%;
+	}
+	.fircompare-modwarp .firfive .right .modb {
+		width: 22.3%;
+	}
+	.fircompare-mod:first-child .moda {
+		width: 20%;
+		line-height: 40px;
+		height: auto;
+		padding-top: 0;
+	}
+	.protest {
+		width: 100%;
+	}
+	.protest .left, .protest .right {
+		width: 90%;
+		margin: 0;
+		padding: 15px 5%;
+	}
+	.protest tr td:first-child {
+		float: left;
+	}
+	.protest tr td:last-child {
+		float: right;
+	}
+	.protest .left {
+		font-size: .75em;
+		line-height: 1.5em;
+	}
+	.protest .left b {
+		font-size: 1em;
+		line-height: 1.5em;
+		font-weight: normal;
+	}
+	.protest .tab {
+		width: 146px;
+		margin: 25px auto 0;
+		float: none;
+	}
+	.pro-urge-ul ul {
+		width: 260px;
+		margin: 0 auto;
+	}
+	.pro-urge-ul ul li.bga, .pro-urge-ul ul li.bgb {
+		margin: 0 auto;
+		width: 110px;
+		height: 160px;
+		background-size: 254%;
+	}
+	.pro-urge-ul ul li .p-a {
+		line-height: 32px;
+		font-size: .75em;
+		margin-left: 52px;
+		height: auto;
+	}
+	.pro-urge-ul ul li .p-b {
+		margin: 12px 0 0 32px;
+		font-size: .75em;
+		font-weight: normal;
+	}
+	.pro-urge-ul ul li.bga {
+		margin-right: 40px;
+	}
+	.pro-urge-ul ul li.bgb {
+		background-position: -168.9px 0;
+	}
+	.stus-comp {
+		width: 100%;
+	}
+	.stus-comp li {
+		width: 40%;
+		margin: 0 5% 15px;
+	}
+	.stus-comp .hd, .stus-comp .bd {
+		width: 100%;
+		font-size: .75em;
+		line-height: 2.5em;
+	}
+	.down-paper, .down-dtk {
+		width: 35%;
+		display: block;
+		margin-top: 0;
+		font-size: .75em;
+	}
+	.down-paper {
+		float: right;
+		margin-right: 5%;
+		margin-left: 0;
+		background-position: -824px -955px;
+	}
+	.down-dtk {
+		float: left;
+		margin-left: 5%;
+		background-position: -831px -846px;
+	}
+	.par-chartk, .par-chartk-bottom {
+		width: 288px;
+		margin: 0 auto;
+		height: 230px;
+		background: url(../rep-images/par-qk-chartk-s.png) no-repeat left 38px;
+	}
+	.par-chartk .pane {
+		width: 86px;
+		margin: 0 5px;
+		bottom: auto;
+		position: relative;
+		left: 0;
+	}
+	.par-chartk .pane .inner {
+		width: 86px;
+		height: 120px;
+		background: url(../rep-images/par-qk-chartk-s.png) no-repeat -306px -200px;
+	}
+	.par-chartk .easy {
+		background: url(../rep-images/par-qk-chartk-s.png) no-repeat -102px -193px;
+		top: 0;
+	}
+	.par-chartk .pane h1, .par-chartk .pane h2 {
+		width: 72px;
+	}
+	.par-chartk-bottom {
+		display: none;
+	}
+	.par-chartk-warp {
+		padding-top: 40px;
+		height: 230px;
+	}
+	.par-chartk .pane .inner-s {
+		height: 50px;
+	}
+	.par-chartk .pane .inner-0 {
+		height: 0;
+	}
+	.par-chartk .nor {
+		background: url(../rep-images/par-qk-chartk-s.png) no-repeat -102px -193px;
+		top: 70px;
+	}
+	.par-chartk .hard {
+		background: url(../rep-images/par-qk-chartk-s.png) no-repeat -102px -193px;
+		top: 120px;
+	}
+	.stu-know-table {
+		width: 100%;
+	}
+	.stu-know-table .percent {
+		width: 70%;
+		margin: 18px 5% 0 2%;
+	}
+	.stu-know-table th {
+		line-height: normal;
+	}
+	.master-infor {
+		text-align: center;
+	}
+	.pro-urge-ul ul li span {
+		width: 100%;
+		margin: 50px 0 0;
+		font-size: .75em;
+	}
+	.fircompare-look {
+		box-sizing: border-box;
+		width: 98%;
+		padding: 0;
+		margin: 20px 0 0;
+		font-size: .75em;
+	}
+	.stu-know-table-new th div {
+		display: block;
+	}
+	.rep-botbg-b.br1 {
+		width: 87.5%;
+		font-size: 12px;
+		padding-bottom: 0;
+	}
+	.stu-know-table-sh {
+		margin: 0;
+	}
+	.stu-know-table-sh th, .stu-know-table-sh td {
+		font-size: 12px;
+	}
+	.stu-know-table-sh th:first-child, .stu-know-table-sh th:nth-child(2n+0), .stu-know-table-sh td:first-child, .stu-know-table-sh td:nth-child(2n+0) {
+		width: 19%;
+	}
+	.stu-know-table-sh th:nth-child(3n+0), .stu-know-table-sh td:nth-child(3n+0) {
+		width: 20%;
+	}
+	.stu-know-table-sh th:nth-child(4n+0).w-large, .stu-know-table-sh td:nth-child(4n+0).w-large {
+		width: 42%;
+		display: table-cell;
+		border-right: none;
+	}
+	.stu-know-table-sh th:last-child, .stu-know-table-sh td:last-child {
+		width: 42%;
+	}
+	.stu-know-table-sh th:nth-child(4n+0), .stu-know-table-sh td:nth-child(4n+0) {
+		display: none;
+	}
+	.stu-know-table td.tl {
+		padding: 0 5px;
+	}
+	.rep-hide {
+		background: none;
+	}
+	.btn-sh {
+		width: 32px;
+		height: 150px;
+		font-size: 12px;
+		margin-top: -75px;
+		right: -33px;
+		padding: 0 11px 0 9px;
+	}
+}
