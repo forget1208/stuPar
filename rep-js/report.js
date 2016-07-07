@@ -30,6 +30,12 @@ Report.AllSingerTab = function () {
     }
 };
 
+Report.StuOrPar = function () {
+    if ($('.stu').hasClass('on')) {
+        
+    }
+};
+
 $(document).ready(function(){
     Report.GetData();
 

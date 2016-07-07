@@ -376,24 +376,24 @@
 	opacity: 0;
 }
 
-.rep-sa-read {
+.rep-sa-readPar {
 	width: 1000px;
 	margin: 20px auto 0;
 	color: #666;
 }
 
-.rep-sa-read .hd {
+.rep-sa-readPar .hdPar {
 	margin-left: 10px;
 	background: url(../rep-images/rep-comm.png) no-repeat left -528px;
 }
 
-.rep-sa-read .bd {
+.rep-sa-readPar .bdPar {
 	margin: -10px 11px 0 20px;
 	width: 919px;
 	padding-bottom: 35px;
 }
 
-.rep-sa-read .ft {
+.rep-sa-readPar .ftPar {
 	padding: 0;
 	background: url(../rep-images/rep-comm.png) no-repeat 0 -2090px;
 	height: 55px;
@@ -477,7 +477,7 @@
 		width: 25%;
 		float: left;
 	}
-	.rep-choice-course .warp-ul a, .rep-sa-tit, .rep-sa-read {
+	.rep-choice-course .warp-ul a, .rep-sa-tit, .rep-sa-readPar {
 		width: 100%;
 		padding: 0;
 	}
@@ -487,13 +487,13 @@
 	.schooltest {
 		font-size: .95em;
 	}
-	.rep-sa-read .hd {
+	.rep-sa-readPar .hdPar{
 		background-position: center -528px;
 		width: 90%;
 		margin: 0 5%;
 		padding: 0;
 	}
-	.rep-sa-read .bd {
+	.rep-sa-readPar .bdPar {
 		width: 86%;
 		padding: 0 2%;
 		margin: -11px 5% 0;
