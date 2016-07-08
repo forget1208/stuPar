@@ -7,6 +7,9 @@ var Report ={};
 //属性
 Report.vipFlag = 0; // 0 非vip 1 vip
 Report.score = {};
+
+
+
 Report.GetData = function () {
     //发送 ajax
     // alert(1);
@@ -30,19 +33,21 @@ Report.AllSingerTab = function () {
     }
 };
 
-$.post("1.txt",
-    {
-    },
-    function(data,status){
-        dataStr = data;
-        eval(dataStr);
-        // alert(basePath);
-        $("#stuBd").html(introduction.desc);
-    }
-);
+// $.post("1.txt",
+//     {
+//     },
+//     function(data,status){
+//         dataStr = data;
+//         eval(dataStr);
+//         $("#stuBd").html(introduction.desc);
+//     }
+// );
 
 $(document).ready(function(){
     Report.GetData();
+
+
+
 
     //学生/家长
     $('.left-choice a').bind('click',Report.StuParTab);
