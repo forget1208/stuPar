@@ -43,6 +43,8 @@ Report.StuParTab = function () {
     var index = $(this).index();
     $(this).addClass('on').siblings('a').removeClass('on');
     $('.rep-content').eq(index).show().siblings('.rep-content').hide();
+    
+    
 };
 
 //全科/单科 tab
@@ -56,10 +58,9 @@ Report.AllSingerTab = function () {
     }
 };
 
-// 更新 下来列表
+// 更新 下拉列表
 Report.UpdateSelectBox= function () {
-    $('.arror-in').before('<span>' + userExamArchives[0].examName + '</span>');
-
+    $('#examName').html(userExamArchives[0].examName);
     for (var i = 0; i < userExamArchives.length; i++) {
         $('.topSlt').append('<a title="' + userExamArchives[i].examName + '" href="javascript:void(0);" emamid="'  + userExamArchives[i].examId +'">' + userExamArchives[i].examName + '</a>');
     }
@@ -70,10 +71,12 @@ Report.UpdateSelectBox= function () {
     });
 
     $('.topSlt a').click(function () {
+        var examId = $(this).attr('emamid');
         var examName = $(this).attr('title');
-        $('#examName').find('span').html(examName);
+        $('#examName').html(examName);
         $(".topSlt").hide();
         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
+
     });
 };
 
@@ -85,6 +88,6 @@ $(document).ready(function(){
     //全科/单科
     $('.warp-ul ul li a').bind('click',Report.AllSingerTab);
 
-    // 更新 下来列表
+    // 更新 下拉列表
     Report.UpdateSelectBox();
 });
