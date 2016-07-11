@@ -25,26 +25,38 @@ var isCoexistAndIsGolden = true;
 var isNceeVolunteer = false;
 var userInfo = {"birthday":1441900800000,"clazz":{"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014},"code":"30024501","gender":"1","id":"2000000020000269186","loginName":"zx30024501","name":"小明一","roles":[{"cName":"学生","eName":"student"}]};
 var studentUrl = 'http://localhost:8088/student';
-var introduction = {"desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"};
+var introduction = [{"role":"student","desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"},{"role":"parent","desc":"您的孩子小明一本次考试在班级中的位置是前56%，处于压力和风险最大的中游段。但是年级位置高于班级位置，很值得欣喜。结合报告中的年级位置和学情弱点分析，才能更清晰地把握我孩子现在的情况。数学学科拖后腿较严重。要引起重视！中间段成绩比较密集，提高一点成绩排名上，尤其是年级排名上都会有很大进步。扬长和补短是提高成绩的两条路径，优势学科的提高潜力往往不如劣势学科大，比如数学学科上，您孩子和前面一名的分差只有几分，作为突破学科来拉动成绩提高还是很合适的。了解是沟通和帮助的第一步。看VIP报告，获得更多孩子的学情诊断和潜力、薄弱项分析。"}];
 var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
 var isHideScore = false;
 var isMobile = '';
 //----------------------
-var Report ={};
 
-//属性
-Report.vipFlag = 0; // 0 非vip 1 vip
-Report.score = {};
+//定义 elements
+var elements = elements || {};
+
+//基础 属性
+var Report = {
+    role : 'student'
+};
 
 
+Report.init = function () {
+    elements.examName = $("#examName");
+    elements.introduction = $("#introduction");//导读信息
+
+};
 
 //学生/家长 tab
 Report.StuParTab = function () {
     var index = $(this).index();
     $(this).addClass('on').siblings('a').removeClass('on');
     $('.rep-content').eq(index).show().siblings('.rep-content').hide();
-    
-    
+    if ($(this).hasClass('stu')) {
+        Report.role = 'student';
+    } else {
+        Report.role = 'parent';
+    }
+    // console.log(Report.role);
 };
 
 //全科/单科 tab
@@ -58,27 +70,60 @@ Report.AllSingerTab = function () {
     }
 };
 
-// 更新 下拉列表
-Report.UpdateSelectBox= function () {
-    $('#examName').html(userExamArchives[0].examName);
-    for (var i = 0; i < userExamArchives.length; i++) {
-        $('.topSlt').append('<a title="' + userExamArchives[i].examName + '" href="javascript:void(0);" emamid="'  + userExamArchives[i].examId +'">' + userExamArchives[i].examName + '</a>');
+/**
+ * 绑定导读信息
+ */
+Report.bindIntroductionData = function() {
+    // 遍历 导读 信息 数组
+    for (var _tmpIntr in introduction) {
+        if(_tmpIntr.role == Report.role) {
+            if(!!_tmpIntr.desc) { //判断 数据源 是否正确
+                elements.introduction.text(introduction.desc);
+            }
+            else {
+                elements.introduction.text('暂时无法获取导读信息！');
+            }
+            return; // 如果 完成 直接 return 不必循环两次
+        }
+
     }
-
-    $('#examName').click(function () {
-        $(".topSlt").toggle();
-        $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
-    });
-
-    $('.topSlt a').click(function () {
-        var examId = $(this).attr('emamid');
-        var examName = $(this).attr('title');
-        $('#examName').html(examName);
-        $(".topSlt").hide();
-        $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
-
-    });
 };
+
+// 更新 下拉列表
+// Report.UpdateSelectBox= function () {
+//     $('#examName').html(userExamArchives[0].examName);
+//     for (var i = 0; i < userExamArchives.length; i++) {
+//         $('.topSlt').append('<a title="' + userExamArchives[i].examName + '" href="javascript:void(0);" emamid="'  + userExamArchives[i].examId +'">' + userExamArchives[i].examName + '</a>');
+//     }
+//
+//     $('#examName').click(function () {
+//         $(".topSlt").toggle();
+//         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
+//     });
+//
+//     $('.topSlt a').click(function () {
+//         var examId = $(this).attr('emamid');
+//         var examName = $(this).attr('title');
+//         $('#examName').html(examName);
+//         $(".topSlt").hide();
+//         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
+//
+//     });
+// };
+
+// Report.ExamData =function () {
+//     for (var i = 0; i < userExamDataList.length; i++) {
+//
+//         if (userExamDataList[i].paperId =='') {
+//             $('#examTable').append('<li><div class="rel stu-paperli"><div class="pic"><img src="rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>' + userExamDataList[i].score + '</p><a href="#" class="score">总分</a></div></div></li>');
+//         } else {
+//             $('#examTable').append('<li><div class="rel stu-paperli"><div class="pic"><img src="rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>' + userExamDataList[i].score + '</p><a href="#" class="score">总分</a><a href="#" class="ana">试卷+解析</a></div></div></li>');
+//         }
+//
+//
+//     // <a href="#" class="score">总分</a><a href="#" class="ana">试卷+解析</a>
+//     }
+// };
 
 $(document).ready(function(){
 
@@ -88,6 +133,11 @@ $(document).ready(function(){
     //全科/单科
     $('.warp-ul ul li a').bind('click',Report.AllSingerTab);
 
+    Report.init();
+    // alert(elements.examName.text('aaaa'));
+
     // 更新 下拉列表
-    Report.UpdateSelectBox();
+    // Report.UpdateSelectBox();
+    // Report.ExamData();
+    Report.bindIntroductionData();
 });
