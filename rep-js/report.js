@@ -42,8 +42,8 @@ var Report = {
 
 Report.init = function () {
     elements.examName = $("#examName");
-    elements.introduction = $("#introduction");//导读信息
-
+    elements.introduction = $("#introduction");//学生导读信息
+    elements.introductionPar = $("#introductionPar");//家长导读信息
 };
 
 //学生/家长 tab
@@ -56,7 +56,6 @@ Report.StuParTab = function () {
     } else {
         Report.role = 'parent';
     }
-    // console.log(Report.role);
 };
 
 //全科/单科 tab
@@ -74,18 +73,23 @@ Report.AllSingerTab = function () {
  * 绑定导读信息
  */
 Report.bindIntroductionData = function() {
-    // 遍历 导读 信息 数组
-    for (var _tmpIntr in introduction) {
+    // 遍历 导读 信息 数组 // in 无法取出 单个 obj 需要 下标 取
+    for(var i=0; i<introduction.length; i++) {
+        var _tmpIntr = introduction[i];
         if(_tmpIntr.role == Report.role) {
             if(!!_tmpIntr.desc) { //判断 数据源 是否正确
-                elements.introduction.text(introduction.desc);
+                if(Report.role == 'student') {
+                    elements.introduction.text(_tmpIntr.desc);
+                } else {
+                    elements.introductionPar.text(_tmpIntr.desc);
+                }
             }
             else {
                 elements.introduction.text('暂时无法获取导读信息！');
+                elements.introductionPar.text('暂时无法获取导读信息！');
             }
             return; // 如果 完成 直接 return 不必循环两次
         }
-
     }
 };
 
