@@ -56,6 +56,9 @@ Report.StuParTab = function () {
     } else {
         Report.role = 'parent';
     }
+
+    ///
+    Report.bindIntroductionData();
 };
 
 //全科/单科 tab
