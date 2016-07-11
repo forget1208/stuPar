@@ -111,19 +111,6 @@ Report.bindIntroductionData = function() {
 //     });
 // };
 
-// Report.ExamData =function () {
-//     for (var i = 0; i < userExamDataList.length; i++) {
-//
-//         if (userExamDataList[i].paperId =='') {
-//             $('#examTable').append('<li><div class="rel stu-paperli"><div class="pic"><img src="rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>' + userExamDataList[i].score + '</p><a href="#" class="score">总分</a></div></div></li>');
-//         } else {
-//             $('#examTable').append('<li><div class="rel stu-paperli"><div class="pic"><img src="rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>' + userExamDataList[i].score + '</p><a href="#" class="score">总分</a><a href="#" class="ana">试卷+解析</a></div></div></li>');
-//         }
-//
-//
-//     // <a href="#" class="score">总分</a><a href="#" class="ana">试卷+解析</a>
-//     }
-// };
 
 $(document).ready(function(){
 
@@ -138,6 +125,5 @@ $(document).ready(function(){
 
     // 更新 下拉列表
     // Report.UpdateSelectBox();
-    // Report.ExamData();
     Report.bindIntroductionData();
 });
