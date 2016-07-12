@@ -10,6 +10,8 @@ var userExamArchives = [{"classId":"2000000020000002363","className":"高一年�
 var examClassId = "2000000020000002363";
 //用户各科考试数据
 var userExamDataList = [{"classRank":{"avgScore":116,"highScore":150,"rank":6,"ratio":44,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":110.3,"highScore":170,"rank":21,"ratio":49,"totalNum":40},"paperId":"","score":110,"standardScore":249,"subjectCode":"","subjectName":"总分"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":63.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"02","subjectName":"数学"},{"classRank":{"avgScore":58.7,"highScore":80,"rank":4,"ratio":67,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":56.3,"highScore":87,"rank":12,"ratio":72,"totalNum":40},"isShowRank":false,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","score":67,"standardScore":99,"subjectCode":"01","subjectName":"语文"}];
+//单学科报告数据
+var userExamData = {"classRank":{"avgScore":58.7,"highScore":80,"rank":4,"ratio":67,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":56.3,"highScore":87,"rank":12,"ratio":72,"totalNum":40},"isShowRank":false,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","score":67,"standardScore":99,"subjectCode":"01","subjectName":"语文"};
 //学科分数线数据
 var examScoreLine = [{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":89.1,"goodScore":84.2,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","passScore":69.3,"subjectCode":"01","subjectName":"语文"},{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":135,"goodScore":127.5,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","passScore":105,"subjectCode":"02","subjectName":"数学"}];
 //1显示排名，2显示百分比
@@ -36,7 +38,8 @@ var elements = elements || {};
 
 //基础 属性
 var Report = {
-    role : 'student'
+    role : 'student',
+    parUpdateFlag : true
 };
 
 //总分数据
@@ -85,16 +88,21 @@ var levelList = {
 var provinceList={"2":"1","21":"3","40":"5","235":"6","377":"7","500":"8","629":"9","707":"10","861":"2","881":"11","1010":"12","1123":"13","1262":"14","1366":"15","1489":"16","1664":"17","1859":"18","1989":"19","2139":"20","2301":"21","2439":"22","2469":"4","2510":"23","2731":"24","2832":"25","2985":"26","3067":"27","3195":"28","3308":"29","3361":"30","3394":"31","3510":"32","3511":"33","3512":"34"};
 
 Report.init = function () {
-    elements.examName = $("#examName");
+    elements.examName = $(".examName");
+    elements.subjectName2 = $("#subjectName2");
     elements.introduction = $("#introduction");//学生导读信息
     elements.introductionPar = $("#introductionPar");//家长导读信息
     elements.examTable = $("#examTable");//考得怎么样
-    elements.loadCompareTable = $('#loadCompareTable');
-    elements.compareWithClassmate = $('#compareWithClassmate');
-    elements.upPartShow = $('#upPartShow');
-    elements.downPartShow = $('#downPartShow');
-    elements.loadPosition = $('#loadPosition');
-    elements.loadCompare = $('#loadCompare');
+    elements.examTablePar = $("#examTablePar");//家长端 考得怎么样
+    elements.top_subjectList = $("#top_subjectList");//科目列表
+
+
+    elements.loadCompareTable = $('.loadCompareTable');
+    elements.compareWithClassmate = $('.compareWithClassmate');
+    elements.upPartShow = $('.upPartShow');
+    elements.downPartShow = $('.downPartShow');
+    elements.loadPosition = $('.loadPosition');
+    elements.loadCompare = $('.loadCompare');
     elements.subjectScoreRemark = $("#subjectScoreRemark");
     elements.historyRankTable = $('#historyRankTable');
     elements.loadEachSubject = $('#loadEachSubject');
@@ -133,7 +141,7 @@ Report.init = function () {
 };
 
 //学生/家长 tab
-Report.StuParTab = function () {
+Report.stuParTab = function () {
     var index = $(this).index();
     $(this).addClass('on').siblings('a').removeClass('on');
     $('.rep-content').eq(index).show().siblings('.rep-content').hide();
@@ -143,12 +151,15 @@ Report.StuParTab = function () {
         Report.role = 'parent';
     }
 
+    if (Report.parUpdateFlag) {
+        Report.bindUserExamDataPar();
+    }
+
     ///
     Report.bindIntroductionData();
 };
-
 //全科/单科 tab
-Report.AllSingerTab = function () {
+Report.allSingerTab = function () {
     var index = $(this).parent().index();
     $(this).addClass('on').parent().siblings().children().removeClass('on');
     if ($(this).parent().parent().parent().parent().find('div').hasClass('warp-ul-stu')) {
@@ -275,55 +286,1107 @@ Report.processingData = function () {
 /**
  * 绑定用户考试信息（我考得怎么样）
  */
-Report.bindUserExamData = function () {
+Report.bindUserExamData = function (data) {
     //总分数列表HTML
     var examAllScoreHtml = "";
     //学科分数列表HTML
     var examSubjectScoreHtml = "";
     elements.examName.text(examAllData.examName);
-    examAllScoreHtml = Report.getExamScoreHtml(examAllData);
+    examAllScoreHtml = getExamScoreHtml(examAllData);
     for (var i = 0; i < examSubjectData.length; i++) {
         var data = examSubjectData[i];
-        examSubjectScoreHtml += Report.getExamScoreHtml(data);
-        console.log(data);
+        examSubjectScoreHtml += getExamScoreHtml(data);
     }
     elements.examTable.append(examAllScoreHtml + examSubjectScoreHtml);
-    elements.examTable.find(".knowledgeMap").click(function () {
-        var _this = $(this);
-        var type = _this.attr("type");
-        $("#special_exercise").attr("src", studentUrl + "/student/knowledgeMap/?examId=" + Request.QueryString("examId") + "&type=" + type).show();
+    elements.examTable.find(".knowledgeMap").click(function(){
+        var _this=$(this);
+        var type=_this.attr("type");
+        $("#special_exercise").attr("src", studentUrl + "/student/knowledgeMap/?examId=" + Request.QueryString("examId")+"&type="+type).show();
     });
-    Report.getExamScoreHtml();
+
+    /**
+     * 获取分数列表HTML
+     */
+    function getExamScoreHtml(data) {
+
+        var examScoreHTML = '<li><div class="rel stu-paperli"><div class="pic"><img src="' + basePath + '/public/module/global/rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>';
+        if (scoreToLevel == true) {
+            if (data.subjectName == "总分") {
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
+            } else {
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="score">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+            }
+        } else {
+            if (data.subjectName == "总分") {
+                examScoreHTML += data.score + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
+            } else {
+                examScoreHTML += data.score + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="score">' + data.subjectName + '</a><a href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+            }
+        }
+        //演示用的账号
+        if((data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8"|| data.paperId == "00b97f50-5d1d-4068-9124-fa45e35f2a67"||data.paperId == "a29b5218-3c53-43fa-a0fd-0cc214345e59"||data.paperId == "3384b58f-1acc-4b60-bf31-bcf098b9bf8e"||data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8")
+            && (currentUser.id == "4444000020010042980"|| currentUser.id == "2034000020000004442"||currentUser.id == "2244000020000155153"||currentUser.id == "4444000020001475914"||currentUser.id == "2244000020000036254"))
+        {
+            if( data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8" || data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8" ){
+                examScoreHTML += '<a href="javascript:void(0);" class="know knowledgeMap" type="0">知识图谱</a>';
+            }else{
+                examScoreHTML += '<a href="javascript:void(0);" class="know knowledgeMap" type="0">知识图谱</a>';
+            }
+        }
+        examScoreHTML += '</div></div></li>';
+        return examScoreHTML;
+    }
+};
+
+//获取科目列表
+Report.subjectList = function () {
+    for (var i = 0; i < userExamDataList.length; i++) {
+        var subjectName = [];
+        subjectName.push(userExamDataList[i].subjectName);
+        for (j = 0; j < subjectName.length; j++) {
+            if (subjectName[j] == '总分') {
+                elements.top_subjectList.append('<li><a href="#" class="on">全科</a>')
+            }
+            else {
+                elements.top_subjectList.append('<li><a href="#">' + subjectName[j] + '</a>')
+            }
+            //全科/单科
+            $('.warp-ul ul li a').bind('click',Report.allSingerTab);
+        }
+    }
 };
 
 /**
- * 获取分数列表HTML
+ * 绑定对比数据（与同学的对比）
  */
-Report.getExamScoreHtml = function (data) {
+Report.bindCompareTableData = function () {
 
-    var examScoreHTML = '<li><div class="rel stu-paperli"><div class="pic"><img src="' + basePath + '/public/module/global/rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>';
-    if (scoreToLevel == true) {
-        if (data.subjectName == "总分") {
-            examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
-        } else {
-            examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="score">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+    var subjectNameList = [];
+    var classAverageList = [];
+    var classHighList = [];
+    var gradeAverageList = [];
+    var gradeHighList = [];
+    var unionAverageList = [];
+    var unionHighList= [];
+    var classNearbyList = [];
+    var gradeNearbyList = [];
+    var unionNearbyList = [];
+    var pageSize = 6;
+    var pageNumber = Math.ceil((examSubjectData.length + 1) / 6);
+    var currentPage = 0;//默认展示第一页
+
+    for(var i = 0; i < userExamDataList.length; ++i) {
+        classAverageList.push(userExamDataList[i].classRank.avgScore);
+        classHighList.push(userExamDataList[i].classRank.highScore);
+        gradeAverageList.push(userExamDataList[i].gradeRank.avgScore);
+        gradeHighList.push(userExamDataList[i].gradeRank.highScore);
+        if(isContainUnion) {
+            unionAverageList.push(userExamDataList[i].unionRank.avgScore);
+            unionHighList.push(userExamDataList[i].unionRank.highScore);
         }
-    } else {
-        if (data.subjectName == "总分") {
-            examScoreHTML += data.score + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
-        } else {
-            examScoreHTML += data.score + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId='
-                // + Request.QueryString("examId")
-                + '" class="score">' + data.subjectName + '</a><a href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId='
-                // + Request.QueryString("examId")
-                + '" class="ana">试卷+解析</a>';
+        if(!userExamDataList[i].subjectName) {
+            subjectNameList.push('总分');
+        }
+        else {
+            subjectNameList.push(userExamDataList[i].subjectName);
         }
     }
-    examScoreHTML += '</div></div></li>';
-    return examScoreHTML;
+
+    getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+
+    /**
+     * 获取附近人的分数信息，生成HTML返回
+     * @param scope
+     * @param nameList
+     * @param averageList
+     * @param highList
+     * @param handleList
+     * @param curPage
+     */
+    function getNearbyScore(scope, nameList, averageList, highList, handleList, curPage) {
+
+        var highScoreList = [];
+        var myScoreList = [];
+        var lowScoreList = [];
+        $.each(userExamDataList, function(k, v) {
+            myScoreList.push(v.score);
+        });
+
+        if(handleList.length > 0) {
+            highScoreList = handleList[0];
+            lowScoreList = handleList[2];
+            dataShowHandle();
+        }
+        else {
+            switch (scope) {
+                case 'class':
+                    $.getJSON("2.txt",
+                        // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByClass/",
+                        {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
+                    break;
+                case 'grade':
+                    $.getJSON("2.txt",
+                        // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByGrade/",
+                        {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
+                    break;
+                case 'union':
+                    dataShowHandle();
+                    // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByUnion/",
+                    //     {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        turnPageArrowHandle();
+
+        /**
+         * 调用接口的回调，处理附近人考试信息数据
+         * @param data
+         */
+        function callbackDataHandle(data) {
+
+            var tmpList;
+            if(!!data) {
+                tmpList = data;
+            }
+            tmpList.sort(function(a, b) {
+                var totalScoreA = -1;
+                var totalScoreB = -1;
+                $.each(a.examScoreList, function(k ,v) {
+                    if(v.subjectName == '总分') {
+                        totalScoreA = v.score;
+                    }
+                });
+                $.each(b.examScoreList, function(k ,v) {
+                    if(v.subjectName == '总分') {
+                        totalScoreB = v.score;
+                    }
+                });
+                return totalScoreA - totalScoreB;
+            });
+            var moreThanList = [];
+            var lessThanList = [];
+            $.each(tmpList, function(k, v) {
+                $.each(v.examScoreList, function(i, j) {
+                    if(j.subjectName == '总分') {
+                        if(j.score <= examAllData.score) {
+                            lessThanList.unshift(v.examScoreList);
+                        }
+                        else {
+                            moreThanList.push(v.examScoreList);
+                        }
+                    }
+                });
+            });
+
+            lowScoreList = dataHandle(lessThanList);
+            highScoreList = dataHandle(moreThanList);
+            handleList.push(highScoreList);
+            handleList.push(myScoreList);
+            handleList.push(lowScoreList);
+
+            dataShowHandle();
+
+            /**
+             * 对单科没有分数的填充'-'
+             * @param list
+             * @returns {Array}
+             */
+            function dataHandle(list) {
+
+                var tmpList = [];
+                if(list.length == 0) {
+                    return tmpList;
+                }
+                tmpList = list;
+                var row = [];
+                $.each(tmpList, function(k, v) {
+                    var col = [];
+                    for(var i = 0; i < userExamDataList.length; ++i) {
+                        if(!!v[i]) {
+                            col.push(v[i].score);
+                        }
+                        else {
+                            col.push('-');
+                        }
+                    }
+                    row.push(col);
+                });
+
+                return row;
+            }
+        }
+
+        /**
+         * 拼接HTML，分页显示
+         */
+        function dataShowHandle() {
+
+            var nameListHtml = '<div class="fircompare-mod clearfix"><div class="moda">科目</div>';
+            var averageListHtml = '<div class="fircompare-mod clearfix"><div class="moda">平均分</div>';
+            var highListHtml = '<div class="fircompare-mod clearfix"><div class="moda">最高分</div>';
+            var myScoreListHtml = '<div class="fircompare-mod clearfix"><div class="moda my">我的成绩</div>';
+            for(var i = curPage * pageSize; i < (curPage + 1) * pageSize; ++i) {
+                if(!!nameList[i]) {
+                    nameListHtml += '<div class="modb modb-bg">' + nameList[i] + '</div>';
+                    averageListHtml += '<div class="modb">' + averageList[i] + '</div>';
+                    highListHtml += '<div class="modb">' + highList[i] + '</div>';
+                    myScoreListHtml += '<div class="modb my">' + myScoreList[i] + '</div>';
+                }
+                else {
+                    nameListHtml += '<div class="modb modb-bg">-</div>';
+                    averageListHtml += '<div class="modb">-</div>';
+                    highListHtml += '<div class="modb">-</div>';
+                    myScoreListHtml += '<div class="modb">-</div>';
+                }
+            }
+            nameListHtml += '</div>';
+            averageListHtml += '</div>';
+            highListHtml += '</div>';
+
+            elements.upPartShow.html(nameListHtml + averageListHtml + highListHtml);
+            if(highScoreList.length > 0 || lowScoreList.length > 0) {
+                elements.downPartShow.html(htmlCreate(highScoreList, 1) + myScoreListHtml + htmlCreate(lowScoreList, 0));
+            }
+
+            /**
+             * 前5倒序，后5正序，并填充表格'-'
+             * @param list
+             * @param i
+             * @returns {string}
+             */
+            function htmlCreate(list, i) {
+
+                var tmpHtml = '';
+                if(list.length > 0 ) {
+                    if(i) {
+                        tmpHtml = '<div class="box"><div class="firfive clearfix"><div class="fl left">在我位置前5位同学的成绩</div><div class="fl right">';
+                        for(var j = 4; j >= 0; --j) {
+                            tmpHtml += '<div class="fircompare-mod clearfix">';
+                            if(!!list[j]) {
+                                for(var k = curPage * pageSize; k < (curPage + 1) * pageSize; ++k) {
+                                    if(!!list[j][k]) {
+                                        tmpHtml += '<div class="modb">' + list[j][k] + '</div>';
+                                    }
+                                    else {
+                                        tmpHtml += '<div class="modb">-</div>';
+                                    }
+                                }
+                                tmpHtml += '</div>';
+                            }
+                            else {
+                                for(var k = curPage * pageSize; k < (curPage + 1) * pageSize; ++k) {
+                                    tmpHtml += '<div class="modb">-</div>';
+                                }
+                                tmpHtml += '</div>';
+                            }
+                        }
+                        tmpHtml += '</div>';
+                    }
+                    else {
+                        tmpHtml = '<div class="box"><div class="firfive clearfix"><div class="fl left">在我位置后5位同学的成绩</div><div class="fl right">';
+                        for(var j = 0; j < 5; ++j) {
+                            tmpHtml += '<div class="fircompare-mod clearfix">';
+                            if(!!list[j]) {
+                                for(var k = curPage * pageSize; k < (curPage + 1) * pageSize; ++k) {
+                                    if(!!list[j][k]) {
+                                        tmpHtml += '<div class="modb">' + list[j][k] + '</div>';
+                                    }
+                                    else {
+                                        tmpHtml += '<div class="modb">-</div>';
+                                    }
+                                }
+                                tmpHtml += '</div>';
+                            }
+                            else {
+                                for(var k = curPage * pageSize; k < (curPage + 1) * pageSize; ++k) {
+                                    tmpHtml += '<div class="modb">-</div>';
+                                }
+                                tmpHtml += '</div>';
+                            }
+                        }
+                        tmpHtml += '</div>';
+                    }
+                }
+                return tmpHtml;
+            }
+        }
+
+        /**
+         * 箭头显示或隐藏
+         */
+        function turnPageArrowHandle() {
+
+            var preArrow =  elements.compareWithClassmate.find('a.pre');
+            var nextArrow =  elements.compareWithClassmate.find('a.next');
+            if(pageNumber == 1) {
+                preArrow.css('visibility', 'hidden');
+                nextArrow.css('visibility', 'hidden');
+                return;
+            }
+            if(curPage == 0) {
+                preArrow.css('visibility', 'hidden');
+                nextArrow.css('visibility', 'visible');
+            }
+            else if(curPage == pageNumber - 1) {
+                preArrow.css('visibility', 'visible');
+                nextArrow.css('visibility', 'hidden');
+            }
+            else {
+                preArrow.css('visibility', 'visible');
+                nextArrow.css('visibility', 'visible');
+            }
+        }
+    }
+
+    elements.compareWithClassmate.find('a.fircompare-look').on('click', function() {
+
+        var _this = $(this);
+        if(elements.downPartShow.is(':hidden')) {
+            //暂时屏蔽联考区
+            if(compareScore == 'union') {
+                return;
+            }
+            elements.downPartShow.show();
+            _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
+        }
+        else {
+            elements.downPartShow.hide();
+            _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
+        }
+    });
+
+    elements.loadCompareTable.find('.currentClass').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        elements.compareWithClassmate.find('a.fircompare-look').show();
+        compareScore = 'class';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
+        elements.loadPosition.find('.proposi-tit').text('成绩在全班的位置');
+        bindPositionData();
+        elements.loadCompare.find('.procomp-tit').text('成绩与全班平均分、最高分的对比');
+        bindCompareData();
+    });
+
+    elements.loadCompareTable.find('.currentGrade').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        elements.compareWithClassmate.find('a.fircompare-look').show();
+        compareScore = 'grade';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
+        elements.loadPosition.find('.proposi-tit').text('成绩在全年级的位置');
+        bindPositionData();
+        elements.loadCompare.find('.procomp-tit').text('成绩与全年级平均分、最高分的对比');
+        bindCompareData();
+    });
+
+    elements.loadCompareTable.find('.currentUnion').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        //暂时屏蔽联考区
+        elements.compareWithClassmate.find('a.fircompare-look').hide();
+        if(elements.downPartShow.is(':visible')) {
+            elements.downPartShow.hide();
+            elements.compareWithClassmate.find('em').removeClass();
+            elements.compareWithClassmate.find('em').addClass('arror-down');
+        }
+        compareScore = 'union';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
+        elements.loadPosition.find('.proposi-tit').text('成绩在联考区的位置');
+        bindPositionData();
+        elements.loadCompare.find('.procomp-tit').text('成绩与联考区平均分、最高分的对比');
+        bindCompareData();
+    });
+
+    elements.compareWithClassmate.find('a.next').on('click', function() {
+        if(currentPage == pageNumber - 1) {
+            return;
+        }
+        ++currentPage;
+        switch (compareScore) {
+            case 'class':
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                break;
+            case 'grade':
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                break;
+            case 'union':
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                break;
+            default:
+                break;
+        }
+    });
+
+    elements.compareWithClassmate.find('a.pre').on('click', function() {
+        if(currentPage == 0) {
+            return;
+        }
+        --currentPage;
+        switch (compareScore) {
+            case 'class':
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                break;
+            case 'grade':
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                break;
+            case 'union':
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                break;
+            default:
+                break;
+        }
+    });
 };
 
+/**
+ * 绑定位置（成绩在XX的位置）
+ */
+Report.bindPositionData = function () {
 
+    var myRatio = [];
+    var subjectName = [];
+    var overRatio = [];
+    var lowRatio = [];
+    var myRealRatio = [];
+    var scopeRank = compareScore + 'Rank';
+    for(var i = 0; i < userExamDataList.length; ++i) {
+        var tmpRatio = userExamDataList[i][scopeRank].ratio;
+        lowRatio.push(tmpRatio);
+        myRatio.push(0.5);
+        overRatio.push(100 - tmpRatio);
+        myRealRatio.push(tmpRatio);
+        if(lowRatio[i] == 100) {
+            lowRatio[i] -= 0.5;
+        }
+        if(overRatio[i] != 0) {
+            overRatio[i] -= 0.5;
+        }
+        if(!userExamDataList[i].subjectName) {
+            subjectName.push('总分');
+        }
+        else  {
+            subjectName.push(userExamDataList[i].subjectName);
+        }
+    }
+
+    // var chart = echarts.init(document.getElementById('positionChart'), 'macarons');
+    var pcharts = document.getElementsByClassName('positionChart');
+    for (var i=0; i<pcharts.length; i++) {
+        var chart = echarts.init(pcharts[i], 'macarons');
+        //。。。。
+    }
+
+    var option = {
+        tooltip: {
+            show: false,
+            trigger: 'axis'
+        },
+        xAxis: [
+            {
+                name: '最后一名',
+                nameLocation: 'start',
+                nameTextStyle: {
+                    color: '#344251'
+                },
+                type: 'category',
+                data: subjectName,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#30B398'
+                    }
+                }
+            },
+            {
+                type: 'category',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#30B398'
+                    }
+                },
+                axisTick: {show: false},
+                axisLabel: {show: false},
+                data: subjectName
+            }
+        ],
+        yAxis: [
+            {
+                name: '第一名',
+                nameTextStyle: {
+                    color: '#344251'
+                },
+                type: 'value',
+                show: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#30B398'
+                    }
+                },
+                axisLabel: {
+                    show: false
+                }
+            }
+        ],
+        series: [
+            {
+                name: '得分',
+                type: 'bar',
+                stack: 'a',
+                barWidth: 60,
+                barBorderRadius: 0,
+                data: lowRatio,
+                itemStyle: {
+                    normal:{
+                        color: '#27b9bb',
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: function(data){
+                                if(data.value >= 95) {
+                                    var tmpValue = data.value == 99.5 ? 100 : data.value;
+                                    return '前' + (100 - tmpValue)  + '%';
+                                }
+                                return '';
+                            },
+                            textStyle:{
+                                color:'#fdfdfe',
+                                fontSize:16
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                name: '得分',
+                type: 'bar',
+                stack: 'a',
+                barWidth: 60,
+                barBorderRadius: 0,
+                data: myRatio,
+                itemStyle: {
+                    normal: {
+                        color: '#f9c443',
+                        label: {
+                            show: true,
+                            position: 'left',
+                            formatter: function(data){
+                                if(data.name == '总分') {
+                                    return '我的位置';
+                                }
+                                return '';
+                            },
+                            textStyle: {
+                                color: '#344251',
+                                fontSize: 12
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                name: '得分',
+                type: 'bar',
+                stack: 'a',
+                barBorderRadius: 0,
+                barWidth: 60,
+                data: overRatio,
+                itemStyle: {
+                    normal:{
+                        color: '#27b9bb',
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: function(data){
+                                if(data.value >= 5) {
+                                    var tmpValue = data.value != 0 ? (data.value + 0.5) : data.value;
+                                    return '前'+ tmpValue +'%';
+                                }
+                                return '';
+//									var tmpValue = data.value != 0 ? (data.value + 0.5) : data.value;
+//									return '前'+ tmpValue +'%';
+                            },
+                            textStyle:{
+                                color:'#fdfdfe',
+                                fontSize:16
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    if (subjectName.length > (!!isMobile ? 2 : 5)) {
+        option.dataZoom = {
+            show: true,
+            start: 0,
+            end: (!!isMobile ? 2 : 5) / subjectName.length * 100,
+            showDetail: true,
+            zoomLock: true,
+            height: 15,
+            fillerColor: "#30B398",
+            handleColor: "#30B398",
+            backgroundColor: "#FFFFFF",
+            dataBackgroundColor: "#FFFFFF"
+        };
+    }
+    chart.setOption(option);
+};
+
+/**
+ * 绑定成绩(与全班平均分、最高分的对比)
+ */
+Report.bindCompareData = function () {
+
+    var myScore = [];
+    var avgScore = [];
+    var highScore = [];
+    var subjectName = [];
+    var chartLegend = ['我的成绩','最高分','平均分'];
+    var scopeRank = compareScore + 'Rank';
+
+    for(var i = 0; i < userExamDataList.length; ++i) {
+        myScore.push(userExamDataList[i].score);
+        avgScore.push(userExamDataList[i][scopeRank].avgScore);
+        highScore.push(userExamDataList[i][scopeRank].highScore);
+        if(!userExamDataList[i].subjectName) {
+            subjectName.push('总分');
+        }
+        else  {
+            subjectName.push(userExamDataList[i].subjectName);
+        }
+    }
+
+    var chart = echarts.init(document.getElementsByClassName('compareChart'), 'macarons');
+    var option = {
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:chartLegend
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: subjectName,
+                axisLabel: {
+                    interval: 0,
+                    formatter: function (val) {
+                        return val.length > 12 ? val.substring(0, 12) + "…" : val;
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#30B398'
+                    }
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#30B398'
+                    }
+                }
+            }
+        ],
+        series: [
+            {
+                name:'我的成绩',
+                type: 'bar',
+                barWidth: 40,
+                data: myScore,
+                itemStyle: {
+                    normal: {
+                        color: '#f9c443'
+                    }
+                }
+            },
+            {
+                name:'最高分',
+                type:'line',
+                smooth:false,
+                data:highScore,
+                itemStyle:{
+                    normal:{
+                        color:'#99c865'
+                    }
+                }
+            },
+            {
+                name:'平均分',
+                type:'line',
+                smooth:false,
+                data:avgScore,
+                itemStyle:{
+                    normal:{
+                        color:'#CC4AFC'
+                    }
+                }
+            }
+        ]
+    };
+    if (subjectName.length > 5) {
+        option.dataZoom = {
+            show: true,
+            start: 0,
+            end: 5 / subjectName.length * 100,
+            showDetail: true,
+            zoomLock: true,
+            height: 15,
+            fillerColor: "#30B398",
+            handleColor: "#30B398",
+            backgroundColor: "#FFFFFF",
+            dataBackgroundColor: "#FFFFFF"
+        };
+    }
+    chart.setOption(option);
+};
+
+/**
+ * 绑定历史考试记录（这次考试有进步吗?）
+ */
+Report.bindHistoryRankData = function () {
+
+    var userExamRankHistory = '';
+    getScoreImproveIntro(Request.QueryString("examId"), 0);
+    $.getJSON("3.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
+        {examId: Request.QueryString("examId"), pageIndex: 1, pageSize: 5}, function (data) {
+            userExamRankHistory = data;
+            historyRankDataHandle(userExamRankHistory, 0);
+        });
+
+    /**
+     * 历史数据处理
+     * @param userExamRankHistory
+     * @param scope
+     */
+    function historyRankDataHandle(userExamRankHistory, scope) {
+
+        if (!userExamRankHistory) {
+            return;
+        }
+        var examNameList = [];
+        var classRatioList = [];
+        var gradeRatioList = [];
+        var thisIndex = -1;
+        for (var i = 0; i < 5 && i != userExamRankHistory.list.length; ++i) {
+            var userData = userExamRankHistory.list[i];
+            if (examAllData.examId == userData.examId) {
+                thisIndex = i;
+                continue;
+            }
+            examNameList.unshift(userData.examName);
+            classRatioList.unshift(userData.classRank.ratio);
+            gradeRatioList.unshift(userData.gradeRank.ratio);
+        }
+        if(thisIndex != -1) {
+            examNameList.push(userExamRankHistory.list[thisIndex].examName);
+            classRatioList.push(userExamRankHistory.list[thisIndex].classRank.ratio);
+            gradeRatioList.push(userExamRankHistory.list[thisIndex].gradeRank.ratio);
+        }
+        if(scope) {
+            bindHistoryRankChartData(examNameList, gradeRatioList);
+        }
+        else {
+            bindHistoryRankChartData(examNameList, classRatioList);
+        }
+    }
+
+    /**
+     * 绑定图表
+     * @param examNameList
+     * @param ratioList
+     */
+    function bindHistoryRankChartData(examNameList, ratioList) {
+
+        var chart = echarts.init(document.getElementById('historyRankChart'), 'macarons');
+        var option = {
+            xAxis: [
+                {
+                    type: 'category',
+                    data: examNameList,
+                    axisLabel: {
+                        interval: 0,
+                        formatter: function (params) {
+                            return formatterEchartsData(params, examNameList.length);
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: function (val) {
+                            var tmp = 100 - val;
+                            return tmp + '%';
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    }
+                }
+            ],
+            series: [
+                {
+                    type: 'line',
+                    smooth: false,
+                    data: ratioList,
+                    itemStyle: {
+                        normal: {
+                            color: '#FD6C9B',
+                            label: {
+                                show: true,
+                                formatter: function (param) {
+                                    param.value = 100 - param.value;
+                                    return '前' + param.value + '%';
+                                },
+                                textStyle: {
+                                    color: '#514F59',
+                                    fontSize: 18
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        chart.setOption(option);
+    }
+
+    /**
+     * 获取文案（这次考试有进步吗？）
+     * @param examId
+     * @param scope
+     */
+    function getScoreImproveIntro(examId, scope) {
+
+        $.getJSON("4.txt",
+            // $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
+            {examId: examId, role: Report.role, scope: scope}, function(data) {
+                var text = '';
+                if(!!data && !!data.desc) {
+                    text += '<b>' + data.desc + '</b>';
+                }
+                // if(!!data && !!data.title) {
+                //     text = '<b>' + data.title + '</b>' + text;
+                // }
+                elements.historyRankTable.find('.left').html(text);
+            });
+        if(scope) {
+            elements.historyRankTable.find('.col6').html('本学期考试你在年级的位置分别是');
+        }
+        else {
+            elements.historyRankTable.find('.col6').html('本学期考试你在全班的位置分别是');
+        }
+    }
+
+    elements.historyRankTable.find('.gradeall').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 0);
+        getScoreImproveIntro(Request.QueryString("examId"), 0);
+    });
+
+    elements.historyRankTable.find('.grade').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 1);
+        getScoreImproveIntro(Request.QueryString("examId"), 1);
+    });
+};
+
+/**
+ * 绑定失分数据（丢分题难度）
+ */
+Report.bindLoseScoreData = function () {
+
+    $.getJSON("5.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getLostScoreOfDifficulty/",
+        {examId: Request.QueryString("examId")}, function (data) {
+            var totalLostScore = 0;
+            $.each(data, function(k, v) {
+                totalLostScore += v.lostScoreValue;
+            });
+
+            for(var i = 0; i < data.length; i++) {
+                var lostData = data[i];
+                if (data[i].lostScoreTypeName == "难题") {
+                    elements.lostScore_hard.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_hardScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "中等题") {
+                    elements.lostScore_middle.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_middleScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "简单题") {
+                    elements.lostScore_simple.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_simpleScore.text(lostData.lostScoreValue);
+                } else {
+                    continue;
+                }
+            }
+        });
+
+    $.getJSON("6.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
+        {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
+            var text = '';
+            if(!!data && !!data.desc) {
+                text += data.desc;
+            }
+            if(!!data && !!data.title) {
+                text = '<b>' + data.title + '</b>' + text;
+            }
+            elements.subjectScoreRemark.html(text);
+        });
+
+};
+
+/**
+ * 绑定数据（我该怎么办）
+ */
+Report.bindHowDoIData = function () {
+
+    $.getJSON("7.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoTitle/",
+        {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
+            var subjectName = [];
+            var score = [];
+            if(!!data && data.length > 0) {
+                if(data.length == 1) {
+                    elements.howDoI_bad.find('.bga').css('margin-left', '30%');
+                    elements.howDoI_bad.find('.bgb').hide();
+                    var tmp = data[0].title.split('_');
+                    subjectName.push(tmp[0]);
+                    score.push(tmp[1]);
+                    elements.howDoI_score1.text(score + "分");
+                    elements.howDoI_subject1.text(subjectName[0]);
+                    elements.howDoI_line1.text(data[0].desc);
+                }
+                else if(data.length == 2) {
+                    var tmp0 = data[0].title.split('_');
+                    var tmp1 = data[1].title.split('_');
+                    subjectName.push(tmp0[0]);
+                    score.push(tmp0[1]);
+                    subjectName.push(tmp1[0]);
+                    score.push(tmp1[1]);
+                    elements.howDoI_score1.text(score[0] + "分");
+                    elements.howDoI_subject1.text(subjectName[0]);
+                    elements.howDoI_line1.text(data[0].desc);
+                    elements.howDoI_score2.text(score[1] + "分");
+                    elements.howDoI_subject2.text(subjectName[1]);
+                    elements.howDoI_line2.text(data[1].desc);
+                }
+            }
+            // elements.howDoI_line1.attr("href", basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + examSubjectData2[0].paperId + '&classId=' + examClassId + '&examId=' + examSubjectData2[0].examId);
+            // elements.howDoI_line2.attr("href", basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + examSubjectData2[1].paperId + '&classId=' + examClassId + '&examId=' + examSubjectData2[1].examId);
+        });
+
+    $.getJSON("8.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoIntro/",
+        {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
+            var text = '';
+            if(!!data && data.length > 0) {
+                if(data.length == 1) {
+                    text = '<b>' + data[0].title + '</b>' + data[0].desc;
+                }
+                else if(data.length == 2) {
+                    text = '<b>' + data[0].title + '</b>' + data[0].desc + '<b>' + data[1].title + '</b>' + data[1].desc;
+                }
+            }
+            elements.howDoI_bad.find('.left').html(text);
+        });
+};
+
+/**
+ * 绑定小结数据
+ */
+Report.bindSummary = function () {
+
+    $.getJSON("9.txt",
+        // $.getJSON(basePath + "/zhixuebao/feesReport/getSummaryIntro/",
+        {examId: Request.QueryString("examId"), role: 'student'}, function (data) {
+            if(!!data && !!data.desc) {
+                elements.summary.text(data.desc);
+            }
+        });
+};
+
+/**
+ * 家长端 绑定用户考试信息（孩子考得怎么样）
+ */
+Report.bindUserExamDataPar = function () {
+    //总分数列表HTML
+    var examAllScoreHtml = "";
+    //学科分数列表HTML
+    var examSubjectScoreHtml = "";
+    elements.examName.text(examAllData.examName);
+    examAllScoreHtml += getExamScoreHtml(examAllData);
+    for (var i = 0; i < examSubjectData.length; i++) {
+        var data = examSubjectData[i];
+        examSubjectScoreHtml += getExamScoreHtml(data);
+    }
+    elements.examTablePar.append(examAllScoreHtml + examSubjectScoreHtml);
+
+    /**
+     * 获取学科得分HTML
+     */
+    function getExamScoreHtml(data) {
+        var examScoreHTML = '<li><div class="rel stu-paperli par-paperli"><div class="pic"><img src="' + basePath + '/public/module/global/rep-images/stu-paper.png" width="130" height="155"></div><div class="cover"><p class="mb30">';
+        if (scoreToLevel == true) {
+            if (data.subjectName == "总分") {
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
+            } else {
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="' + basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">' + data.subjectName + '</a>';
+            }
+        } else {
+            if (data.subjectName == "总分") {
+                examScoreHTML += data.score + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
+            } else {
+                examScoreHTML += data.score + '</p><a href="' + basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">' + data.subjectName + '</a>';
+            }
+        }
+        return examScoreHTML;
+    }
+};
 
 // 更新 下拉列表
 // Report.UpdateSelectBox= function () {
@@ -351,10 +1414,9 @@ Report.getExamScoreHtml = function (data) {
 $(document).ready(function(){
 
     //学生/家长
-    $('.left-choice a').bind('click',Report.StuParTab);
+    $('.left-choice a').bind('click',Report.stuParTab);
 
-    //全科/单科
-    $('.warp-ul ul li a').bind('click',Report.AllSingerTab);
+
 
     Report.init();
     // alert(elements.examName.text('aaaa'));
@@ -364,4 +1426,12 @@ $(document).ready(function(){
     Report.bindIntroductionData();
     Report.processingData();
     Report.bindUserExamData();
+    Report.subjectList();
+    Report.bindCompareTableData();
+    Report.bindPositionData();
+    Report.bindCompareData();
+    Report.bindHistoryRankData();
+    Report.bindLoseScoreData();
+    Report.bindHowDoIData();
+    Report.bindSummary();
 });

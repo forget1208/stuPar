@@ -1,0 +1,1 @@
+{"list":[{"classRank":{"avgScore":93.3,"highScore":145,"rank":9,"ratio":0,"totalNum":9},"examId":"a1b562f3-5244-4179-a8fb-db4f72b195b8","examName":"第一次联考1.21","gradeRank":{"avgScore":120,"highScore":190,"rank":15,"ratio":0,"totalNum":15},"paperId":"","score":50,"standardScore":0,"subjectCode":"","subjectName":"总分"}],"totalCount":1}
