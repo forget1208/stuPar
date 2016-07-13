@@ -1593,8 +1593,6 @@ Report.singer = function(){
         this.initFoot();
     };
 
-    console.log(userExamData);
-
     singer.prototype.initUserExamData = function(){
         for ( var i = 0; i < userExamDataList.length; i++){
             if (userExamDataList[i].subjectName = elements.subjectName2.text()) {
