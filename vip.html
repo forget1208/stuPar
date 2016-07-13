@@ -147,10 +147,10 @@
         <div class="rep-container fl">
             <div class="rep-content" style="display: block;">
                 <!--科目选择-->
-                <div class="rep-choice-course" id="top_selSubject">
+                <div class="rep-choice-course top_selSubject" id="top_selSubject">
                     <a href="#" class="pre"></a>
                     <div class="warp-ul warp-ul-stu" >
-                        <ul id="top_subjectList">
+                        <ul id="top_subjectList" class="top_subjectList">
                         </ul>
                     </div>
                     <a href="#" class="next"></a>
@@ -207,7 +207,7 @@
                                     <div class="proposi rep-botbg-a tc loadPosition" id="loadPosition">
                                         <div class="proposi-tit">成绩在全班的位置</div>
                                         <div class="chart tc">
-                                            <div id="positionChart" style="height: 400px"></div>
+                                            <div id="positionChart" class="positionChart" style="height: 400px"></div>
                                         </div>
                                     </div>
                                     <!--成绩与全班平均分、最高分的对比-->
@@ -223,11 +223,11 @@
                         </div>
 
                         <!--这次考试有进步吗?-->
-                        <div class="rep-modtit" id="loadHistoryRank">
+                        <div class="rep-modtit loadHistoryRank" id="loadHistoryRank">
                             <p class="fb ft24">这次考试有进步吗?</p>
                             <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
                         </div>
-                        <div class="rep-botbg-b" id="historyRankTable">
+                        <div class="rep-botbg-b historyRankTable" id="historyRankTable">
                             <table class="protest">
                                 <tr>
                                     <td class="left"></td>
@@ -240,7 +240,7 @@
                                             <div class="col6 fl mt30 ml20"></div>
                                         </div>
                                         <div class="chart tc">
-                                            <div id="historyRankChart" style="height: 280px"></div>
+                                            <div id="historyRankChart" class="historyRankChart" style="height: 280px"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -287,23 +287,23 @@
                             <p class="col9 ft16 mt5">找到关键问题，听听智学小建议</p>
                         </div>
                         <div class="rep-botbg-b">
-                            <table class="protest" id="howDoI_bad" style="display: none;">
+                            <table class="protest howDoI_bad" id="howDoI_bad" style="display: none;">
                                 <tr>
                                     <td class="left"></td>
                                     <td class="right">
                                         <div class="pro-urge-ul clearfix">
                                             <ul class="clearfix">
                                                 <li class="bga">
-                                                    <p class="p-a" id="howDoI_score1"></p>
-                                                    <p class="p-b" id="howDoI_subject1"></p>
+                                                    <p class="p-a howDoI_score1" id="howDoI_score1"></p>
+                                                    <p class="p-b howDoI_subject1" id="howDoI_subject1"></p>
                                                     <!--<a id="howDoI_line1">点击深度分析</a>-->
-                                                    <span id="howDoI_line1"></span>
+                                                    <span id="howDoI_line1" class="howDoI_line1"></span>
                                                 </li>
                                                 <li class="bgb">
-                                                    <p class="p-a" id="howDoI_score2"></p>
-                                                    <p class="p-b" id="howDoI_subject2"></p>
+                                                    <p class="p-a howDoI_score2" id="howDoI_score2"></p>
+                                                    <p class="p-b howDoI_subject2" id="howDoI_subject2"></p>
                                                     <!--<a id="howDoI_line2">点击深度分析</a>-->
-                                                    <span id="howDoI_line2"></span>
+                                                    <span id="howDoI_line2" class="howDoI_line2"></span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -316,9 +316,9 @@
                             </div>
                         </div>
                         <!--总结-->
-                        <div class="rep-total" id="loadSummary">
+                        <div class="rep-total loadSummary" id="loadSummary">
                             <div class="tit">小 结</div>
-                            <div class="cont ft18 col6" id="summary"></div>
+                            <div class="cont ft18 col6 summary" id="summary"></div>
                         </div>
                         <!-- 用户反馈-->
                         {include file="/zhixuebao/feesreport/foot/index.html"}
@@ -344,7 +344,7 @@
                         <!--主体内容头部-->
                         <div class="rep-ss-tit rel">
                             <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
-                            <div class="schooltest"  id="examName"></div>
+                            <div class="schooltest examName" id="examName"></div>
                             <div class="vip-exclusive"></div>
                             <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
                         </div>
@@ -715,15 +715,7 @@
                         </div>
                         <div class="rep-botbg-b"></div>
                         <!-- 用户反馈-->
-                        <div class="feedback ft14 col3 feedbacknew">
-                            <span class="mr20">看完VIP报告您的感受是</span>
-                            <a href="#" class="norbtn undefale">满意</a>
-                            <a href="#" class="norbtn sure">一般 </a>
-                            <a href="#" class="norbtn">不满意</a>
-                            <span class="line">|</span>
-                            <a href="#" class="advbtn">给我们提建议</a>
-                            <a href="#" class="advbtn undefale">给我们提建议</a>
-                        </div>
+                        {include file="/zhixuebao/feesreport/foot/index.html"}
                         <!--考点闯关提分-->
                         <div class="rep-main mt40">
                             <div class="rep-main-label">考点闯关提分</div>
@@ -854,16 +846,15 @@
 
             <div class="rep-content">
                 <!--科目选择-->
-                <div class="rep-choice-course">
+                <div class="rep-choice-course top_selSubject" id="top_selSubjectPar">
                     <a href="#" class="pre"></a>
                     <div class="warp-ul warp-ul-par" >
-                        <ul>
-                            <li><a href="#" class="on">全科</a></li>
-                            <li><a href="#">语文</a></li>
+                        <ul id="top_subjectListPar" class="top_subjectList">
                         </ul>
                     </div>
                     <a href="#" class="next"></a>
                 </div>
+
                 <div class="rep-par-container">
                     <div class="rep-par-content" style="display:block;">
                         <!--主体内容头部-->
@@ -933,147 +924,127 @@
                         </div>
 
                         <!--这次考试有进步吗?-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit loadHistoryRank" id="loadHistoryRankPar">
                             <p class="fb ft24">这次考试有进步吗?</p>
-                            <p class="col9 ft16 mt5">总体情况概述、各班成绩对比</p>
+                            <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
                         </div>
-                        <div class="rep-botbg-b">
+                        <div class="rep-botbg-b historyRankTable" id="historyRankTablePar">
                             <table class="protest">
                                 <tr>
-                                    <td class="left"><b>对比于历次考试，可以看
-                                        出你的孩子在语文，数学，
-                                        英语学科上表现发挥比较
-                                        平稳，总体呈现上升趋势。</b>物理、化学波动较大,时而考的好，时而考
-                                        的较差；地理、生物持续下滑，要特别注
-                                        意！对于波动较大学科，家长要帮助孩子
-                                        查找原因，是不同模块知识难度的影响还
-                                        是考前复习投入程度的原因。对于持续下
-                                        滑的学科，更要注意，不要因此挫伤孩子
-                                        的学习兴趣和积极性，要多鼓励，适时补
-                                        习。</td>
+                                    <td class="left"></td>
                                     <td class="right">
                                         <div class="clearfix">
                                             <div class="tab clearfix fl ">
-                                                <a href="#" class="gradeall on">全部</a>
-                                                <a href="#" class="grade">本年级</a>
+                                                <a href="javascript:;" class="gradeall on">本班级</a>
+                                                <a href="javascript:;" class="grade">本年级</a>
                                             </div>
-                                            <div class="col6 fl mt30 ml20">本学期考试你在全班的位置分别是</div>
+                                            <div class="col6 fl mt30 ml20"></div>
                                         </div>
                                         <div class="chart tc">
-                                            <img src="rep-images/forc.png">
+                                            <div id="historyRankChartPar" class="historyRankChart" style="height: 280px"></div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <!--孩子的分数丢哪了？-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit" id="loadLoseScore">
                             <p class="fb ft24">孩子的分数丢哪了？</p>
                             <p class="col9 ft16 mt5">发现问题，分析问题，总结经验</p>
                         </div>
-                        <div class="rep-botbg-b">
+                        <div class="rep-botbg-b" id="loseScoreTable">
                             <table class="protest">
                                 <tr>
-                                    <td class="left"><b>中档题上失分多大多是因为知识掌握或运用上出现了死角或熟练度不够</b>因此要注意练习的多样性，保证扫清知识死角。并且要提高熟练度。经常使用智能诊断功能能够获得更全面的分析及更及时的建议。</td>
+                                    <td class="left"></td>
                                     <td class="right">
                                         <div class="chart tc">
-                                            <img src="rep-images/forg.png">
+                                            <div id="loseScoreChart" style="height: 260px;"></div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <!--我该怎么督促孩子？-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit" id="loadSupervise">
                             <p class="fb ft24">我该怎么督促孩子？</p>
                             <p class="col9 ft16 mt5">找到关键问题，听听智学小建议</p>
                         </div>
                         <div class="rep-botbg-b">
-                            <table class="protest">
+                            <table class="protest howDoI_bad" id="howDoI_badPar" style="display: none;">
                                 <tr>
-                                    <td class="left"><b>拉分的学科是英语和物理</b>物理中公式类的内容很多，只要多花些时间进步会很快的；生物重视记忆和积累，一旦落后太多补习会很困难。</td>
+                                    <td class="left"></td>
                                     <td class="right">
                                         <div class="pro-urge-ul clearfix">
                                             <ul class="clearfix">
                                                 <li class="bga">
-                                                    <p class="p-a">78分</p>
-                                                    <p class="p-b">英语  </p>
-                                                    <span>不及格</span>
-                                                    <!--<a href="#">点击深度分析</a>-->
+                                                    <p class="p-a howDoI_score1" id="howDoI_score1Par"></p>
+                                                    <p class="p-b howDoI_subject1" id="howDoI_subject1Par"></p>
+                                                    <!--<a id="howDoI_line1">点击深度分析</a>-->
+                                                    <span id="howDoI_line1Par" class="howDoI_line1"></span>
                                                 </li>
                                                 <li class="bgb">
-                                                    <p class="p-a">78分</p>
-                                                    <p class="p-b">英语  </p>
-                                                    <span>不及格</span>
-                                                    <!--<a href="#">点击深度分析</a>-->
+                                                    <p class="p-a howDoI_score2" id="howDoI_score2Par"></p>
+                                                    <p class="p-b howDoI_subject2" id="howDoI_subject2Par"></p>
+                                                    <!--<a id="howDoI_line2">点击深度分析</a>-->
+                                                    <span id="howDoI_line2Par" class="howDoI_line2"></span>
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
-
-                            <!--2016.6.1 add-->
-                            <div class="best">
-                                <h1>满分</h1>
-                                <h2>保持现在的学习节奏</h2>
+                            <div class="best howDoI_best" id="howDoI_bestPar" style="display: none;">
+                                <h1>满分！1分都没丢！</h1>
+                                <h2>保持现在的学习节奏，保持心态平和，不骄傲不焦虑，就是完美的胜利！</h2>
                             </div>
                         </div>
                         <!--总结-->
-                        <div class="rep-total">
+                        <div class="rep-total loadSummary" id="loadSummaryPar">
                             <div class="tit">小 结</div>
-                            <div class="cont ft18 col6">所以一定不能掉队啊！和你的同学相比，你在简单题上丢分过多，在中档题和难题上反而丢分不太多，说明你太粗心了，要有意识地克服这个问题哦。</div>
+                            <div class="cont ft18 col6 summary" id="summaryPar"></div>
                         </div>
                         <!-- 用户反馈-->
-                        <div class="feedback ft14 col3 feedbacknew">
-                            <span class="mr20">看完VIP报告您的感受是</span>
-                            <a href="#" class="norbtn undefale">满意</a>
-                            <a href="#" class="norbtn sure">一般 </a>
-                            <a href="#" class="norbtn">不满意</a>
-                            <span class="line">|</span>
-                            <a href="#" class="advbtn">给我们提建议</a>
-                            <a href="#" class="advbtn undefale">给我们提建议</a>
-                        </div>
+                        {include file="/zhixuebao/feesreport/foot/index.html"}
                     </div>
                     <div class="rep-par-content">
                         <!--主体内容头部-->
                         <div class="rep-ss-tit rel rep-ps-tit">
-                            <div class="rep-name">语文成绩报告</div>
-                            <div class="schooltest">2014~2015年度XX市XX学校高一第X次月考</div>
+                            <div class="rep-name"><span id="subjectName2Par" class="subjectName2"></span>成绩报告</div>
+                            <div class="schooltest examName" id="examNameParSinger"></div>
                             <div class="vip-exclusive"></div>
                         </div>
-                        <!--我考得怎么样？-->
+                        <!--孩子考得怎么样？-->
                         <div class="rep-botbg-a">
                             <div class="rep-modtit">
-                                <p class="fb ft24">我考得怎么样？</p>
-                                <p class="col9 ft16 mt5">总体情况概述、各班成绩对比</p>
+                                <p class="fb ft24">孩子考得怎么样？</p>
+                                <p class="col9 ft16 mt5">单科成绩概述、各班成绩对比</p>
                             </div>
-                            <ul class="stus-comp clearfix">
+                            <ul class="stus-comp clearfix rankTable" id="rankTablePar">
                                 <li>
                                     <div class="hd">分数</div>
                                     <div class="bd"><b class="stu-yel">520</b></div>
                                 </li>
                                 <li>
                                     <div class="hd">班级平均分</div>
-                                    <div class="bd">520</div>
+                                    <div class="bd classAverage">520</div>
                                 </li>
                                 <li>
                                     <div class="hd">年级平均分</div>
-                                    <div class="bd">520</div>
+                                    <div class="bd gradeAverage">520</div>
                                 </li>
                                 <li>
                                     <div class="hd">我的成绩在全班的位置</div>
-                                    <div class="bd">前<b>58%</b></div>
+                                    <div class="bd classPosition">前<b>58%</b></div>
                                 </li>
                                 <li>
                                     <div class="hd">我的成绩在年级的位置</div>
-                                    <div class="bd">前<b>58%</b></div>
+                                    <div class="bd gradePosition">前<b>58%</b></div>
                                 </li>
                             </ul>
-                            <p class="tc">
-                                <a href="#" class="down-dtk">点击下载答题卡</a>
-                                <a href="#" class="down-paper">点击下载试卷</a>
-                            </p>
+                            <!--<p class="tc clickAndDownload" id="clickAndDownloadPar">-->
+                                <!--<a href="javascript:void(0);" class="down-dtk">点击下载答题卡</a>-->
+                                <!--<a href="javascript:void(0);" class="down-paper">点击下载试卷</a>-->
+                            <!--</p>-->
                         </div>
                         <!--题目汇总-->
                         <div class="stus-topic rep-botbg-b tc">
@@ -1636,15 +1607,7 @@
                             </table>
                         </div>
                         <!-- 用户反馈-->
-                        <div class="feedback ft14 col3 feedbacknew">
-                            <span class="mr20">看完VIP报告您的感受是</span>
-                            <a href="#" class="norbtn undefale">满意</a>
-                            <a href="#" class="norbtn sure">一般 </a>
-                            <a href="#" class="norbtn">不满意</a>
-                            <span class="line">|</span>
-                            <a href="#" class="advbtn">给我们提建议</a>
-                            <a href="#" class="advbtn undefale">给我们提建议</a>
-                        </div>
+                        {include file="/zhixuebao/feesreport/foot/index.html"}
                     </div>
                 </div>
             </div>
