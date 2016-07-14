@@ -87,8 +87,8 @@ var provinceList={"2":"1","21":"3","40":"5","235":"6","377":"7","500":"8","629":
 
 Report.init = function () {
     elements.examName = $(".examName");
-    elements.subjectName2 = $(".subjectName2");
-    // elements.subjectName2Par = $("#subjectName2Par");
+    elements.subjectName2 = $("#subjectName2");
+    elements.subjectName2Par = $("#subjectName2Par");
     elements.introduction = $("#introduction");//学生导读信息
     elements.introductionPar = $("#introductionPar");//家长导读信息
     elements.examTable = $("#examTable");//考得怎么样
@@ -163,13 +163,20 @@ Report.stuParTab = function () {
     Report.bindCompareData();
     Report.bindHistoryRankData();
     Report.bindHowDoIData();
-    Report.singer();
+    var report = new reportCtrl.parSinger();
+    report.init();
 };
 //全科/单科 tab
 Report.allSingerTab = function () {
     var index = $(this).parent().index();
     $(this).addClass('on').parent().siblings().children().removeClass('on');
-    elements.subjectName2.text($(this).text());
+    if (Report.role == 'student') {
+        elements.subjectName2.text($(this).text());
+    }
+    else {
+        elements.subjectName2Par.text($(this).text());
+    }
+
     // for ( var i = 0; i < userExamDataList.length; i++){
     //     if (userExamDataList[i].subjectName = $(this).text()) {
     //         var userExamData = userExamDataList[i];
@@ -181,7 +188,7 @@ Report.allSingerTab = function () {
         $('.rep-par-content').eq(index).show().siblings('.rep-par-content').hide();
     }
 };
-// elements.subjectName2.text(examAllData.subjectName)
+
 /**
  * 绑定导读信息
  */
@@ -1584,23 +1591,33 @@ Report.bindLoseScoreDataPar = function () {
 };
 
 //单科 孩子考得怎么样
-Report.singer = function(){
+window.reportCtrl = window.reportCtrl || {};
+reportCtrl.parSinger = (function(){
 
-    var singer = function(){};
+    var parSinger = function(){};
 
-    singer.prototype.init = function(){
+    parSinger.prototype.init = function(){
         this.initUserExamData();
         this.initFoot();
     };
 
-    singer.prototype.initUserExamData = function(){
-        for ( var i = 0; i < userExamDataList.length; i++){
-            if (userExamDataList[i].subjectName = elements.subjectName2.text()) {
-                var userExamData = userExamDataList[i];
-            }
-        }
+    parSinger.prototype.initUserExamData = function(){
         // elements.subjectName2.html(userExamData.subjectName);
         // elements.examName.html(userExamData.examName);
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName = elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName = elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+        
+        }
         if (scoreToLevel == true) {
             elements.rankTable.find('b.stu-yel').html(dataUtil.getScoreToLevel(userExamData.score, userExamData.standardScore));
         } else {
@@ -1626,18 +1643,260 @@ Report.singer = function(){
             elements.rankTable.find('.classPosition').html('前<b>' + (100 - userExamData.classRank.ratio) + '%</b>');
             elements.rankTable.find('.gradePosition').html('前<b>' + (100 - userExamData.gradeRank.ratio) + '%</b>');
         }
-        elements.clickAndDownload.hide();//暂时不实现
+        // elements.clickAndDownload.hide();//暂时不实现
         // elements.clickAndDownload.find('.down-dtk').on('click', function() {});
         // elements.clickAndDownload.find('.down-paper').on('click', function() {});
     };
 
-    singer.prototype.initFoot = function(){
-        var foot = new Foot(userExamData);
-        foot.init();
+    parSinger.prototype.initFoot = function(){
+        // var foot = new Foot(userExamData);
+        // foot.init();
     };
 
-    return singer;
-};
+    return parSinger;
+})();
+
+//题目汇总
+var TopicCollect = (function () {
+
+    var topicCollect = function () {
+        this.topics = [];
+        this.pageCount = 0;
+    };
+
+    topicCollect.prototype.init = function () {
+        this.initErrTopicHtml();
+    };
+
+    /**
+     * 初始化我的题目汇总
+     */
+    topicCollect.prototype.initErrTopicHtml = function () {
+        var _this = this;
+        _this.getWrongTopicList(function (data) {
+            if (data.topicList.length > 0) {
+                var startNum = 0;
+                var endNum = 0;
+                _this.topicStartNum = 0;
+                if(data.topicList.length >= 10) {
+                    _this.topicEndNum = endNum = 9;
+                }
+                else {
+                    _this.topicEndNum =  endNum =  data.topicList.length - 1;
+                }
+                _this.topics = data.topicList;
+                _this.initErrTopicHtml2(startNum,endNum);
+            }
+            else {
+                //显示没有题目的相关信息
+                $('#topicNumberList').text("暂无相关题目");
+                $('#topicCollectProblemAnalysis').parent().hide();
+            }
+        });
+    };
+
+    /**
+     * 箭头点击事件
+     * @param startNum
+     * @param endNum
+     */
+    topicCollect.prototype.preNextEvent = function (startNum,endNum) {
+        var _this = this;
+
+        if(startNum > 1 ) {
+            //显示手状
+            $('#topicPreId').css('cursor','pointer');
+        }
+        else {
+            $('#topicPreId').css('cursor','');
+        }
+        if(endNum < _this.topics.length-1) {
+            //显示手状
+            $('#topicNextId').css('cursor','pointer');
+        }
+        else {
+            $('#topicPreId').css('cursor','');
+
+        }
+
+        $("#topicPreId").click(function () {
+
+            if(_this.topicStartNum != 0 ){
+                var endMode = endNum%10;
+                _this.topicEndNum = endNum -endMode-1;
+                _this.topicStartNum = (startNum/10-1) *10;
+            }
+
+            //遍历取起始的list
+            var topicArray =[];
+            for(var i=_this.topicStartNum ;i< _this.topicEndNum;i++){
+                topicArray[i] = _this.topics[i];
+            }
+            _this.topicNumberListHtml(topicArray);
+            _this.initErrTopicHtml2(_this.topicStartNum,_this.topicEndNum);
+        });
+
+        $("#topicNextId").click(function () {
+
+            if(endNum < _this.topics.length -1){
+                _this.topicStartNum = startNum +10;
+                if(_this.topics.length - endNum > 10 ){
+                    _this.topicEndNum = endNum + 10;
+                }else{
+                    _this.topicEndNum = _this.topics.length - 1;
+                }
+
+                //遍历取起始的list
+                var topicArray =[];
+                for(var i=_this.topicStartNum ;i< _this.topicEndNum;i++){
+                    topicArray[i] = _this.topics[i];
+                }
+                _this.topicNumberListHtml(topicArray);
+                _this.initErrTopicHtml2(_this.topicStartNum,_this.topicEndNum);
+
+                //if(startNum > 1 ){
+                //显示手状
+                $('#topicPreId').css('cursor','pointer');
+                // }
+            }
+        });
+    };
+
+    /**
+     * 获取题目分析和排名
+     * @param topic
+     * @param improveRank
+     * @returns {*}
+     */
+    topicCollect.prototype.getTopicAnalysisHtml = function(topic,improveRank){
+        var topicAnalysisHtml = __topicCollectProblemAnalysisTemplate__({"topic1": topic, "rankImprove": improveRank});
+        return topicAnalysisHtml;
+    };
+
+    /**
+     * 获取一道题目及其解析
+     * @param _this
+     * @param topic
+     */
+    topicCollect.prototype.getTopic = function(_this,topic) {
+        var scoreMinus = topic.standardScore - topic.score;
+        var rankResult = 0;
+        //从缓存数组中查询
+        if(!topic.isCorrect) {
+            var buffer = rankByScoreArray[topic.topicNumber];
+            if(null != buffer || buffer != undefined) {
+                rankResult = buffer;
+            }
+            else {
+                _this.getUserSubjectClassRank(scoreMinus, function (result) {
+                    if (null == result || result == undefined) {
+                        result = 0;
+                    }
+                    //放入缓存中
+                    rankByScoreArray[topic.topicNumber] = result;
+                    rankResult = result;
+                });
+            }
+        }
+        var topicAnswerHtml = _this.getTopicAnalysisHtml(topic, rankResult);
+        $("#topicCollectProblemAnalysis").html(topicAnswerHtml);
+    };
+
+    /**
+     * 显示题号列表
+     * @param topics
+     * @param startNum
+     * @param endNum
+     */
+    topicCollect.prototype.topicNumberListHtml =function(topics,startNum,endNum) {
+        var topicNoHtml = __topicCollectListTemplate__({"errTopics":topics,"startNum":startNum,"endNum":endNum});
+        $('#topicNumberList').html(topicNoHtml);
+    };
+
+    /**
+     * 展示前N个题目
+     * @param startNum
+     * @param endNum
+     */
+    topicCollect.prototype.initErrTopicHtml2 = function (startNum,endNum) {
+        var _this = this;
+        var topicArray =[];
+        for(var i = startNum; i <= endNum; i++){
+            topicArray[i] = _this.topics[i];
+        }
+        _this.topicNumberListHtml(topicArray,startNum,endNum);
+        //展示题的答案和解析
+        _this.getTopic(_this,topicArray[startNum]);
+        //加入监听
+        _this.mouseMoveEvent();
+        _this.initTopicEvent();
+        _this.preNextEvent(startNum,endNum);
+    };
+
+    /**
+     * 获取题目列表信息
+     * @param callback
+     */
+    topicCollect.prototype.getWrongTopicList = function (callback) {
+        var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
+        var userId = currentUser.id;
+        var paperId = Request.QueryString("paperId");
+        $.getJSON(url, {userId: userId, paperId: paperId, pageIndex: 1, pageSize: 10}, callback);
+    };
+
+    /**
+     * 获取-这道题做对了，我就可以进步X名！
+     * @param score
+     * @param callback
+     */
+    topicCollect.prototype.getUserSubjectClassRank = function (score, callback) {
+        var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
+        var paperId = Request.QueryString("paperId");
+        var classId = Request.QueryString("classId");
+        var userId = currentUser.id;
+        //$.getJSON(url, {userId:userId,classId: classId, paperId: paperId, score: score}, callback);
+        $.ajax({
+            url:url,
+            type:'GET',
+            contentType:'JSON',
+            async:false,
+            data:{userId:userId,classId: classId, paperId: paperId, score: score},
+            cache:true,
+            success:callback
+        });
+    };
+
+    /**
+     * 题目列表加入鼠标移动事件
+     */
+    topicCollect.prototype.mouseMoveEvent= function (){
+        var topicHeaderNumObj =$("#topicListNumberShow a.on");
+        $("#topicListNumberShow").mousemove(function(){
+            $("#topicListNumberShow a").removeClass("on")
+        });
+        $("#topicListNumberShow").mousedown(function(){
+            topicHeaderNumObj = $(event.target);
+        });
+        $("#topicListNumberShow").mouseleave(function(){
+            topicHeaderNumObj.addClass("on")
+        });
+    };
+
+    /**
+     * 题号点击事件
+     */
+    topicCollect.prototype.initTopicEvent = function () {
+        var _this = this;
+        var startNum = $('#topicListStartNum').attr("data-num");//起始号码
+        $('.hd-ul a').on("click", function () {
+            var num = parseInt($(this).attr('data-topicid'));
+            num += parseInt(startNum);//当前的对应题号
+            _this.getTopic(_this,_this.topics[num]);
+        });
+    };
+
+    return topicCollect;
+})();
 // 更新 下拉列表
 // Report.UpdateSelectBox= function () {
 //     $('#examName').html(userExamArchives[0].examName);
@@ -1685,5 +1944,4 @@ $(document).ready(function(){
     Report.bindHowDoIData();
     Report.bindSummary();
     Report.bindLoseScoreDataPar();
-    Report.singer();
 });
