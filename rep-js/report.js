@@ -26,6 +26,7 @@ var isNceeVolunteer = false;
 var userInfo = {"birthday":1441900800000,"clazz":{"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014},"code":"30024501","gender":"1","id":"2000000020000269186","loginName":"zx30024501","name":"小明一","roles":[{"cName":"学生","eName":"student"}]};
 var studentUrl = 'http://localhost:8088/student';
 var introduction = [{"role":"student","desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"},{"role":"parent","desc":"您的孩子小明一本次考试在班级中的位置是前56%，处于压力和风险最大的中游段。但是年级位置高于班级位置，很值得欣喜。结合报告中的年级位置和学情弱点分析，才能更清晰地把握我孩子现在的情况。数学学科拖后腿较严重。要引起重视！中间段成绩比较密集，提高一点成绩排名上，尤其是年级排名上都会有很大进步。扬长和补短是提高成绩的两条路径，优势学科的提高潜力往往不如劣势学科大，比如数学学科上，您孩子和前面一名的分差只有几分，作为突破学科来拉动成绩提高还是很合适的。了解是沟通和帮助的第一步。看VIP报告，获得更多孩子的学情诊断和潜力、薄弱项分析。"}];
+var knowledges = [{"cityScoreRatio":72,"knowledgeCode":"020549004001004n","knowledgeName":"向量的数量积","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":58,"knowledgeCode":"020549006000001","knowledgeName":"空间几何体的三视图与直观图","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":64,"knowledgeCode":"020549006000002","knowledgeName":"空间几何体的表面积与体积","score":1,"scoreRatio":9,"totalScore":11},{"cityScoreRatio":75,"knowledgeCode":"020549007000002","knowledgeName":"两条直线的位置关系","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":69,"knowledgeCode":"020549007000013n","knowledgeName":"多面体和旋转体上的最短距离（折叠与展开图）","score":7,"scoreRatio":37,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549007002003","knowledgeName":"圆锥曲线综合","score":11,"scoreRatio":37,"totalScore":30},{"cityScoreRatio":63,"knowledgeCode":"020549007002004","knowledgeName":"椭圆","score":10,"scoreRatio":53,"totalScore":19},{"cityScoreRatio":75,"knowledgeCode":"020549007002005","knowledgeName":"双曲线","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":66,"knowledgeCode":"020549007004001","knowledgeName":"圆","score":6,"scoreRatio":25,"totalScore":24},{"cityScoreRatio":65,"knowledgeCode":"020549008000001","knowledgeName":"用样本估计总体","score":6,"scoreRatio":100,"totalScore":6},{"cityScoreRatio":90,"knowledgeCode":"020549008004000n","knowledgeName":"圆的标准方程","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":72,"knowledgeCode":"020549008004003n","knowledgeName":"圆有关的轨迹问题","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008005002n","knowledgeName":"圆与圆的位置关系及判定","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008006000n","knowledgeName":"椭圆的概念及标准方程","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":72,"knowledgeCode":"020549008006002n","knowledgeName":"直线与椭圆的位置关系","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":86,"knowledgeCode":"020549008009006n","knowledgeName":"圆锥曲线中的综合问题","score":9,"scoreRatio":36,"totalScore":25}];
 var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
 var isHideScore = false;
 var isMobile = '';
@@ -146,6 +147,15 @@ Report.init = function () {
     elements.examChart = $('.examChart');
     elements.difTip = $('#difTip');
     elements.examDifInfo = $('#examDifInfo');
+    elements.knowledgeControl = $('#knowledgeControl');
+    elements.knowledgeControlPar = $('#knowledgeControlPar');
+    elements.currentCityTopTen = $('.currentCityTopTen');
+    elements.topTenKnowledge = $('#topTenKnowledge');
+    elements.topTenKnowledgePar = $('#topTenKnowledgePar');
+    elements.recommondInfo = $('#recommondInfo');
+    elements.recommondInfoPar = $('#recommondInfoPar');
+    elements.knows = $("#knows");
+    elements.knowsPar = $("#knowsPar");
 };
 
 //学生/家长 tab
@@ -181,6 +191,12 @@ Report.allSingerTab = function () {
         elements.subjectName2Par.text($(this).text());
     }
 
+    // var jsmarty = document.createElement('script');
+    // jsmarty.src = 'js/jsmart.js';
+    // body.get
+
+    // document.write('<script src="rep-js/jsmart.js"></script>');
+
     // for ( var i = 0; i < userExamDataList.length; i++){
     //     if (userExamDataList[i].subjectName = $(this).text()) {
     //         var userExamData = userExamDataList[i];
@@ -192,8 +208,11 @@ Report.allSingerTab = function () {
         $('.rep-par-content').eq(index).show().siblings('.rep-par-content').hide();
     }
 
-    var topicCollectionObj = new TopicCollect();
-    topicCollectionObj.init();
+
+    // setTimeout(function(){
+        var topicCollectionObj = new TopicCollect();
+        topicCollectionObj.init();
+    // },2000);
 
     var fore = new forewordCtrl();
     fore.init();
@@ -201,17 +220,18 @@ Report.allSingerTab = function () {
     var ec = new examCompare();
     ec.init();
 
-    var dif = new Difficulty();
-    dif.init();
+    // var dif = new Difficulty();
+    // dif.init();
 
     var knowledgeControl = new KnowledgeControl();
     knowledgeControl.init();
 
-    var recommondControl = new RecommondControl();
-    recommondControl.init();
+    // var recommondControl = new RecommondControl();
+    // recommondControl.init();
 
     var report = new reportCtrl.parSinger();
     report.init();
+    // lazyCtrl.init();
 };
 
 /**
@@ -1683,6 +1703,84 @@ reportCtrl.parSinger = (function(){
     return parSinger;
 })();
 
+// var lazyCtrl = {
+//
+//     init: function(){
+//         //对可视区域进行懒加载
+//         var Winload = $class(Lazyload, proto);
+//
+//         //0. 懒加载 [题目汇总]
+//         new Winload({
+//             elems: $id("lazy_topic"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 if(!!isMobile) {
+//                     elements.lazy_topic.remove();
+//                 }
+//                 else {
+//                     var topicCollectionObj = new TopicCollect();
+//                     topicCollectionObj.init();
+//                 }
+//             }
+//         });
+//         //1. 懒加载 [这次考试有进步吗？]
+//         new Winload({
+//             elems: $id("lazy_historyRank"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var fore = new forewordCtrl();
+//                 fore.init();
+//             }
+//         });
+//         //2. 懒加载 [从考试情况看孩子学习-各分数段人员数量]
+//         new Winload({
+//             elems: $id("examChart"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 dataUtil.bindScoreParts(0);
+//             }
+//         });
+//         //3. 懒加载 [考试难度]
+//         new Winload({
+//             elems: $id("lazy_examDif"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var ec = new examCompare();
+//                 ec.init();
+//             }
+//         });
+//         //4. 懒加载 [丢分题难度]
+//         new Winload({
+//             elems: $id("lazy_loseScoreDif"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 // var dif = new diffcult("reportParSinger");
+//                 // dif.init();
+//                 var dif = new Difficulty();
+//                 dif.init();
+//             }
+//         });
+//         //5. 懒加载[知识点掌握情况]
+//         new Winload({
+//             elems: $id("howToImprove"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var knowledgeControl = new KnowledgeControl();
+//                 knowledgeControl.init();
+//             }
+//         });
+//         //6. 懒加载[根据您孩子的情况，我们推荐补习以下内容]
+//         new Winload({
+//             elems: $id("recommondControl"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var recommondControl = new RecommondControl();
+//                 recommondControl.init();
+//             }
+//         });
+//     }
+// };
+
 var chartUtil = {
     /**
      * 绑定图表数据
@@ -2075,6 +2173,7 @@ var dataUtil = {
         var url = "13.txt";
         // var url = basePath + "/zhixuebao/feesReport/getClassScoreParts/";
         $.getJSON(url,{"classId":classId,"paperId":Request.QueryString("paperId")},callback);
+        alert(JSON.stringify(Request.QueryString("paperId")));
     },
     /**
      * 获取学校分数段及人数
@@ -2333,6 +2432,7 @@ var TopicCollect = (function () {
             }
         }
         var topicAnswerHtml = _this.getTopicAnalysisHtml(topic, rankResult);
+
         if (Report.role == 'student'){
             $("#topicCollectProblemAnalysis").html(topicAnswerHtml);
         }
@@ -2690,7 +2790,7 @@ var examCompare = (function(){
 
         var url = '16.txt';
         // var url = basePath + '/zhixuebao/feesReport/getSummaryOfDifficultyInfo/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:'parent'},callback);
+        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:Report.role},callback);
     };
 
     examCompare.prototype.getLastExamCompareResult = function(callback){
@@ -2727,7 +2827,7 @@ var Difficulty = (function() {
         //是否丢分、丢分率相同
         var isDifficultyEqual = true;
         //获取文案
-        $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/", {examId: Request.QueryString("examId"), paperId: Request.QueryString("paperId"), role: 'parent'}, function (data) {
+        $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/", {examId: Request.QueryString("examId"), paperId: Request.QueryString("paperId"), role: Report.role}, function (data) {
             var text = '';
             if(!!data && !!data.desc) {
                 text += data.desc;
@@ -2891,6 +2991,7 @@ var Difficulty = (function() {
     return difficulty;
 })();
 
+//知识点
 var KnowledgeControl = (function() {
 
     var knowledgeControl = function(){};
@@ -2905,18 +3006,97 @@ var KnowledgeControl = (function() {
             var counts = dataUtil.geneNotGoodKnowCount(knowledges);
             var _html = __knowledgeControlTemplate__({control:dataUtil.geneControl(knowledges), notControl:dataUtil.geneNotControl(knowledges),
                 counts:counts, info:countInfo});
-            elements.knowledgeControl.html(_html);
+            if (Report.role == 'student') {
+                elements.knowledgeControl.html(_html);
+            }
+            else {
+                elements.knowledgeControlPar.html(_html);
+            }
         });
     };
 
     knowledgeControl.prototype.getKnowledgeCountInfo = function(callback){
-        var url = basePath + '/zhixuebao/feesReport/getKnowledgeInfo/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:'parent'},callback);
+        var url = '20.txt';
+        // var url = basePath + '/zhixuebao/feesReport/getKnowledgeInfo/';
+        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:Report.role},callback);
     };
 
     return knowledgeControl;
 })();
 
+//TOP10
+var TopTopic = (function() {
+
+    var topTopic = function(){};
+
+    topTopic.prototype.init = function() {
+        this.getData();
+    };
+
+    topTopic.prototype.getData = function() {
+        var _this = this;
+        this.getTopicData(function(data) {
+            if(!data || data.length == 0) {
+                elements.currentCityTopTen.hide();
+            }
+            else {
+                var _html = __topTenKnowledgeTemplate__({dataList:_this.dataFormatter(data)});
+                if (Report.role == 'student') {
+                    elements.topTenKnowledge.html(_html);
+                }
+                else {
+                    elements.topTenKnowledgePar.html(_html);
+                }
+                elements.buttonEvent = $('button.btn-sh');
+                _this.eventListen();
+            }
+        });
+    };
+
+    topTopic.prototype.getTopicData = function(callback){
+        var url = basePath + '/zhixuebao/feesReport/getCityTopKnowledges/';
+        $.getJSON(url,{classId:classId,paperId:Request.QueryString("paperId")},callback);
+    };
+
+    topTopic.prototype.dataFormatter = function(data) {
+        var tmpData = data;
+        $.each(tmpData, function(k, v) {
+            v.schoolName = '';
+            if(v.knowledgeName.indexOf('>>') > -1) {
+                var tmp = v.knowledgeName.split('>>');
+                v.knowledgeName = tmp[tmp.length - 1];
+            }
+            if(v.schoolList.length > 3) {
+                v.schoolName = v.schoolList[0] + '、' +  v.schoolList[1] + '、' +  v.schoolList[2] + '等' + v.schoolList.length + '所学校';
+            }
+            else if(v.schoolList.length != 0){
+                $.each(v.schoolList, function(kk, vv) {
+                    if(kk == v.schoolList.length - 1) {
+                        v.schoolName += vv;
+                    }
+                    else {
+                        v.schoolName += vv + '、';
+                    }
+                });
+            }
+        });
+        return tmpData;
+    };
+
+    topTopic.prototype.eventListen = function() {
+        elements.buttonEvent.on('click', function() {
+            $(".btn-sh-s").toggleClass("btn-sh-h");
+            $(".bth-sh-txt-s").toggle();
+            $(".bth-sh-txt-h").toggle();
+            $(".w-change").toggleClass("w-large");
+            $(".s-h").toggle();
+        });
+    };
+
+    return topTopic;
+})();
+
+//推荐内容
 var RecommondControl = (function() {
 
     var recommondControl = function(){};
@@ -2939,7 +3119,12 @@ var RecommondControl = (function() {
                     recommondInfo = info[0].desc + info[1].desc;
                 }
             }
-            elements.recommondInfo.html(recommondInfo);
+            if (Report.role == 'student') {
+                elements.recommondInfo.html(recommondInfo);
+            }
+            else {
+                elements.recommondInfoPar.html(recommondInfo);
+            }
         });
     };
 
@@ -2947,10 +3132,21 @@ var RecommondControl = (function() {
 
         this.getRecommondControlData(function(data) {
             if(!data || (data.easy2learn.length == 0 && data.free2learn.length == 0) ) {
-                elements.knows.html("<td>暂无知识点</td>");
+                if (Report.role == 'student') {
+                    elements.knows.html("<td>暂无知识点</td>");
+                }
+                else {
+                    elements.knowsPar.html("<td>暂无知识点</td>");
+                }
             }
             else {
-                elements.knows.html(dataUtil.geneNeedToKnow(data));
+                if (Report.role == 'student') {
+                    elements.knows.html(dataUtil.geneNeedToKnow(data));
+                }
+                else {
+                    elements.knowsPar.html(dataUtil.geneNeedToKnow(data));
+                }
+
             }
         });
     };
@@ -2967,28 +3163,6 @@ var RecommondControl = (function() {
 
     return recommondControl;
 })();
-// 更新 下拉列表
-// Report.UpdateSelectBox= function () {
-//     $('#examName').html(userExamArchives[0].examName);
-//     for (var i = 0; i < userExamArchives.length; i++) {
-//         $('.topSlt').append('<a title="' + userExamArchives[i].examName + '" href="javascript:void(0);" emamid="'  + userExamArchives[i].examId +'">' + userExamArchives[i].examName + '</a>');
-//     }
-//
-//     $('#examName').click(function () {
-//         $(".topSlt").toggle();
-//         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
-//     });
-//
-//     $('.topSlt a').click(function () {
-//         var examId = $(this).attr('emamid');
-//         var examName = $(this).attr('title');
-//         $('#examName').html(examName);
-//         $(".topSlt").hide();
-//         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
-//
-//     });
-// };
-
 
 $(document).ready(function(){
 
