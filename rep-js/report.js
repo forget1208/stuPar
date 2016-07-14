@@ -144,6 +144,8 @@ Report.init = function () {
     elements.lazy_topic = $('.lazy_topic');
     elements.historyRankTableSinger = $('.historyRankTableSinger');
     elements.examChart = $('.examChart');
+    elements.difTip = $('#difTip');
+    elements.examDifInfo = $('#examDifInfo');
 };
 
 //学生/家长 tab
@@ -1623,7 +1625,7 @@ reportCtrl.parSinger = (function(){
 
     parSinger.prototype.init = function(){
         this.initUserExamData();
-        this.initFoot();
+        // this.initFoot();
     };
 
     parSinger.prototype.initUserExamData = function(){
@@ -1668,15 +1670,15 @@ reportCtrl.parSinger = (function(){
             elements.rankTable.find('.classPosition').html('前<b>' + (100 - userExamData.classRank.ratio) + '%</b>');
             elements.rankTable.find('.gradePosition').html('前<b>' + (100 - userExamData.gradeRank.ratio) + '%</b>');
         }
-        elements.clickAndDownload.hide();//暂时不实现
+        // elements.clickAndDownload.hide();//暂时不实现
         // elements.clickAndDownload.find('.down-dtk').on('click', function() {});
         // elements.clickAndDownload.find('.down-paper').on('click', function() {});
     };
 
-    parSinger.prototype.initFoot = function(){
-        var foot = new Foot(userExamData);
-        foot.init();
-    };
+    // parSinger.prototype.initFoot = function(){
+    //     var foot = new Foot(userExamData);
+    //     foot.init();
+    // };
 
     return parSinger;
 })();
@@ -2182,6 +2184,7 @@ var tipsUtil = {
     }
 };
 
+//题目汇总
 var TopicCollect = (function () {
 
     var topicCollect = function () {
@@ -2330,7 +2333,12 @@ var TopicCollect = (function () {
             }
         }
         var topicAnswerHtml = _this.getTopicAnalysisHtml(topic, rankResult);
-        $("#topicCollectProblemAnalysis").html(topicAnswerHtml);
+        if (Report.role == 'student'){
+            $("#topicCollectProblemAnalysis").html(topicAnswerHtml);
+        }
+        else {
+            $("#topicCollectProblemAnalysisPar").html(topicAnswerHtml);
+        }
     };
 
     /**
@@ -2341,7 +2349,13 @@ var TopicCollect = (function () {
      */
     topicCollect.prototype.topicNumberListHtml =function(topics,startNum,endNum) {
         var topicNoHtml = __topicCollectListTemplate__({"errTopics":topics,"startNum":startNum,"endNum":endNum});
-        $('#topicNumberList').html(topicNoHtml);
+
+        if (Report.role == 'student'){
+            $('#topicNumberList').html(topicNoHtml);
+        }
+        else {
+            $('#topicNumberListPar').html(topicNoHtml);
+        }
     };
 
     /**

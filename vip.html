@@ -1508,9 +1508,120 @@
     </div>
 </div>
 
+<!--题目汇总-->
+<script type="remark-template" id="topicCollectListTemplate">
+    {literal}
+    <!--题目列表-->
+    <a  class="pre" topicStartNumber="" id="topicPreId"></a>
+    <div class="hd-ul" id="topicListNumberShow">
+        <ul class="clearfix fl" id="topicListStartNum" data-num="{$startNum}">
+            {foreach from=$errTopics item=topic name=foo}
+            <li><a href="javascript:void(0);" data-topicid="{$smarty.foreach.foo.index}"
+                   class="{if $topic.score eq 0}
+                   wrong
+                   {elseif $topic.score eq $topic.standardScore}
+                   right
+                   {else}
+                   both
+                   {/if}{if $topic.topicNumber%10 eq 1}on{/if}">{$topic.disTitleNumber}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+    <a  class="next" topicEndNumber="" id="topicNextId"></a>
+    {/literal}
+</script>
+
+<!--题目汇总题干和分析-->
+<script type="remark-template" id="topicCollectProblemAnalysisTemplate">
+    {literal}
+    <!--题目题干-->
+    <div class="stu-find-title">
+        <h1 class="ft16">{$topic1.rawHtml}</h1>
+        <div class="bd clearfix mt10">{$topic1.contentHtml}</div>
+    </div>
+    <div class="stu-find-part mt10 mb10">
+        <div class="fl left">班级得分率：{assign var="ratio" value={$topic1.classScoreRate*100} {$ratio |string_format:'%.1f'}%</div>
+        <div class="fl">试题难度：</div>
+        <div class="fl star">
+            <!--难度-->
+            {if $topic1.difficultyValue eq 1}
+            <div class="star_a"></div>
+            {elseif $topic1.difficultyValue eq 2}
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            {elseif $topic1.difficultyValue eq 3}
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            {elseif $topic1.difficultyValue eq 4}
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            {elseif $topic1.difficultyValue eq 5}
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            <div class="star_a"></div>
+            {else}<!--以后可能还有难度大于5的-->
+            <div class="star_a"></div>
+            {/if}
+        </div>
+        <div class="fl num">
+            {if $topic1.isCorrect eq false}
+            <span>这道题做对了，孩子就可以进步</span><i>{$rankImprove}</i><span>名！</span>
+            {/if}
+        </div>
+    </div>
+    <div class="stu-find-res stu-find-title">
+        <p>正确答案： {$topic1.answerHtml} </p>
+        <p class="mt10">所考知识点：{$topic1.relatedKnowledgeGroups[0].relatedKnowledges[0].name}</p>
+        {if $isVip}
+        <p class="mt10">答案解析：{$topic1.analysisHtml}</p>
+        {/if}
+    </div>
+    {/literal}
+</script>
+
+<script type="remark-template" id="checkScoreTemplate">
+    {literal}
+    <div class="report-cover" id="checkScore" name="s-0">
+        <div class="report-cover-img"></div>
+        <button class="report-cover-btn">我要优先查分</button>
+    </div>
+
+    <div id="checkScorePopup" style="display: none;">
+        <div class="report-bg-dialog"></div>
+        <div class="report-dialog">
+            <a class="report-dialog-close">&times;</a>
+            <div class="report-dialog-img"></div>
+            <div class="report-dialog-txt">
+                <p>如何让家长确认本次考试？</p>
+                <p>
+                    <span>1. 复制智学家长网站链接发送给爸妈</span>
+                    <span>2. 让爸妈点击链接，注册登录之后即可确认本次考试</span>
+                </p>
+            </div>
+            <div class="report-dialog-copy">
+                <p>
+                    <span>复制下面的链接，发送家长确认本次考试</span>
+                </p>
+                <p>
+                    <span class="report-dialog-url" id="copy-url">http://jiazhang.zhixue.com?channel=10</span>
+                    <textarea rows="" cols="" class="copy" id="copy-txt"></textarea>
+                    <button class="report-dialog-btn">复制链接</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    {/literal}
+</script>
+
 <script src="rep-js/jquery-1.9.1.js"></script>
 <script src="rep-js/echarts-all.js"></script>
 <script src="rep-js/common.js"></script>
+<script src="rep-js/jsmart.js"></script>
 <script src="rep-js/expand.js"></script>
 <script src="rep-js/report.js"></script>
 </body>
