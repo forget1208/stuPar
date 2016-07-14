@@ -1060,48 +1060,38 @@
                             <!-- <a href="#" class="stus-topicput">导出错题</a>-->
                         </div>
                         <!--这次考试有进步吗?-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit" id="lazy_historyRank">
                             <p class="fb ft24">这次考试有进步吗?</p>
-                            <p class="col9 ft16 mt5">宏观对比本次考试的成绩情况</p>
+                            <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
                         </div>
-                        <div class="rep-botbg-b">
+                        <div class="rep-botbg-b historyRankTableSinger" id="historyRankTableSingerPar">
                             <table class="protest">
                                 <tr>
-                                    <td class="left"><b>对比于历次考试，可以看
-                                        出你的孩子在语文，数学，
-                                        英语学科上表现发挥比较
-                                        平稳，总体呈现上升趋势。</b>物理、化学波动较大,时而考的好，时而考
-                                        的较差；地理、生物持续下滑，要特别注
-                                        意！对于波动较大学科，家长要帮助孩子
-                                        查找原因，是不同模块知识难度的影响还
-                                        是考前复习投入程度的原因。对于持续下
-                                        滑的学科，更要注意，不要因此挫伤孩子
-                                        的学习兴趣和积极性，要多鼓励，适时补
-                                        习。</td>
+                                    <td class="left"></td>
                                     <td class="right">
                                         <div class="clearfix">
                                             <div class="tab clearfix fl ">
-                                                <a href="#" class="gradeall on">全部</a>
-                                                <a href="#" class="grade">本年级</a>
+                                                <a href="javascript:;" class="gradeall on">本班级</a>
+                                                <a href="javascript:;" class="grade">本年级</a>
                                             </div>
-                                            <div class="col6 fl mt30 ml20">本学期考试你在全班的位置分别是</div>
+                                            <div class="col6 fl mt30 ml20"></div>
                                         </div>
                                         <div class="chart tc">
-                                            <img src="rep-images/forc.png">
+                                            <div id="historyRankChartSingerPar" style="height: 280px"></div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <!--各分数段人数-->
-                        <div class="fircompare rep-botbg-b">
+                        <div class="fircompare rep-botbg-b examChart" id="examChartPar">
                             <div class="rep-modtit">
                                 <p class="fb ft24">各分数段人数</p>
                             </div>
                             <div class="rep-tab clearfix " style="margin-top: -5px;">
                                 <ul>
-                                    <li><a href="#" class="left on">本班</a></li>
-                                    <li><a href="#" class="right">本年级</a></li>
+                                    <li><a href="javascript:;" class="left classScope on">本班</a></li>
+                                    <li><a href="javascript:;" class="right gradeScope">本年级</a></li>
                                 </ul>
                             </div>
                             <div>
@@ -1109,10 +1099,10 @@
                                     <dd>
                                         <table class="protest" style="margin-top: 40px;">
                                             <tr>
-                                                <td class="left"><b>第2、15题很少人做对，你就是其中之一噢！你的学霸之气又显露出来了</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存在误区。而且，你也不够细心哦。</td>
+                                                <td class="left"></td>
                                                 <td class="right">
-                                                    <div class="chart tc">
-                                                        <img src="rep-images/forh.png">
+                                                    <div class="chart tc scorePartsChartSinger">
+                                                        <div id="scorePartsChartSingerPar" style="height: 320px"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1123,56 +1113,16 @@
                             </div>
                         </div>
                         <!--考试难度-->
-                        <div class="fircompare rep-botbg-b">
+                        <div class="fircompare rep-botbg-b lazy_examDif" id="lazy_examDifPar">
                             <div class="rep-modtit">
                                 <p class="fb ft24">考试难度</p>
                             </div>
 
-                            <table class="protest" style="margin-top: 40px;">
+                            <table class="protest examDifInfo" style="margin-top: 40px;" id="examDifInfoPar">
                                 <tr>
-                                    <td class="left"><b>本次考试平均分比上次高5分，75%
-                                        的同学这次的成绩高于上次。而你的
-                                        孩子成绩提高幅度低于平均，因此排
-                                        名下降了。</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存
-                                        在误区。而且，你也不够细心哦。</td>
+                                    <td class="left"></td>
                                     <td class="right">
-                                        <div class="par-qk-dif">本次试卷的难度相比上次有所降低</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="protest" style="margin-top: 40px;">
-                                <tr>
-                                    <td class="left"><b>本次考试平均分比上次高5分，75%
-                                        的同学这次的成绩高于上次。而你的
-                                        孩子成绩提高幅度低于平均，因此排
-                                        名下降了。</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存
-                                        在误区。而且，你也不够细心哦。</td>
-                                    <td class="right">
-                                        <div class="par-qk-dif par-qk-difb">本次试卷的难度相比上次有所降低</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="protest" style="margin-top: 40px;">
-                                <tr>
-                                    <td class="left"><b>本次考试平均分比上次高5分，75%
-                                        的同学这次的成绩高于上次。而你的
-                                        孩子成绩提高幅度低于平均，因此排
-                                        名下降了。</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存
-                                        在误区。而且，你也不够细心哦。</td>
-                                    <td class="right">
-                                        <div class="par-qk-dif par-qk-difc">本次试卷的难度相比上次有所降低</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="protest" style="margin-top: 40px;">
-                                <tr>
-                                    <td class="left"><b>本次考试平均分比上次高5分，75%
-                                        的同学这次的成绩高于上次。而你的
-                                        孩子成绩提高幅度低于平均，因此排
-                                        名下降了。</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存
-                                        在误区。而且，你也不够细心哦。</td>
-                                    <td class="right">
-                                        <div class="par-qk-dif par-qk-difd">本次试卷的难度相比上次有所降低</div>
+                                        <div class="par-qk-dif" id="difTip"></div>
                                     </td>
                                 </tr>
                             </table>
