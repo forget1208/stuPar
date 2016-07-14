@@ -141,7 +141,7 @@ Report.init = function () {
     elements.loseScoreTable = $('.loseScoreTable');
     elements.rankTable = $(".rankTable");
 
-    elements.lazy_topic = $('#lazy_topic');
+    elements.lazy_topic = $('.lazy_topic');
     elements.historyRankTableSinger = $('.historyRankTableSinger');
     elements.examChart = $('.examChart');
 };
@@ -1681,18 +1681,6 @@ reportCtrl.parSinger = (function(){
     return parSinger;
 })();
 
-var lazyCtrl = {
-
-    init: function(){
-        //对可视区域进行懒加载
-        var Winload = $class(Lazyload, proto);
-
-
-
-
-    }
-};
-
 var chartUtil = {
     /**
      * 绑定图表数据
@@ -2226,8 +2214,14 @@ var TopicCollect = (function () {
             }
             else {
                 //显示没有题目的相关信息
-                $('#topicNumberList').text("暂无相关题目");
-                $('#topicCollectProblemAnalysis').parent().hide();
+                if (Report.role == 'student'){
+                    $('#topicNumberList').text("暂无相关题目");
+                    $('#topicCollectProblemAnalysis').parent().hide();
+                }
+                else {
+                    $('#topicNumberListPar').text("暂无相关题目");
+                    $('#topicCollectProblemAnalysisPar').parent().hide();
+                }
             }
         });
     };
@@ -2375,7 +2369,8 @@ var TopicCollect = (function () {
      * @param callback
      */
     topicCollect.prototype.getWrongTopicList = function (callback) {
-        var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
+        var url = "18.txt";
+        // var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
         var userId = currentUser.id;
         var paperId = Request.QueryString("paperId");
         $.getJSON(url, {userId: userId, paperId: paperId, pageIndex: 1, pageSize: 10}, callback);
@@ -2387,7 +2382,8 @@ var TopicCollect = (function () {
      * @param callback
      */
     topicCollect.prototype.getUserSubjectClassRank = function (score, callback) {
-        var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
+        var url = "19.txt";
+        // var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
         var paperId = Request.QueryString("paperId");
         var classId = Request.QueryString("classId");
         var userId = currentUser.id;
