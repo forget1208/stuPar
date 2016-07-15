@@ -384,12 +384,12 @@
                             <!--</p>-->
                         </div>
                         <!--我的得分率与其他同学的对比-->
-                        <div class="fircompare rep-botbg-b">
+                        <div class="fircompare rep-botbg-b" id="compareStudentScore">
                             <p class="tc ft20 stu-gary mt30 mb40">我的得分率与其他同学的对比</p>
                             <div class="rep-tab clearfix ">
-                                <ul>
-                                    <li><a href="javascript:void(0);" class="left on">本班</a></li>
-                                    <li><a href="javascript:void(0);" class="right">本年级</a></li>
+                                <ul class="_compare">
+                                    <li><a href="javascript:void(0);" id="compareClass" class="left on">本班</a></li>
+                                    <li><a href="javascript:void(0);" id="compareGrade" class="right">本年级</a></li>
                                 </ul>
                             </div>
                             <div>
@@ -397,10 +397,12 @@
                                     <dd>
                                         <table class="protest" style="margin-top: 40px;">
                                             <tr>
-                                                <td class="left"><b>第8、9、16题做对的人很多哦，你怎么这么粗心呢？第2、15题很少人做对，你就是其中之一噢！你的学霸之气又显露出来了！</b>你在中档题失分比较多，说明你对知识点的基本知识、难点都掌握得比较好，但个别易错点、易混淆点还存在误区。而且，你也不够细心哦。</td>
+                                                <td class="left" >
+                                                    <b><div id="_tipId"></div></b>
+                                                    <div id="_tipId1"></div></td>
                                                 <td class="right">
-                                                    <div class="chart tc">
-                                                        <img src="rep-images/fore.png">
+                                                    <div class="chart tc" id="subjectScoreChart" style="height: 440px;">
+
                                                     </div>
                                                 </td>
                                             </tr>
