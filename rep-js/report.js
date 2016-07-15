@@ -95,7 +95,8 @@ Report.init = function () {
     elements.introductionPar = $("#introductionPar");//家长导读信息
     elements.examTable = $("#examTable");//考得怎么样
     elements.examTablePar = $("#examTablePar");//考得怎么样
-    elements.top_subjectList = $(".top_subjectList");//科目列表
+    elements.top_subjectList = $("#top_subjectList");//科目列表
+    elements.top_subjectListPar = $("#top_subjectListPar");//科目列表
 
 
     elements.loadCompareTable = $('.loadCompareTable');
@@ -197,9 +198,11 @@ Report.allSingerTab = function () {
     $(this).addClass('on').parent().siblings().children().removeClass('on');
     if (Report.role == 'student') {
         elements.subjectName2.text($(this).text());
+        var paperId = elements.top_subjectList.find('a.on').attr('paperId');
     }
     else {
         elements.subjectName2Par.text($(this).text());
+        var paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
     }
     if ($(this).parent().parent().parent().parent().find('div').hasClass('warp-ul-stu')) {
         $('.rep-stu-content').eq(index).show().siblings('.rep-stu-content').hide();
@@ -207,9 +210,8 @@ Report.allSingerTab = function () {
         $('.rep-par-content').eq(index).show().siblings('.rep-par-content').hide();
     }
 
-
     var topicCollectionObj = new TopicCollect();
-    topicCollectionObj.init();
+    topicCollectionObj.init(paperId);
 
     var report = new reportCtrl.parSinger();
     report.init();
@@ -241,18 +243,20 @@ Report.allSingerTab = function () {
     // tipsUtilStu.init();
 };
 
-Report.allSingerTabHandler = function (subjectName) {
+Report.allSingerTabHandler = function (subjectName,paperId) {
     if (Report.role == 'student') {
         $('.rep-stu-content').eq(1).show().siblings('.rep-stu-content').hide();
         elements.subjectName2.text(subjectName);
+        var paperId = elements.top_subjectList.find('a.on').attr('paperId');
     }
     else {
         $('.rep-par-content').eq(1).show().siblings('.rep-par-content').hide();
         elements.subjectName2Par.text(subjectName);
+        var paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
     }
 
     var topicCollectionObj = new TopicCollect();
-    topicCollectionObj.init();
+    topicCollectionObj.init(paperId);
 
     var report = new reportCtrl.parSinger();
     report.init();
@@ -426,7 +430,7 @@ Report.bindUserExamData = function (data) {
                 _this.children().find('a').removeClass('on');
                 _this.children().eq(i).find('a').addClass('on');
                 console.log(_this.children().eq(i).find('a').html());
-                Report.allSingerTabHandler(_this.children().eq(i).find('a').html());
+                Report.allSingerTabHandler(_this.children().eq(i).find('a').html(),paperId);
                 return;
 
             }
@@ -468,10 +472,10 @@ Report.subjectList = function () {
         // subjectPaperId.push(userExamDataList[i].paperId);
         for (j = 0; j < subjectName.length; j++) {
             if (subjectName[j] == '总分') {
-                elements.top_subjectList.append('<li><a href="javascript:void(0);" class="on">全科</a>')
+                $('.top_subjectList').append('<li><a href="javascript:void(0);" class="on">全科</a>')
             }
             else {
-                elements.top_subjectList.append('<li><a href="javascript:void(0);" paperId="'+ subjectPaperId[j] + '">' + subjectName[j] + '</a>');
+                $('.top_subjectList').append('<li><a href="javascript:void(0);" paperId="'+ subjectPaperId[j] + '">' + subjectName[j] + '</a>');
             }
             //全科/单科
             $('.top_subjectList li a').bind('click',Report.allSingerTab);
@@ -1515,7 +1519,7 @@ Report.bindUserExamDataPar = function () {
                 _this.children().find('a').removeClass('on');
                 _this.children().eq(i).find('a').addClass('on');
                 console.log(_this.children().eq(i).find('a').html());
-                Report.allSingerTabHandler(_this.children().eq(i).find('a').html());
+                Report.allSingerTabHandler(_this.children().eq(i).find('a').html(),paperId);
                 return;
 
             }
@@ -2376,9 +2380,11 @@ var TopicCollect = (function () {
     var topicCollect = function () {
         this.topics = [];
         this.pageCount = 0;
+        this.paperId = '';
     };
 
-    topicCollect.prototype.init = function () {
+    topicCollect.prototype.init = function (paperId) {
+        this.paperId = paperId;
         this.initErrTopicHtml();
     };
 
@@ -2573,7 +2579,7 @@ var TopicCollect = (function () {
         var url = "18.txt";
         // var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
         var userId = currentUser.id;
-        var paperId = Request.QueryString("paperId");
+        // var paperId = Request.QueryString("paperId");
         $.getJSON(url, {userId: userId, paperId: paperId, pageIndex: 1, pageSize: 10}, callback);
     };
 
@@ -2585,7 +2591,7 @@ var TopicCollect = (function () {
     topicCollect.prototype.getUserSubjectClassRank = function (score, callback) {
         var url = "19.txt";
         // var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
-        var paperId = Request.QueryString("paperId");
+        // var paperId = Request.QueryString("paperId");
         var classId = Request.QueryString("classId");
         var userId = currentUser.id;
         //$.getJSON(url, {userId:userId,classId: classId, paperId: paperId, score: score}, callback);
