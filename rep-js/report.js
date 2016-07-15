@@ -197,18 +197,6 @@ Report.allSingerTab = function () {
     else {
         elements.subjectName2Par.text($(this).text());
     }
-
-    // var jsmarty = document.createElement('script');
-    // jsmarty.src = 'js/jsmart.js';
-    // body.get
-
-    // document.write('<script src="rep-js/jsmart.js"></script>');
-
-    // for ( var i = 0; i < userExamDataList.length; i++){
-    //     if (userExamDataList[i].subjectName = $(this).text()) {
-    //         var userExamData = userExamDataList[i];
-    //     }
-    // }
     if ($(this).parent().parent().parent().parent().find('div').hasClass('warp-ul-stu')) {
         $('.rep-stu-content').eq(index).show().siblings('.rep-stu-content').hide();
     } else {
@@ -388,16 +376,29 @@ Report.bindUserExamData = function (data) {
             if (data.subjectName == "总分") {
                 examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="score">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
             }
         } else {
             if (data.subjectName == "总分") {
                 examScoreHTML += data.score + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += data.score + '</p><a  href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="score">' + data.subjectName + '</a><a href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+                examScoreHTML += data.score + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score active">' + data.subjectName + '</a><a href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
             }
         }
         examScoreHTML += '</div></div></li>';
+
+        $('a.active').click(function () {
+                var paperId = $(this).attr('paperId');
+                for (i = 0; i < $("#top_subjectList").children().length; i++) {
+                    if ($("#top_subjectList").children().eq(i).find('a').attr('paperId') == paperId) {
+                        $("#top_subjectList").children().find('a').removeClass('on');
+                        $("#top_subjectList").children().eq(i).find('a').addClass('on');
+                    }
+                    return;
+                }
+            }
+        )
+        
         return examScoreHTML;
     }
 };
@@ -406,13 +407,16 @@ Report.bindUserExamData = function (data) {
 Report.subjectList = function () {
     for (var i = 0; i < userExamDataList.length; i++) {
         var subjectName = [];
+        var subjectPaperId = [];
         subjectName.push(userExamDataList[i].subjectName);
+        subjectPaperId.push(userExamDataList[i].paperId);
+        // subjectPaperId.push(userExamDataList[i].paperId);
         for (j = 0; j < subjectName.length; j++) {
             if (subjectName[j] == '总分') {
-                elements.top_subjectList.append('<li><a href="#" class="on">全科</a>')
+                elements.top_subjectList.append('<li><a href="javascript:void(0);" class="on">全科</a>')
             }
             else {
-                elements.top_subjectList.append('<li><a href="#">' + subjectName[j] + '</a>');
+                elements.top_subjectList.append('<li><a href="javascript:void(0);" paperId="'+ subjectPaperId[j] + '">' + subjectName[j] + '</a>');
             }
             //全科/单科
             $('.top_subjectList li a').bind('click',Report.allSingerTab);
@@ -3205,11 +3209,17 @@ var RecommondControl = (function() {
     return recommondControl;
 })();
 
-// 更新 下拉列表
+// 更新考试下拉列表
 Report.UpdateSelectBox= function () {
-    $('.examNameOn').html(userExamArchives[0].examName);
+    var role = Report.role == 'student'?'StuAll':'ParAll';
+    var currentExamId = Request.QueryString("examId");
     for (var i = 0; i < userExamArchives.length; i++) {
-        $('.topSlt').append('<a title="' + userExamArchives[i].examName + '" href="javascript:void(0);" emamId="' + userExamArchives[i].examId + '" clssId="' + userExamArchives[i].classId + '">' + userExamArchives[i].examName + '</a>');
+        var className = '';
+        if (userExamArchives[i].examId == currentExamId) {
+            className = 'on';
+            $('.examNameOn').html(userExamArchives[i].examName);
+        }
+        $('.topSlt').append('<a href="' +  basePath + '/zhixuebao/feesReport/report' + role +'/?examId=' + userExamArchives[i].examId + '&classId=' + userExamArchives[i].classId + '" class="' + className +'">' + userExamArchives[i].examName +'</a>');
     }
 
     $('.examNameOn').click(function () {
@@ -3218,14 +3228,10 @@ Report.UpdateSelectBox= function () {
     });
     
     $('.topSlt a').click(function () {
-        var examId = $(this).attr('emamId');
         var examName = $(this).attr('title');
-        var classId = $(this).attr('classId');
         $('.examNameOn').html(examName);
         $(".topSlt").hide();
         $('.arror-in').toggleClass('arror-up').toggleClass('arror-down');
-        // window.location.href = basePath + "/zhixuebao/feesReport/report" + role + reportType +"/?examId=" + examId + "&classId=" + examClassId;
-        window.location.href = "vip.html" +"/?examId=" + examId + "&classId=" + examClassId;
     });
 };
 
