@@ -243,11 +243,14 @@ Report.allSingerTab = function () {
 
 Report.allSingerTabHandler = function (subjectName) {
     if (Report.role == 'student') {
+        $('.rep-stu-content').eq(1).show().siblings('.rep-stu-content').hide();
         elements.subjectName2.text(subjectName);
     }
     else {
+        $('.rep-par-content').eq(1).show().siblings('.rep-par-content').hide();
         elements.subjectName2Par.text(subjectName);
     }
+
     var topicCollectionObj = new TopicCollect();
     topicCollectionObj.init();
 
@@ -416,13 +419,14 @@ Report.bindUserExamData = function (data) {
 
     $('a.active').click(function () {
         var paperId = $(this).attr('paperId');
-        for (i = 0; i < $("#top_subjectList").children().length; i++) {
-            if ($("#top_subjectList").children().eq(i).find('a').attr('paperId') == paperId) {
-                $("#top_subjectList").children().find('a').removeClass('on');
-                $("#top_subjectList").children().eq(i).find('a').addClass('on');
-                console.log($("#top_subjectList").children().eq(i).find('a').html());
+        var _this = $("#top_subjectList");
 
-                Report.allSingerTabHandler($("#top_subjectList").children().eq(i).find('a').html());
+        for (i = 0; i < _this.children().length; i++) {
+            if (_this.children().eq(i).find('a').attr('paperId') == paperId) {
+                _this.children().find('a').removeClass('on');
+                _this.children().eq(i).find('a').addClass('on');
+                console.log(_this.children().eq(i).find('a').html());
+                Report.allSingerTabHandler(_this.children().eq(i).find('a').html());
                 return;
 
             }
@@ -439,7 +443,7 @@ Report.bindUserExamData = function (data) {
             if (data.subjectName == "总分") {
                 examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score active">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
             }
         } else {
             if (data.subjectName == "总分") {
@@ -1503,6 +1507,21 @@ Report.bindUserExamDataPar = function () {
         examScoreInit = false;
     }
 
+    $('a.active').click(function () {
+        var paperId = $(this).attr('paperId');
+        var _this = $("#top_subjectListPar")
+        for (i = 0; i < _this.children().length; i++) {
+            if (_this.children().eq(i).find('a').attr('paperId') == paperId) {
+                _this.children().find('a').removeClass('on');
+                _this.children().eq(i).find('a').addClass('on');
+                console.log(_this.children().eq(i).find('a').html());
+                Report.allSingerTabHandler(_this.children().eq(i).find('a').html());
+                return;
+
+            }
+        }
+    })
+
     /**
      * 获取学科得分HTML
      */
@@ -1512,13 +1531,13 @@ Report.bindUserExamDataPar = function () {
             if (data.subjectName == "总分") {
                 examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="' + basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">' + data.subjectName + '</a>';
+                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" paperId="' + data.paperId + '" class="ana active">' + data.subjectName + '</a>';
             }
         } else {
             if (data.subjectName == "总分") {
                 examScoreHTML += data.score + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += data.score + '</p><a href="' + basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">' + data.subjectName + '</a>';
+                examScoreHTML += data.score + '</p><a href="javascript:void(0);" paperId="' + data.paperId + '" class="ana active">' + data.subjectName + '</a>';
             }
         }
         return examScoreHTML;
