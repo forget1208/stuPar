@@ -28,6 +28,9 @@ var studentUrl = 'http://localhost:8088/student';
 var introductionStu = {"desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"};
 var introductionPar = {"desc":"您的孩子小明一本次考试在班级中的位置是前56%，处于压力和风险最大的中游段。但是年级位置高于班级位置，很值得欣喜。结合报告中的年级位置和学情弱点分析，才能更清晰地把握我孩子现在的情况。数学学科拖后腿较严重。要引起重视！中间段成绩比较密集，提高一点成绩排名上，尤其是年级排名上都会有很大进步。扬长和补短是提高成绩的两条路径，优势学科的提高潜力往往不如劣势学科大，比如数学学科上，您孩子和前面一名的分差只有几分，作为突破学科来拉动成绩提高还是很合适的。了解是沟通和帮助的第一步。看VIP报告，获得更多孩子的学情诊断和潜力、薄弱项分析。"};
 var knowledges = [{"cityScoreRatio":72,"knowledgeCode":"020549004001004n","knowledgeName":"向量的数量积","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":58,"knowledgeCode":"020549006000001","knowledgeName":"空间几何体的三视图与直观图","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":64,"knowledgeCode":"020549006000002","knowledgeName":"空间几何体的表面积与体积","score":1,"scoreRatio":9,"totalScore":11},{"cityScoreRatio":75,"knowledgeCode":"020549007000002","knowledgeName":"两条直线的位置关系","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":69,"knowledgeCode":"020549007000013n","knowledgeName":"多面体和旋转体上的最短距离（折叠与展开图）","score":7,"scoreRatio":37,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549007002003","knowledgeName":"圆锥曲线综合","score":11,"scoreRatio":37,"totalScore":30},{"cityScoreRatio":63,"knowledgeCode":"020549007002004","knowledgeName":"椭圆","score":10,"scoreRatio":53,"totalScore":19},{"cityScoreRatio":75,"knowledgeCode":"020549007002005","knowledgeName":"双曲线","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":66,"knowledgeCode":"020549007004001","knowledgeName":"圆","score":6,"scoreRatio":25,"totalScore":24},{"cityScoreRatio":65,"knowledgeCode":"020549008000001","knowledgeName":"用样本估计总体","score":6,"scoreRatio":100,"totalScore":6},{"cityScoreRatio":90,"knowledgeCode":"020549008004000n","knowledgeName":"圆的标准方程","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":72,"knowledgeCode":"020549008004003n","knowledgeName":"圆有关的轨迹问题","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008005002n","knowledgeName":"圆与圆的位置关系及判定","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008006000n","knowledgeName":"椭圆的概念及标准方程","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":72,"knowledgeCode":"020549008006002n","knowledgeName":"直线与椭圆的位置关系","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":86,"knowledgeCode":"020549008009006n","knowledgeName":"圆锥曲线中的综合问题","score":9,"scoreRatio":36,"totalScore":25}];
+var classRatioInfo = [{"score":0,"scoreRatio":0,"standardScore":6,"topicNum":1},{"score":0,"scoreRatio":0,"standardScore":6,"topicNum":2},{"score":0.6,"scoreRatio":10,"standardScore":6,"topicNum":3},{"score":5.4,"scoreRatio":90,"standardScore":6,"topicNum":4},{"score":0.6,"scoreRatio":10,"standardScore":6,"topicNum":5},{"score":1.9,"scoreRatio":38,"standardScore":5,"topicNum":6},{"score":1.9,"scoreRatio":38,"standardScore":5,"topicNum":7},{"score":1.9,"scoreRatio":38,"standardScore":5,"topicNum":8},{"score":1.9,"scoreRatio":38,"standardScore":5,"topicNum":9},{"score":1.9,"scoreRatio":38,"standardScore":5,"topicNum":10},{"score":7.5,"scoreRatio":39,"standardScore":19,"topicNum":11},{"score":7.4,"scoreRatio":39,"standardScore":19,"topicNum":12},{"score":8.6,"scoreRatio":45,"standardScore":19,"topicNum":13},{"score":7.1,"scoreRatio":37,"standardScore":19,"topicNum":14},{"score":10.6,"scoreRatio":56,"standardScore":19,"topicNum":15}];
+//单学科每题得分率
+var subjectRatioInfo = [{"score":0,"scoreRatio":0,"standardScore":6,"topicId":"ad1e24a6-77bb-46ad-931e-a14695ba0fb1","topicNum":1},{"score":0,"scoreRatio":0,"standardScore":6,"topicId":"9d74f027-4a70-4bf9-b059-a35c868c1eff","topicNum":2},{"score":0,"scoreRatio":0,"standardScore":6,"topicId":"2af06930-2068-4dd1-8440-e98ad87bf397","topicNum":3},{"score":6,"scoreRatio":100,"standardScore":6,"topicId":"02281279-b917-4d0a-94d1-218b05705eec","topicNum":4},{"score":0,"scoreRatio":0,"standardScore":6,"topicId":"986919e7-21ea-45d7-8e5e-271a575491b6","topicNum":5},{"score":1,"scoreRatio":20,"standardScore":5,"topicId":"c9f3d938-884f-441f-87f4-bd4f0c6927c4","topicNum":6},{"score":1,"scoreRatio":20,"standardScore":5,"topicId":"fb3e566b-1ca5-4179-970c-b999da22e452","topicNum":7},{"score":1,"scoreRatio":20,"standardScore":5,"topicId":"8eeb138a-359e-40ce-adcd-a3d21795029e","topicNum":8},{"score":1,"scoreRatio":20,"standardScore":5,"topicId":"6ab6f00a-173c-4457-8edb-d66dabfbfbcf","topicNum":9},{"score":1,"scoreRatio":20,"standardScore":5,"topicId":"cdf41f3d-f0ea-45f3-a345-701aa492e4fd","topicNum":10},{"score":7,"scoreRatio":37,"standardScore":19,"topicId":"18436dd4-c444-4cd0-9a72-21a2d495d760","topicNum":11},{"score":5,"scoreRatio":26,"standardScore":19,"topicId":"d92cc687-eb6b-48c4-941e-e29927ae1c82","topicNum":12},{"score":1,"scoreRatio":5,"standardScore":19,"topicId":"ab2e33c0-2115-469c-b97c-e95f75380607","topicNum":13},{"score":9,"scoreRatio":47,"standardScore":19,"topicId":"f340d41f-33c0-4d88-89a0-e69b254e1488","topicNum":14},{"score":10,"scoreRatio":53,"standardScore":19,"topicId":"ca4af6d5-e189-4f1c-9be6-b2fd95f2d0db","topicNum":15}];
 var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
 var isHideScore = false;
 var isMobile = '';
@@ -105,15 +108,15 @@ Report.init = function () {
     elements.downPartShow = $('.downPartShow');
     elements.loadPosition = $('.loadPosition');
     elements.loadCompare = $('.loadCompare');
-    elements.subjectScoreRemark = $("#subjectScoreRemark");
+    elements.subjectScoreRemark = $(".subjectScoreRemark");
     elements.historyRankTable = $('.historyRankTable');
     elements.loadEachSubject = $('#loadEachSubject');
-    elements.lostScore_simple = $("#lostScore_simple");
-    elements.lostScore_middle = $("#lostScore_middle");
-    elements.lostScore_hard = $("#lostScore_hard");
-    elements.lostScore_simpleScore = $("#lostScore_simpleScore");
-    elements.lostScore_middleScore = $("#lostScore_middleScore");
-    elements.lostScore_hardScore = $("#lostScore_hardScore");
+    elements.lostScore_simple = $(".lostScore_simple");
+    elements.lostScore_middle = $(".lostScore_middle");
+    elements.lostScore_hard = $(".lostScore_hard");
+    elements.lostScore_simpleScore = $(".lostScore_simpleScore");
+    elements.lostScore_middleScore = $(".lostScore_middleScore");
+    elements.lostScore_hardScore = $(".lostScore_hardScore");
 
     elements.howDoI_best = $(".howDoI_best");
     elements.howDoI_bad = $(".howDoI_bad");
@@ -162,10 +165,12 @@ Report.init = function () {
     elements.recommondInfoPar = $('#recommondInfoPar');
     elements.knows = $("#knows");
     elements.knowsPar = $("#knowsPar");
-
+    
+    elements.userName = $("#userName");
     elements.tips = $("#_tipId"); //哪些题我失误了的所有提示
     elements.tipId1 = $("#_tipId1"); //我的得分率与其他同学的对比
     elements.tipId2 = $("#_tipId2"); //哪些题我失误了的题目难度建议
+    elements.subjectList = $("#subjectList");
 };
 
 //学生/家长 tab
@@ -189,6 +194,7 @@ Report.stuParTab = function () {
     Report.bindCompareData();
     Report.bindHistoryRankData();
     Report.bindHowDoIData();
+    Report.bindExamTask();
 
 
 };
@@ -196,13 +202,14 @@ Report.stuParTab = function () {
 Report.allSingerTab = function () {
     var index = $(this).parent().index();
     $(this).addClass('on').parent().siblings().children().removeClass('on');
+    var paperId
     if (Report.role == 'student') {
         elements.subjectName2.text($(this).text());
-        var paperId = elements.top_subjectList.find('a.on').attr('paperId');
+        paperId = elements.top_subjectList.find('a.on').attr('paperId');
     }
     else {
         elements.subjectName2Par.text($(this).text());
-        var paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
+        paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
     }
     if ($(this).parent().parent().parent().parent().find('div').hasClass('warp-ul-stu')) {
         $('.rep-stu-content').eq(index).show().siblings('.rep-stu-content').hide();
@@ -239,8 +246,8 @@ Report.allSingerTab = function () {
     var compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, Request.QueryString("paperId"), currentUser.id);
     compareCtrl.init();
 
-    // chartUtilStu.init();
-    // tipsUtilStu.init();
+    chartUtilStu.init();
+    tipsUtilStu.init();
 };
 
 Report.allSingerTabHandler = function (subjectName,paperId) {
@@ -283,6 +290,9 @@ Report.allSingerTabHandler = function (subjectName,paperId) {
 
     var compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, Request.QueryString("paperId"), currentUser.id);
     compareCtrl.init();
+
+    chartUtilStu.init();
+    tipsUtilStu.init();
 };
 
 /**
@@ -547,13 +557,11 @@ Report.bindCompareTableData = function () {
         else {
             switch (scope) {
                 case 'class':
-                    $.getJSON("2.txt",
-                    // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByClass/",
+                    $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByClass/",
                         {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
                     break;
                 case 'grade':
-                    $.getJSON("2.txt",
-                    // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByGrade/",
+                    $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByGrade/",
                         {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
                     break;
                 case 'union':
@@ -1205,8 +1213,7 @@ Report.bindHistoryRankData = function () {
 
     var userExamRankHistory = '';
     getScoreImproveIntro(Request.QueryString("examId"), 0);
-    $.getJSON("3.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
             {examId: Request.QueryString("examId"), pageIndex: 1, pageSize: 5}, function (data) {
         userExamRankHistory = data;
         historyRankDataHandle(userExamRankHistory, 0);
@@ -1332,9 +1339,7 @@ Report.bindHistoryRankData = function () {
      * @param scope
      */
     function getScoreImproveIntro(examId, scope) {
-
-        $.getJSON("4.txt",
-        // $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
+        $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
             {examId: examId, role: Report.role, scope: scope}, function(data) {
             var text = '';
             if(!!data && !!data.desc) {
@@ -1377,13 +1382,14 @@ Report.bindHistoryRankData = function () {
 };
 
 /**
- * 绑定失分数据（丢分题难度）
+ * 全科绑定失分数据（丢分题难度）
  */
 Report.bindLoseScoreData = function () {
 
-    $.getJSON("5.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getLostScoreOfDifficulty/",
-        {examId: Request.QueryString("examId")}, function (data) {
+    var _this = this;
+
+    $.getJSON(basePath + "/zhixuebao/feesReport/getLostScoreOfDifficulty/",
+        {examId: Request.QueryString("examId"), paperId:_this.paperId}, function (data) {
         var totalLostScore = 0;
         $.each(data, function(k, v) {
             totalLostScore += v.lostScoreValue;
@@ -1405,10 +1411,8 @@ Report.bindLoseScoreData = function () {
             }
         }
     });
-
-    $.getJSON("6.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
-        {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
+    $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
+        {examId: Request.QueryString("examId"), paperId:_this.paperId, role: Report.role}, function (data) {
         var text = '';
         if(!!data && !!data.desc) {
             text += data.desc;
@@ -1426,8 +1430,7 @@ Report.bindLoseScoreData = function () {
  */
 Report.bindHowDoIData = function () {
 
-    $.getJSON("7.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoTitle/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoTitle/",
         {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
         var subjectName = [];
         var score = [];
@@ -1461,8 +1464,7 @@ Report.bindHowDoIData = function () {
         // elements.howDoI_line2.attr("href", basePath + '/zhixuebao/feesReport/reportParSinger/?paperId=' + examSubjectData2[1].paperId + '&classId=' + examClassId + '&examId=' + examSubjectData2[1].examId);
     });
 
-    $.getJSON("8.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoIntro/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getHowToDoIntro/",
         {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
         var text = '';
         if(!!data && data.length > 0) {
@@ -1482,14 +1484,171 @@ Report.bindHowDoIData = function () {
  */
 Report.bindSummary = function () {
 
-    $.getJSON("9.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getSummaryIntro/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getSummaryIntro/",
         {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
         if(!!data && !!data.desc) {
             elements.summary.text(data.desc);
         }
     });
 };
+
+/**
+ * 考点闯关
+ */
+Report.bindExamTask = function () {
+    var examId = Request.QueryString("examId");
+    var subjectCssList = {"语文": "subbtnb-chinese", "英语": "subbtnb-english", "数学": "subbtnb-math", "化学": "subbtnb-chemistry", "物理": "subbtnb-physical", "生物": "subbtnb-biology", "政治": "subbtnb-politics", "政治2": "subbtnb-politics", "历史": "subbtnb-history", "地理": "subbtnb-geography", "信息技术": "subbtnb-computer", "文综": "subbtnb-heddle", "理综": "subbtnb-daniel", "科学": "subbtnb-science", "全学科": "subbtnb-all"};
+    if (examScoreLine && examScoreLine.length > 0) {
+        elements.loadExamTask.show();
+        $.ajax({
+            url: "26.txt",
+            // url: basePath + "/zhixuebao/studytask/getTaskByExam/",
+            data: {examId: examId},
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                try {
+                    if (data && data.length != 0) {
+                        createTaskHtml(data);
+                    } else {
+                        elements.loadExamTask.hide();
+                    }
+                } catch (e) {
+                    elements.loadExamTask.hide();
+                }
+            },
+            error: function (data) {
+                elements.loadExamTask.hide();
+            }
+        });
+    } else {
+        elements.loadExamTask.hide();
+    }
+
+    function createTaskHtml(data) {
+        var html = '';
+        var size = data.length;
+        var num = 0;
+        for (var i = 0; i < size; i++) {
+            if (!data[i].missions || ( data[i].missions && data[i].missions.length == 0)) {
+                num++;
+                continue;
+            }
+            var css = subjectCssList[data[i].subjectName] || subjectCssList["全学科"];
+            html += '<div class="cg-report-pane clearfix">';
+            html += '<div class="left fl"><div class="icon"><div class="subbtnb ' + css + '"></div></div>';
+            html += '<p class="sub">' + data[i].subjectName + '</p>';
+            html += '<p class="col6 ft14 tc">共计' + data[i].missions.length + '个知识点需要立马掌握</p></div>';
+            html += '<div class="cg-mod">';
+            var missions = data[i].missions;
+            var count = missions && missions.length;
+            for (var j = 0; j < count; j++) {
+                if (missions[j].locked) {
+                    html += '<a href="javascript:void(0);" title="' + filterKnowledgeName(missions[j].knowledge.knowledgeName) + '" class="cg-mod-lock rel">';
+                } else {
+                    if (((j + 1) == count) && ((i + 1) == size)) {
+                        html += '<a href="' + basePath + '/zhixuebao/studytask/index/?subjectCode=' + data[i].subjectCode + '&knowledge=' +
+                            missions[j].knowledge.knowledgeCode + '&missionId=' + missions[j].missionId + '&examId=' + examId + '&last=true&flag=list" class="cg-mod-nor rel last">';
+                    } else {
+                        html += '<a href="' + basePath + '/zhixuebao/studytask/index/?subjectCode=' + data[i].subjectCode + '&knowledge=' +
+                            missions[j].knowledge.knowledgeCode + '&missionId=' + missions[j].missionId + '&examId=' + examId + '&last=false&flag=list" class="cg-mod-nor rel">';
+                    }
+                }
+                html += '<p class="ft14 col3 txt"><b>关卡' + (j + 1) + '：</b>' + interceptString(filterKnowledgeName(missions[j].knowledge.knowledgeName), 36, true) + '</p>';
+                html += '<div style="display:none;" class="percent-warp"><div class="percent-mor" style="width: 20%;"></div></div><div class="clearfix star-posi">';
+                if (missions[j].locked) {
+                    html += '<div class="fen-lock"></div>';
+                } else {
+                    var star = 0;
+                    if (missions[j].scoredOne) {
+                        star++;
+                    }
+                    if (missions[j].scoredTwo) {
+                        star++;
+                    }
+                    if (missions[j].scoredThree) {
+                        star++;
+                    }
+                    if (star == 1) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    } else if (star == 2) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    } else if (star == 3) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                    } else {
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    }
+                }
+                html += '</div>';
+                html += '</a>';
+            }
+            html += '</div>';
+            html += '</div>';
+        }
+        if (size == num) {
+            elements.loadExamTask.hide();
+        } else {
+            //演示用的名称替换
+            /*if(currentUser.id == "2244000020000036254" || currentUser.id == "2000000020000265988" || currentUser.id == "2244000020000155153"){
+             html = html.replace("全等三角形的判定", "全等三角形的性质");
+             html = html.replace("勾股定理", "全等三角形的判定");
+             html = html.replace("旋转的性质", "等腰三角形的性质");
+
+             html = html.replace("等腰三角形的判定", "全等三角形的性质");
+             html = html.replace("等式的性质", "等腰三角形的性质");
+
+             }*/
+            elements.loadExamTask.find(".cg-report").html(html);
+
+            //演示用
+            if(currentUser.id == "2244000020000036254" || currentUser.id == "2000000020000265988" || currentUser.id == "2244000020000155153"){
+                var as = $("div.cg-report-pane:first .cg-mod a");
+                var p = $("div.cg-report-pane:first .cg-mod a>p");
+                var tp0 = '<p class="ft14 col3 txt"><b>关卡1：</b>全等三角形的性质</p>';
+                var tp1 = '<p class="ft14 col3 txt"><b>关卡2：</b>全等三角形的判定</p>';
+                var tp2 = '<p class="ft14 col3 txt"><b>关卡3：</b>等腰三角形的性质</p>';
+
+                $(p[0]).replaceWith(tp0);
+                $(p[1]).replaceWith(tp1);
+                $(p[2]).replaceWith(tp2);
+
+                /* 第一个链接给第二个*/
+                var demo1 = as[0];//第一个
+                var herf1 = $(demo1).attr("href");
+                var demo2 = as[1];//第二个
+                $(demo2).attr("href",herf1);
+
+                /*第一个添加新链接
+                 * /zhixuebao/studytask/index/?subjectCode=
+                 * ["020449003002007n","020449004001000n","020449003003010n"];
+                 * */
+                herf1 = basePath + "/zhixuebao/studytask/index/";
+                var para = "?subjectCode=02&knowledge=020449003002008n&last=false&flag=list";//拼接新链接020449003003010n
+                para = para + "&missionId=3ef2605b8961f2b261a8df53584dd649&examId=c4a0db83-98bc-4c10-8c86-09b84f52bfc0";//missionId=de4fd4f326d29fab702cc7dfac4270ac
+                para += "&demo=1";
+                $(demo1).attr("href",herf1+para);
+
+                var demo3 = as[2];//第三个链接去掉
+                $(demo3).attr("href","javascript:void(0);");
+                $(demo3).css('cursor','default');
+            }
+
+        }
+    }
+
+    function filterKnowledgeName(name) {
+        var ary = name.split('>>');
+        return ary.length == 1 ? ary[0] : ary[ary.length - 1];
+    }
+}
 
 /**
  * 家长端 绑定用户考试信息（孩子考得怎么样）
@@ -1561,8 +1720,7 @@ Report.bindLoseScoreDataPar = function () {
     //是否丢分、丢分率相同
     var isDifficultyEqual = true;
     //获取文案
-    $.getJSON("10.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
         {examId: Request.QueryString("examId"), role: Report.role}, function (data) {
         var text = '';
         if(!!data && !!data.desc) {
@@ -1573,8 +1731,7 @@ Report.bindLoseScoreDataPar = function () {
         }
         elements.loseScoreTable.find('.left').html(text);
     });
-    $.getJSON("5.txt",
-    // $.getJSON(basePath + "/zhixuebao/feesReport/getLostScoreOfDifficulty/",
+    $.getJSON(basePath + "/zhixuebao/feesReport/getLostScoreOfDifficulty/",
         {examId: Request.QueryString("examId")}, function (data) {
         lostDifficultyData = data;
         //这里对数据进行排序，使丢分最多、丢分率最多的排前面
@@ -1873,10 +2030,10 @@ reportCtrl.parSinger = (function(){
 // };
 
 var chartUtil = {
-    /**
-     * 绑定图表数据
-     * @param chartParams
-     */
+//     /**
+//      * 绑定图表数据
+//      * @param chartParams
+//      */
     bindScorePartsChart: function(chartParams){
 
         var dataFormatter = [];
@@ -2261,8 +2418,7 @@ var dataUtil = {
      * @param callback
      */
     getClassScoreParts: function(callback) {
-        var url = "13.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getClassScoreParts/";
+        var url = basePath + "/zhixuebao/feesReport/getClassScoreParts/";
         //$.getJSON(url,{"classId":classId,"paperId":Request.QueryString("paperId")},callback);
         $.getJSON(url,{"classId":"","paperId":""},callback);
     },
@@ -2271,8 +2427,7 @@ var dataUtil = {
      * @param callback
      */
     getGradeScoreParts: function(callback) {
-        var url = "14.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getSchoolScoreParts/";
+        var url = basePath + "/zhixuebao/feesReport/getSchoolScoreParts/";
         $.getJSON(url,{"paperId":Request.QueryString("paperId")},callback);
     },
     /**
@@ -2280,8 +2435,7 @@ var dataUtil = {
      * @param callback
      */
     getSummaryOfScorePhaseInfo: function(callback) {
-        var url = "15.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getSummaryOfScorePhaseInfo/";
+        var url = basePath + "/zhixuebao/feesReport/getSummaryOfScorePhaseInfo/";
         $.getJSON(url,{"examId":Request.QueryString("examId"),"paperId":Request.QueryString("paperId")},callback);
     },
     /**
@@ -2576,11 +2730,11 @@ var TopicCollect = (function () {
      * @param callback
      */
     topicCollect.prototype.getWrongTopicList = function (callback) {
-        var url = "18.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
+        var _this = this;
+        var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
         var userId = currentUser.id;
         // var paperId = Request.QueryString("paperId");
-        $.getJSON(url, {userId: userId, paperId: paperId, pageIndex: 1, pageSize: 10}, callback);
+        $.getJSON(url, {userId: userId, paperId:_this.paperId, pageIndex: 1, pageSize: 10}, callback);
     };
 
     /**
@@ -2589,8 +2743,8 @@ var TopicCollect = (function () {
      * @param callback
      */
     topicCollect.prototype.getUserSubjectClassRank = function (score, callback) {
-        var url = "19.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
+        var _this = this;
+        var url = basePath + "/zhixuebao/feesReport/getUserSubjectClassRankNew/";
         // var paperId = Request.QueryString("paperId");
         var classId = Request.QueryString("classId");
         var userId = currentUser.id;
@@ -2600,7 +2754,7 @@ var TopicCollect = (function () {
             type:'GET',
             contentType:'JSON',
             async:false,
-            data:{userId:userId,classId: classId, paperId: paperId, score: score},
+            data:{userId:userId,classId: classId, paperId:_this.paperId, score: score},
             cache:true,
             success:callback
         });
@@ -2646,12 +2800,11 @@ var forewordCtrl = (function(){
     var forewordCtrl  = function(){};
 
     forewordCtrl.prototype.init = function(){
-
+        var _this = this;
         var userExamRankHistory = '';
         getScoreImproveIntro(Request.QueryString("examId"), Request.QueryString("paperId"), 0);
-        $.getJSON("11.txt",
-        // $.getJSON(basePath + "/zhixuebao/feesReport/getUserSubjectRankHistory/",
-            {userId: currentUser.id, paperId: Request.QueryString("paperId"), pageIndex: 1, pageSize: 5}, function (data) {
+        $.getJSON(basePath + "/zhixuebao/feesReport/getUserSubjectRankHistory/",
+            {userId: currentUser.id, paperId:_this.paperId, pageIndex: 1, pageSize: 5}, function (data) {
             userExamRankHistory = data;
             historyRankDataHandle(userExamRankHistory, 0);
         });
@@ -2794,10 +2947,9 @@ var forewordCtrl = (function(){
          * @param scope
          */
         function getScoreImproveIntro(examId, paperId, scope) {
-
-            $.getJSON("12.txt",
-            // $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
-                    {examId: examId, paperId: paperId, role: Report.role, scope: scope}, function(data) {
+            var _this = this;
+            $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
+                    {examId: examId, paperId:_this.paperId, role: Report.role, scope: scope}, function(data) {
                 var text = '';
                 if(!!data && !!data.desc) {
                     text += '<b>' + data.desc + '</b>';
@@ -2885,16 +3037,15 @@ var examCompare = (function(){
     };
 
     examCompare.prototype.getLastExamText = function(callback) {
-
+        var _this = this;
         var url = '16.txt';
         // var url = basePath + '/zhixuebao/feesReport/getSummaryOfDifficultyInfo/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:Report.role},callback);
+        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:_this.paperId,role:Report.role},callback);
     };
 
     examCompare.prototype.getLastExamCompareResult = function(callback){
 
-        var url = "17.txt";
-        // var url = basePath + "/zhixuebao/feesReport/getLastExamCompareResult/";
+        var url = basePath + "/zhixuebao/feesReport/getLastExamCompareResult/";
         $.getJSON(url,{"userId":currentUser.id,"paperId":Request.QueryString("paperId")},callback);
     };
 
@@ -2930,9 +3081,9 @@ var Difficulty = (function() {
         //是否丢分、丢分率相同
         var isDifficultyEqual = true;
         //获取文案
-        $.getJSON("24.txt",
-            // $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
-            {examId: Request.QueryString("examId"), paperId: Request.QueryString("paperId"), role: Report.role}, function (data) {
+        var _this = this;
+            $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
+            {examId: Request.QueryString("examId"), paperId:_this.paperId, role: Report.role}, function (data) {
                 var text = '';
                 if(!!data && !!data.desc) {
                     text += data.desc;
@@ -2947,9 +3098,8 @@ var Difficulty = (function() {
                     elements.loseScoreTablePar.find('.left').html(text);
                 }
             });
-        $.getJSON("23.txt",
-            // $.getJSON(basePath + "/zhixuebao/feesReport/getSubjectLostScoreByDifficulty/",
-            {userId:currentUser.id,paperId:Request.QueryString("paperId")}, function (data) {
+            $.getJSON(basePath + "/zhixuebao/feesReport/getSubjectLostScoreByDifficulty/",
+            {userId:currentUser.id,paperId:_this.paperId}, function (data) {
                 lostDifficultyData = data;
                 //这里对数据进行排序，使丢分最多、丢分率最多的排前面
                 for (var i = 0; i < lostDifficultyData.length; i++) {
@@ -3134,15 +3284,16 @@ var KnowledgeControl = (function() {
     };
 
     knowledgeControl.prototype.getKnowledgeCountInfo = function(callback){
+        var _this = this;
         var url = '20.txt';
         // var url = basePath + '/zhixuebao/feesReport/getKnowledgeInfo/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:Report.role},callback);
+        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:_this.paperId,role:Report.role},callback);
     };
 
     return knowledgeControl;
 })();
 
-//TOP10
+// TOP10
 var TopTopic = (function() {
 
     var topTopic = function(){};
@@ -3176,10 +3327,10 @@ var TopTopic = (function() {
         });
     };
 
-    // topTopic.prototype.getTopicData = function(callback){
-    //     var url = basePath + '/zhixuebao/feesReport/getCityTopKnowledges/';
-    //     $.getJSON(url,{classId:classId,paperId:Request.QueryString("paperId")},callback);
-    // };
+    topTopic.prototype.getTopicData = function(callback){
+        var url = basePath + '/zhixuebao/feesReport/getCityTopKnowledges/';
+        $.getJSON(url,{classId:classId,paperId:Request.QueryString("paperId")},callback);
+    };
 
     topTopic.prototype.dataFormatter = function(data) {
         var tmpData = data;
@@ -3275,15 +3426,17 @@ var RecommondControl = (function() {
     };
 
     recommondControl.prototype.getRecommondControlInfo = function(callback){
+        var _this = this;
         var url = '21.txt';
         // var url = basePath + '/zhixuebao/feesReport/getKnowledgeDetail/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:'parent'},callback);
+        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:_this.paperId,role:'parent'},callback);
     };
 
     recommondControl.prototype.getRecommondControlData = function(callback) {
+        var _this = this;
         var url = '22.txt';
         // var url = basePath + '/zhixuebao/feesReport/getLearnKnowledgeList/';
-        $.getJSON(url,{paperId:Request.QueryString("paperId")},callback);
+        $.getJSON(url,{paperId:_this.paperId},callback);
     };
 
     return recommondControl;
@@ -3337,9 +3490,9 @@ var tipsUtilStu = {
                 $('#_tipId').text(tips[1]['title']);
                 $('#_tipId1').text(tips[1]['desc']);
             }else{
-                $.get("25.txt",
-                // $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
-                    {examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:"student", scope:1},function(data){
+                var _this = this;
+                $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
+                    {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:1},function(data){
                     tipsStudentInfo[1] =$.parseJSON(data);
                     tips[1]=$.parseJSON(data);
                     $('#_tipId').text(tips[1]['title']);
@@ -3352,9 +3505,9 @@ var tipsUtilStu = {
                 $('#_tipId').text(tips[0]['title']);
                 $('#_tipId1').text(tips[0]['desc']);
             }else{
-                $.get("25.txt", 
-                // $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
-                    {examId:Request.QueryString("examId"),paperId:Request.QueryString("paperId"),role:"student", scope:0},function(data){
+                var _this = this;
+                $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
+                    {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:0},function(data){
                     tipsStudentInfo[0] =$.parseJSON(data);
                     tips[0] = $.parseJSON(data);
                     $('#_tipId').text(tips[0]['title']);
@@ -3420,6 +3573,21 @@ var tipsUtilStu = {
             }
         }
 
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName == elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName == elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+
+        }
+
         //丢分情况，判断该怎么提示
         if (lostOne != null) {
             if (lostOne.lostScoreTypeName == "难题") {
@@ -3466,7 +3634,7 @@ var tipsUtilStu = {
         var tip = "";
         if (_ratios.length == 1) {
             tip = "我只知道你一次考试成绩，还需要时间来了解你哦！";
-        } else if (dataUtil.isMaxScore(ranks)) {
+        } else if (dataUtilStu.isMaxScore(ranks)) {
             if (userExamData.subjectCode == "01" || userExamData.subjectCode == "01A") {
                 title = "语文学习渐入佳境，最高成绩出现！";
                 tip = "语文学科创历史新高了！语文上的每一点进步都很不容易，因为背后都是每一天的坚持换来的。一定要总结自己的学习方法，基础知识多记多练，坚持多阅读多感悟，多摘抄多练笔，这就是语文的捷径了。";
@@ -3474,7 +3642,7 @@ var tipsUtilStu = {
                 title = "当当当当！个人最好成绩出现了！";
                 tip = "这一刻应该与家人朋友分享啊！相信你以后还会创造新的记录！";
             }
-        } else if (dataUtil.isMinScore(ranks)) {
+        } else if (dataUtilStu.isMinScore(ranks)) {
             title = "哎呀呀，这是你发挥最不好的一次。";
             if (userExamData.subjectCode == "01" || userExamData.subjectCode == "01A") {
                 tip = "你语文从来没考的这么糟糕过是吧？比沮丧更重要的是总结教训。是不是最近忽视了语文的学习？是不是该背诵的没好好背？或者最近的阅读文段有点难？又或者，有时候不是你不够努力，只是别人更努力！但是不管怎么样，你都要记住，持每天积累学习，坚持多阅读多感悟，多摘抄多练笔。还可以跟着后面的学习建议及时查漏补缺。";
@@ -3573,26 +3741,26 @@ var CompareCtrl = (function () {
                 params.schoolId = _this.schoolId;
                 params.paperId = _this.paperId;
                 _this.getTopicRatioInfo(id, params, function (data) {
-                    var chartParams = dataUtil.geneChartParams(data);//年级得分率
-                    chartUtil.bindSubjectScoreChartData(chartParams, "年级得分率");
-                    tipsUtil.initTipData(data,id);
+                    var chartParams = dataUtilStu.geneChartParams(data);//年级得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "年级得分率");
+                    tipsUtilStu.initTipData(data,id);
                 });
             } else if (id == "compareNearby") {
                 params.userId = _this.userId;
                 params.paperId = _this.paperId;
                 params.count = _this.count;
                 _this.getTopicRatioInfo(id, params, function (data) {
-                    var chartParams = dataUtil.geneChartParams(data);//相近同学得分率
-                    chartUtil.bindSubjectScoreChartData(chartParams, "相近同学得分率");
-                    tipsUtil.initTipData(data);
+                    var chartParams = dataUtilStu.geneChartParams(data);//相近同学得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "相近同学得分率");
+                    tipsUtilStu.initTipData(data);
                 });
             } else {
                 params.classId = _this.classId;
                 params.paperId = _this.paperId;
                 _this.getTopicRatioInfo(id, params, function (data) {
-                    var chartParams = dataUtil.geneChartParams(data);//班级得分率
-                    chartUtil.bindSubjectScoreChartData(chartParams, "班级得分率");
-                    tipsUtil.initTipData(data);
+                    var chartParams = dataUtilStu.geneChartParams(data);//班级得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "班级得分率");
+                    tipsUtilStu.initTipData(data);
                 });
             }
         });
@@ -3624,7 +3792,7 @@ var chartUtilStu = {
      * 一些初始化信息
      */
     init: function () {
-        this.bindSubjectScoreChartData(dataUtil.geneChartParams(classRatioInfo), "班级得分率");
+        this.bindSubjectScoreChartData(dataUtilStu.geneChartParams(classRatioInfo), "班级得分率");
         this.bindUserExamData();
         //this.bindUserInfo();
         this.initHeadFoot();
@@ -3633,11 +3801,27 @@ var chartUtilStu = {
      * 初始化学生信息
      */
     bindUserExamData: function () {
+
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName == elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName == elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+
+        }
+
         elements.subjectName2.html(userExamData.subjectName);
         elements.examName.html(userExamData.examName);
         elements.userName.html(currentUser.name);
         if (scoreToLevel == true) {
-            elements.rankTable.find('b.stu-yel').html(dataUtil.getScoreToLevel(userExamData.score, userExamData.standardScore));
+            elements.rankTable.find('b.stu-yel').html(dataUtilStu.getScoreToLevel(userExamData.score, userExamData.standardScore));
         } else {
             elements.rankTable.find('b.stu-yel').html(userExamData.score);
         }
@@ -3645,8 +3829,8 @@ var chartUtilStu = {
             elements.rankTable.find('.classAverage').html("--");
             elements.rankTable.find('.gradeAverage').html("--");
         } else if (scoreToLevel == true) {
-            elements.rankTable.find('.classAverage').html(dataUtil.getScoreToLevel(userExamData.classRank.avgScore, userExamData.standardScore));
-            elements.rankTable.find('.gradeAverage').html(dataUtil.getScoreToLevel(userExamData.gradeRank.avgScore, userExamData.standardScore));
+            elements.rankTable.find('.classAverage').html(dataUtilStu.getScoreToLevel(userExamData.classRank.avgScore, userExamData.standardScore));
+            elements.rankTable.find('.gradeAverage').html(dataUtilStu.getScoreToLevel(userExamData.gradeRank.avgScore, userExamData.standardScore));
         } else {
             elements.rankTable.find('.classAverage').html(userExamData.classRank.avgScore);
             elements.rankTable.find('.gradeAverage').html(userExamData.gradeRank.avgScore);
@@ -3655,8 +3839,8 @@ var chartUtilStu = {
             elements.rankTable.find('.classPosition').html("--");
             elements.rankTable.find('.gradePosition').html("--");
         } else if (ratioToLevel == true) {
-            elements.rankTable.find('.classPosition').html('前<b>' + (100 - dataUtil.getRatioToLevel(userExamData.classRank.ratio)) + '%</b>');
-            elements.rankTable.find('.gradePosition').html('前<b>' + (100 - dataUtil.getRatioToLevel(userExamData.gradeRank.ratio)) + '%</b>');
+            elements.rankTable.find('.classPosition').html('前<b>' + (100 - dataUtilStu.getRatioToLevel(userExamData.classRank.ratio)) + '%</b>');
+            elements.rankTable.find('.gradePosition').html('前<b>' + (100 - dataUtilStu.getRatioToLevel(userExamData.gradeRank.ratio)) + '%</b>');
         } else {
             elements.rankTable.find('.classPosition').html('前<b>' + (100 - userExamData.classRank.ratio) + '%</b>');
             elements.rankTable.find('.gradePosition').html('前<b>' + (100 - userExamData.gradeRank.ratio) + '%</b>');
@@ -3683,8 +3867,8 @@ var chartUtilStu = {
         examSubjectData = $.grep(userExamDataList, function (n, i) {
             return n.subjectCode;
         });
-        var foot = new Foot(userExamData);
-        foot.init();
+        // var foot = new Foot(userExamData);
+        // foot.init();
         var subjectListHtml = "";
         for (var i = 0; i < examSubjectData.length; i++) {
             var data = examSubjectData[i];
@@ -3920,6 +4104,275 @@ var chartUtilStu = {
 
 };
 
+var dataUtilStu = {
+    /**
+     * 获取学生班级、年级排名信息
+     */
+    getRankTableTemplate: function () {
+        var data = userExamData;
+        var html = __rankTableTemplate__({"rankData": data,
+            "ratioToLevelText": dataUtilStu.ratioToLevelText(data),
+            "scoreToLevelText": dataUtilStu.scoreToLevelText(data),
+            "isForbidAvgScore": dataUtilStu.isForbidAvgScore(forbidAvgScore),
+            "isForbidRatio": dataUtilStu.isForbidRatio(forbidRatio)});
+        return html;
+    },
+    isRatioToLevel: function (isRatioToLevel) {
+        if (isRatioToLevel) {
+            return isRatioToLevel;
+        }
+        return false;
+    },
+    /**
+     * 班级击败比率 等级text。
+     * 上海某些学校要求 将报告中的击败率修改为等级.
+     * add: 2015-12-08
+     */
+    classRatioLeval: function (ueDate) {
+        var data = ueDate;
+        var result = "D";
+        if (data.classRank.ratio >= 75) {
+            result = "A";
+        } else if (data.classRank.ratio >= 50) {
+            result = "B";
+        } else if (data.classRank.ratio >= 25) {
+            result = "C";
+        } else {
+            result = "D";
+        }
+        return result;
+    },
+    /**
+     * 年级击败比率 等级text。
+     * @param ueDate
+     * @returns {String}
+     */
+    gradeRatioLeval: function (ueDate) {
+        var data = ueDate;
+        var result = "D";
+        if (data.gradeRank.ratio >= 75) {
+            result = "A";
+        } else if (data.gradeRank.ratio >= 50) {
+            result = "B";
+        } else if (data.gradeRank.ratio >= 25) {
+            result = "C";
+        } else {
+            result = "D";
+        }
+        return result;
+    },
+
+    /**
+     * 击败比率 等级text。
+     * (包括班级、年级的击败比率)
+     * @param data
+     * @returns {___anonymous8437_8477}
+     */
+    ratioToLevelText: function (data) {
+        var result = {classRatioText: null, gradeRatioText: null};
+        var is = this.isRatioToLevel(ratioToLevel);
+        if (is) {
+            result.classRatioText = this.classRatioLeval(data);
+            result.gradeRatioText = this.gradeRatioLeval(data);
+        }
+        return result;
+    },
+
+
+    /**
+     * 分数转为等级情况下：需展示的等级文本.
+     */
+    scoreToLevelText: function (data) {
+        var result = {classHighScoreText: null, gradeHighScoreText: null, myRankText: null};
+        var is = this.isScoreToLevel(scoreToLevel);
+        if (is) {
+            //满分
+            var sScore = data.standardScore;
+            result.classHighScoreText = this.getScoreToLevel(data.classRank.highScore, sScore);
+            result.gradeHighScoreText = this.getScoreToLevel(data.gradeRank.highScore, sScore);
+            result.myScoreText = this.getScoreToLevel(data.score, sScore);
+        }
+        return result;
+    },
+
+    /**
+     * 是否将分数展示为等级
+     * @param is
+     * @returns 是否
+     */
+    isScoreToLevel: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 分数等级
+     * 安徽某些学校要将 最高分、我的得分展示为等级.
+     * @param score
+     * @param standardScore
+     * @returns {String} 等级[A B C D]
+     */
+    getScoreToLevel: function (score, standardScore) {
+        var level = "D";
+        if (score >= standardScore * 0.85) {
+            level = "A";
+        } else if (score >= standardScore * 0.7) {
+            level = "B";
+        } else if (score >= standardScore * 0.6) {
+            level = "C";
+        } else {
+            level = "D";
+        }
+        return level;
+    },
+
+    /**
+     * 获取击败率等级
+     */
+    getRatioToLevel: function (ratio) {
+        var level = "D";
+        if (ratio >= 75) {
+            level = "A"
+        } else if (ratio >= 50) {
+            level = "B"
+        } else if (ratio >= 25) {
+            level = "C"
+        } else {
+            level = "D"
+        }
+        return level;
+    },
+
+    /**
+     * 是否屏蔽平均分。
+     * (始终展示为 --)
+     * @param is
+     * @returns 是否
+     */
+    isForbidAvgScore: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 是否屏蔽击败比率
+     * @param is
+     * @returns 是否
+     */
+    isForbidRatio: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 获取错题题号列表html
+     */
+    getErrTopicNoTemplate: function (topics) {
+        var html = __errTopicNoTemplate__({"errTopics": topics});
+        return html;
+    },
+
+    /**
+     * 获取错题答案解析html
+     */
+    getErrTopicAnswerTemplate: function (topic, improveRank) {
+        var html = __errTopicAnswerTemplate__({"topic1": topic, "rankImprove": improveRank});
+        return html;
+    },
+    /**
+     * 这里只传入ratioInfo，可能是班级或年级题目得分率信息
+     * 因为始终拿当前学生得分率和班级或年级得分率比较
+     */
+    geneChartParams: function (ratioInfo) {
+        var _subjectRatio = subjectRatioInfo;
+        var _ratioInfo = ratioInfo;
+        if (!_subjectRatio && !_ratioInfo) {
+            return null;
+        }
+        //1.我的得分率
+        var topicNums = [], subjectRatios = [];
+        for (var i = 0, topic; topic = _subjectRatio[i++];) {
+            topicNums.push(topic.topicNum + "题");
+            subjectRatios.push(topic.scoreRatio);
+        }
+
+        //2.班级得分率
+        var ratios = [];
+        for (var i = 0, topic; topic = _ratioInfo[i++];) {
+            ratios.push(topic.scoreRatio);
+        }
+
+        var chartParams = {};
+        chartParams.topicNums = topicNums;//题号
+        chartParams.ratios = subjectRatios;//我的得分率
+        chartParams.ratioInfo = ratios; //班级或年级得分率
+        return chartParams;
+    },
+
+    geneRankChartParams: function (ranks) {
+        if (!ranks) {
+            return null;
+        }
+        var _examNames = [];
+        var _ranks = [];
+        var _thisIndex = -1;
+        for (var i = ranks.length - 1; i >= 0; i--) {
+            _examNames.push(ranks[i].examName);
+            _ranks.push(ranks[i].classRank.ratio);
+            if (userExamData.examId == ranks[i].examId) {
+                _thisIndex = ranks.length - 1 - i;
+            }
+        }
+        var charParams = {};
+        charParams.examNames = _examNames;
+        charParams.ratios = _ranks;
+        charParams.thisIndex = _thisIndex;
+        return charParams;
+    },
+    /**
+     * 从历史考试中判断单科，最后一次考试是否为最高分数
+     */
+    isMaxScore: function (ranks) {
+        if (!ranks || ranks.length == 1) {
+            return false;
+        }
+        var maxScore = 0;
+        for (var i = 1; i < ranks.length; i++) {
+            maxScore = ranks[i].score > maxScore ? ranks[i].score : maxScore;
+        }
+        //最后一次考试 和 以前所有次考试的最高分比较
+        if (ranks[0].score > maxScore) {
+            return true;
+        }
+        return false;
+    },
+    /**
+     * 最后一次考试-是否为最低分
+     * @param ranks
+     * @returns {Boolean}
+     */
+    isMinScore: function (ranks) {
+        if (!ranks || ranks.length == 1) {
+            return false;
+        }
+        var minScore = 999;
+        for (var i = 1; i < ranks.length; i++) {
+            minScore = ranks[i].score < minScore ? ranks[i].score : minScore;
+        }
+        //最后一次考试 和 以前所有次考试的最低分比较
+        if (ranks[0].score < minScore) {
+            return true;
+        }
+        return false;
+    }
+};
+
 $(document).ready(function(){
 
     //学生/家长
@@ -3944,4 +4397,5 @@ $(document).ready(function(){
     Report.bindHowDoIData();
     Report.bindSummary();
     Report.bindLoseScoreDataPar();
+    Report.bindExamTask();
 });

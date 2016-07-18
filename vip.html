@@ -256,23 +256,23 @@
                         <div class="rep-botbg-b">
                             <table class="protest">
                                 <tr>
-                                    <td class="left" id="subjectScoreRemark"></td>
+                                    <td class="left subjectScoreRemark" id="subjectScoreRemark"></td>
                                     <td class="right">
                                         <div class="par-chartk-warp">
                                             <div class="par-chartk tc  rel">
                                                 <div class="easy fl pane">
-                                                    <div class="inner" id="lostScore_simple"></div>
-                                                    <h1 class="ft16 col6">丢 <i id="lostScore_simpleScore">0</i> 分</h1>
+                                                    <div class="inner lostScore_simple" id="lostScore_simple"></div>
+                                                    <h1 class="ft16 col6 lostScore_simpleScore">丢 <i id="lostScore_simpleScore">0</i> 分</h1>
                                                     <h2>简单题</h2>
                                                 </div>
                                                 <div class="nor fl pane">
-                                                    <div class="inner" id="lostScore_middle"></div>
-                                                    <h1 class="ft16 col6">丢 <i id="lostScore_middleScore">0</i> 分</h1>
+                                                    <div class="inner lostScore_middle" id="lostScore_middle"></div>
+                                                    <h1 class="ft16 col6 lostScore_middleScore">丢 <i id="lostScore_middleScore">0</i> 分</h1>
                                                     <h2>中等题</h2>
                                                 </div>
                                                 <div class="hard fl pane">
                                                     <div class="inner" id="lostScore_hard"></div>
-                                                    <h1 class="ft16 col6">丢 <i id="lostScore_hardScore">0</i> 分</h1>
+                                                    <h1 class="ft16 col6 lostScore_hardScore">丢 <i id="lostScore_hardScore">0</i> 分</h1>
                                                     <h2>难题</h2>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -325,21 +325,11 @@
                         <!-- 用户反馈-->
                         {include file="/zhixuebao/feesreport/foot/index.html"}
 
-                        <div class="report-footer" style="display:none;">
-                            <div class="main">
-                                <p class="tit">详细单科报告</p>
 
-                                <div class="report-footer-main tc">
-                                    <a style="display:none;" href="javascript:void(0);" class="pre" id="foot_subjectPre"></a>
-
-                                    <div class="report-footer-ul" style="width:909px;">
-                                        <ul id="foot_subjectList" style="left: 0;position: relative;">
-                                        </ul>
-                                    </div>
-                                    <a style="display:none;" href="javascript:void(0);" class="next" id="foot_subjectNext"></a>
-                                </div>
-                            </div>
-                            <p class="ft">©right;2015 zhixue </p>
+                        <!--考点闯关提分-->
+                        <div class="rep-main mt40 rel" id="loadExamTask">
+                            <div class="rep-main-label">考点闯关提分</div>
+                            <div class="cg-report"></div>
                         </div>
                     </div>
                     <div class="rep-stu-content">
@@ -426,54 +416,56 @@
                             <!-- <a href="#" class="stus-topicput">导出错题</a>-->
                         </div>
                         <!--这次考试有进步吗?-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit lazy_historyRank" id="lazy_historyRank">
                             <p class="fb ft24">这次考试有进步吗?</p>
-                            <p class="col9 ft16 mt5">宏观对比本门学科的考试情况</p>
+                            <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
                         </div>
-                        <div class="rep-botbg-b">
+                        <div class="rep-botbg-b historyRankTableSinger" id="historyRankTableSinger">
                             <table class="protest">
                                 <tr>
-                                    <td class="left"><b>总成绩前期平稳，后期一路向前，进步趋势明显</b></td>
+                                    <td class="left"></td>
                                     <td class="right">
                                         <div class="clearfix">
                                             <div class="tab clearfix fl ">
-                                                <a href="javascript:void(0);" class="gradeall on">全部</a>
-                                                <a href="javascript:void(0);" class="grade">本年级</a>
+                                                <a href="javascript:;" class="gradeall on">本班</a>
+                                                <a href="javascript:;" class="grade">本年级</a>
                                             </div>
-                                            <div class="col6 fl mt30 ml20">本学期考试你在全班的位置分别是</div>
+                                            <div class="col6 fl mt30 ml20"></div>
                                         </div>
                                         <div class="chart tc">
-                                            <img src="rep-images/forc.png">
+                                            <div id="historyRankChartSinger" class="historyRankChartSinger" style="height: 280px"></div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <!--丢分题难度-->
-                        <div class="rep-modtit">
+                        <div class="rep-modtit" id="loseScore">
                             <p class="fb ft24">丢分题难度</p>
-                            <p class="col9 ft16 mt5">简单题失分最多，需要加强基础练习</p>
+                            <p class="col9 ft16 mt5">发现问题，分析问题，总结经验</p>
                         </div>
                         <div class="rep-botbg-b">
                             <table class="protest">
                                 <tr>
-                                    <td class="left"><b>简单题失分最多，需要加强基础练习</b>在基础题上失分多,说明基础不够扎实，不要眼高手低呀!</td>
+                                    <td class="left"> <b><h1 id="subjectScoreTitle"></h1></b>
+
+                                        <h2 id="subjectScoreRemarkSinger" class="subjectScoreRemark"></h2></td>
                                     <td class="right">
                                         <div class="par-chartk-warp">
                                             <div class="par-chartk tc  rel">
                                                 <div class="easy fl pane">
-                                                    <div class="inner" style="height:200px;"></div>
-                                                    <h1 class="ft16 col6">丢 <i>20</i> 分</h1>
+                                                    <div class="inner lostScore_simple" style="height:200px;"id="lostScore_simpleSinger"></div>
+                                                    <h1 class="ft16 col6 lostScore_simpleScore">丢 <i id="lostScore_simpleScoreSinger">0</i> 分</h1>
                                                     <h2>简单题</h2>
                                                 </div>
                                                 <div class="nor fl pane">
-                                                    <div class="inner" style="height:100px;"></div>
-                                                    <h1 class="ft16 col6">丢 <i>20</i> 分</h1>
+                                                    <div class="inner lostScore_middle" style="height:100px;" id="lostScore_middleSinger"></div>
+                                                    <h1 class="ft16 col6 lostScore_middleScore">丢 <i id="lostScore_middleScoreSinger">0</i> 分</h1>
                                                     <h2>中等题</h2>
                                                 </div>
                                                 <div class="hard fl pane">
-                                                    <div class="inner" style="height:0px;"></div>
-                                                    <h1 class="ft16 col6">丢 <i>20</i> 分</h1>
+                                                    <div class="inner lostScore_hard" style="height:0px;" id="lostScore_hardSinger"></div>
+                                                    <h1 class="ft16 col6 lostScore_hardScore">丢  <i id="lostScore_hardScoreSinger">0</i> 分</h1>
                                                     <h2>难题</h2>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -497,106 +489,6 @@
                         <div class="rep-botbg-b rep-hide currentCityTopTen"></div>
                         <!-- 用户反馈-->
                         {include file="/zhixuebao/feesreport/foot/index.html"}
-                        <!--考点闯关提分-->
-                        <div class="rep-main mt40">
-                            <div class="rep-main-label">考点闯关提分</div>
-                            <div class="cg-report">
-                                <div class="cg-report-pane clearfix">
-                                    <div class="left fl">
-                                        <div class="icon"><div class="subbtnb subbtnb-chinese"></div></div>
-                                        <p class="sub">语文</p>
-                                        <p class="col6 ft14 tc">共计3个知识点未掌握</p>
-                                    </div>
-                                    <div class="cg-mod">
-                                        <a href="javascript:void(0);" class="cg-mod-nor rel">
-                                            <p class="ft14 col3 txt"><b>关卡1：</b>二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-nor cg-mod-unnor  rel">
-                                            <p class="ft14 col3 txt"><b>关卡2：</b>二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-lock  rel">
-                                            <p class="ft14 col3 txt"><b>关卡3：</b>二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="fen-lock"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="cg-report-pane clearfix ">
-                                    <div class="left fl">
-                                        <div class="icon"><div class="subbtnb subbtnb-math"></div></div>
-                                        <p class="sub">数学</p>
-                                        <p class="col6 ft14 tc">共计3个知识点未掌握</p>
-                                    </div>
-                                    <div class="cg-mod">
-                                        <a href="javascript:void(0);" class="cg-mod-nor fl rel">
-                                            <p class="ft14 col3 txt">关卡1：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-nor cg-mod-unnor fl rel">
-                                            <p class="ft14 col3 txt">关卡2：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-lock fl rel">
-                                            <p class="ft14 col3 txt">关卡3：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="fen-lock"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="cg-report-pane clearfix">
-                                    <div class="left fl">
-                                        <div class="icon"><div class="subbtnb subbtnb-geography"></div></div>
-                                        <p class="sub">地理</p>
-                                        <p class="col6 ft14 tc">共计3个知识点未掌握</p>
-                                    </div>
-                                    <div class="cg-mod">
-                                        <a href="javascript:void(0);" class="cg-mod-nor fl rel">
-                                            <p class="ft14 col3 txt">关卡1：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-nor cg-mod-unnor fl rel">
-                                            <p class="ft14 col3 txt">关卡2：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                                <div class="star-btn star-unbtn"></div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="cg-mod-lock fl rel">
-                                            <p class="ft14 col3 txt">关卡3：二力平衡二力平衡二力平衡</p>
-                                            <div class="clearfix star-posi">
-                                                <div class="fen-lock"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
                 <!--好友成绩PK-->
@@ -841,7 +733,7 @@
                             <!-- <a href="#" class="stus-topicput">导出错题</a>-->
                         </div>
                         <!--这次考试有进步吗?-->
-                        <div class="rep-modtit" id="lazy_historyRank">
+                        <div class="rep-modtit" id="lazy_historyRankPar">
                             <p class="fb ft24">这次考试有进步吗?</p>
                             <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
                         </div>
