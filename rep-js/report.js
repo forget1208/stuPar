@@ -117,6 +117,8 @@ Report.init = function () {
     elements.lostScore_simpleScore = $(".lostScore_simpleScore");
     elements.lostScore_middleScore = $(".lostScore_middleScore");
     elements.lostScore_hardScore = $(".lostScore_hardScore");
+    elements.downPartShowId = $('#downPartShow');
+    elements.downPartShowIdPar = $('#downPartShowPar');
 
     elements.howDoI_best = $(".howDoI_best");
     elements.howDoI_bad = $(".howDoI_bad");
@@ -557,11 +559,13 @@ Report.bindCompareTableData = function () {
         else {
             switch (scope) {
                 case 'class':
-                    $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByClass/",
+                    $.getJSON("2.txt",
+                        // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByClass/",
                         {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
                     break;
                 case 'grade':
-                    $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByGrade/",
+                    $.getJSON("2.txt",
+                        // $.getJSON(basePath + "/zhixuebao/feesReport/getNearbyUserExamScoreByGrade/",
                         {examId: Request.QueryString("examId"), classId: userExamArchives[0].classId, count:5}, callbackDataHandle);
                     break;
                 case 'union':
@@ -776,19 +780,34 @@ Report.bindCompareTableData = function () {
         }
     }
 
-    elements.compareWithClassmate.find('a.fircompare-look').on('click', function() {
+    var look = '';
+    if (Report.role == 'student') {
+        look = 'a#fircompare-look';
+    }
+    else {
+        look = 'a#fircompare-lookPar';
+    }
+    elements.compareWithClassmate.find(look).on('click', function() {
 
         var _this = $(this);
-        if(elements.downPartShow.is(':hidden')) {
+        var downPartShowId = '';
+        if (Report.role == 'student'){
+            downPartShowId = elements.downPartShowId;
+        }
+        else {
+
+            downPartShowId = elements.downPartShowIdPar;
+        }
+        if(downPartShowId.is(':hidden')) {
             //暂时屏蔽联考区
             if(compareScore == 'union') {
                 return;
             }
-            elements.downPartShow.show();
+            downPartShowId.show();
             _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
         }
         else {
-            elements.downPartShow.hide();
+            downPartShowId.hide();
             _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
         }
     });
@@ -800,7 +819,7 @@ Report.bindCompareTableData = function () {
         }
         elements.loadCompareTable.find('a').removeClass('on');
         _this.addClass('on');
-        elements.compareWithClassmate.find('a.fircompare-look').show();
+        elements.compareWithClassmate.find(look).show();
         compareScore = 'class';currentPage = 0;
         getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
         elements.loadPosition.find('.proposi-tit').text('成绩在全班的位置');
@@ -816,7 +835,7 @@ Report.bindCompareTableData = function () {
         }
         elements.loadCompareTable.find('a').removeClass('on');
         _this.addClass('on');
-        elements.compareWithClassmate.find('a.fircompare-look').show();
+        elements.compareWithClassmate.find(look).show();
         compareScore = 'grade';currentPage = 0;
         getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
         elements.loadPosition.find('.proposi-tit').text('成绩在全年级的位置');
@@ -833,7 +852,7 @@ Report.bindCompareTableData = function () {
         elements.loadCompareTable.find('a').removeClass('on');
         _this.addClass('on');
         //暂时屏蔽联考区
-        elements.compareWithClassmate.find('a.fircompare-look').hide();
+        elements.compareWithClassmate.find(look).hide();
         if(elements.downPartShow.is(':visible')) {
             elements.downPartShow.hide();
             elements.compareWithClassmate.find('em').removeClass();
