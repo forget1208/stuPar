@@ -105,7 +105,8 @@ Report.init = function () {
     elements.loadCompareTable = $('.loadCompareTable');
     elements.compareWithClassmate = $('.compareWithClassmate');
     elements.upPartShow = $('.upPartShow');
-    elements.downPartShow = $('.downPartShow');
+    elements.downPartShow = $('#downPartShow');
+    elements.downPartShowPar = $('#downPartShowpar');
     elements.loadPosition = $('.loadPosition');
     elements.loadCompare = $('.loadCompare');
     elements.subjectScoreRemark = $(".subjectScoreRemark");
@@ -117,8 +118,6 @@ Report.init = function () {
     elements.lostScore_simpleScore = $(".lostScore_simpleScore");
     elements.lostScore_middleScore = $(".lostScore_middleScore");
     elements.lostScore_hardScore = $(".lostScore_hardScore");
-    elements.downPartShowId = $('#downPartShow');
-    elements.downPartShowIdPar = $('#downPartShowPar');
 
     elements.howDoI_best = $(".howDoI_best");
     elements.howDoI_bad = $(".howDoI_bad");
@@ -781,33 +780,28 @@ Report.bindCompareTableData = function () {
     }
 
     var look = '';
+    var downPartShow ='';
     if (Report.role == 'student') {
         look = 'a#fircompare-look';
+        downPartShow = elements.downPartShow;
     }
     else {
         look = 'a#fircompare-lookPar';
+        downPartShow = elements.downPartShowPar;
     }
     elements.compareWithClassmate.find(look).on('click', function() {
 
         var _this = $(this);
-        var downPartShowId = '';
-        if (Report.role == 'student'){
-            downPartShowId = elements.downPartShowId;
-        }
-        else {
-
-            downPartShowId = elements.downPartShowIdPar;
-        }
-        if(downPartShowId.is(':hidden')) {
+        if(downPartShow.is(':hidden')) {
             //暂时屏蔽联考区
             if(compareScore == 'union') {
                 return;
             }
-            downPartShowId.show();
+            downPartShow.show();
             _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
         }
         else {
-            downPartShowId.hide();
+            downPartShow.hide();
             _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
         }
     });
@@ -853,8 +847,8 @@ Report.bindCompareTableData = function () {
         _this.addClass('on');
         //暂时屏蔽联考区
         elements.compareWithClassmate.find(look).hide();
-        if(elements.downPartShow.is(':visible')) {
-            elements.downPartShow.hide();
+        if(downPartShow.is(':visible')) {
+            downPartShow.hide();
             elements.compareWithClassmate.find('em').removeClass();
             elements.compareWithClassmate.find('em').addClass('arror-down');
         }
