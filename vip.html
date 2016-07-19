@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="stylesheet" type="text/css" href="rep-css/base.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-common.css"/>
+    <link rel="stylesheet" type="text/css" href="rep-css/report-common.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-stu.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-par.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-par.css"/>
@@ -184,9 +185,9 @@
                         <!--切换-->
                         <div class="rep-tab clearfix loadCompareTable" id="loadCompareTable">
                             <ul>
-                                <li><a href="javascript:void(0);" class="left currentClass on">本班级</a></li>
-                                <li><a href="javascript:void(0);" class="left currentGrade">本年级</a></li>
-                                <li><a href="javascript:void(0);" class="left currentUnion">联考区</a></li>
+                                <li><a href="javascript:void(0);" class="left currentClass on" id="currentClass">本班级</a></li>
+                                <li><a href="javascript:void(0);" class="left currentGrade" id="currentGrade">本年级</a></li>
+                                <li><a href="javascript:void(0);" class="left currentUnion" id="currentUnion">联考区</a></li>
                             </ul>
                         </div>
                         <div>
@@ -207,14 +208,14 @@
 
                                     <!--成绩在全班的位置-->
                                     <div class="proposi rep-botbg-a tc loadPosition" id="loadPosition">
-                                        <div class="proposi-tit">成绩在全班的位置</div>
+                                        <div class="proposi-tit" id="proposi-tit">成绩在全班的位置</div>
                                         <div class="chart tc">
                                             <div id="positionChart" class="positionChart" style="height: 400px"></div>
                                         </div>
                                     </div>
                                     <!--成绩与全班平均分、最高分的对比-->
                                     <div class="procomp rep-botbg-b tc loadCompare" id="loadCompare">
-                                        <div class="procomp-tit">成绩与全班平均分、最高分的对比</div>
+                                        <div class="procomp-tit" id="procomp-tit">成绩与全班平均分、最高分的对比</div>
                                         <div class="chart tc">
                                             <div id="compareChart" class="compareChart" style="height: 400px"></div>
                                         </div>
@@ -262,17 +263,17 @@
                                             <div class="par-chartk tc  rel">
                                                 <div class="easy fl pane">
                                                     <div class="inner lostScore_simple" id="lostScore_simple"></div>
-                                                    <h1 class="ft16 col6 lostScore_simpleScore">丢 <i id="lostScore_simpleScore">0</i> 分</h1>
+                                                    <h1 class="ft16 col6">丢 <i id="lostScore_simpleScore" class="lostScore_simpleScore">0</i> 分</h1>
                                                     <h2>简单题</h2>
                                                 </div>
                                                 <div class="nor fl pane">
                                                     <div class="inner lostScore_middle" id="lostScore_middle"></div>
-                                                    <h1 class="ft16 col6 lostScore_middleScore">丢 <i id="lostScore_middleScore">0</i> 分</h1>
+                                                    <h1 class="ft16 col6 ">丢 <i id="lostScore_middleScore" class="lostScore_middleScore">0</i> 分</h1>
                                                     <h2>中等题</h2>
                                                 </div>
                                                 <div class="hard fl pane">
                                                     <div class="inner" id="lostScore_hard"></div>
-                                                    <h1 class="ft16 col6 lostScore_hardScore">丢 <i id="lostScore_hardScore">0</i> 分</h1>
+                                                    <h1 class="ft16 col6">丢 <i id="lostScore_hardScore" class="lostScore_hardScore">0</i> 分</h1>
                                                     <h2>难题</h2>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -312,7 +313,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <div class="best" id="howDoI_best" style="display: none;">
+                            <div class="best howDoI_best" id="howDoI_best" style="display: none;">
                                 <h1>满分！1分都没丢！</h1>
                                 <h2>保持现在的学习节奏，保持心态平和，不骄傲不焦虑，就是完美的胜利！</h2>
                             </div>
@@ -453,17 +454,17 @@
                                             <div class="par-chartk tc  rel">
                                                 <div class="easy fl pane">
                                                     <div class="inner lostScore_simple" style="height:200px;"id="lostScore_simpleSinger"></div>
-                                                    <h1 class="ft16 col6 lostScore_simpleScore">丢 <i id="lostScore_simpleScoreSinger">0</i> 分</h1>
+                                                    <h1 class="ft16 col6 ">丢 <i id="lostScore_simpleScoreSinger" class="lostScore_simpleScore">0</i> 分</h1>
                                                     <h2>简单题</h2>
                                                 </div>
                                                 <div class="nor fl pane">
                                                     <div class="inner lostScore_middle" style="height:100px;" id="lostScore_middleSinger"></div>
-                                                    <h1 class="ft16 col6 lostScore_middleScore">丢 <i id="lostScore_middleScoreSinger">0</i> 分</h1>
+                                                    <h1 class="ft16 col6 ">丢 <i id="lostScore_middleScoreSinger" class="lostScore_middleScore">0</i> 分</h1>
                                                     <h2>中等题</h2>
                                                 </div>
                                                 <div class="hard fl pane">
                                                     <div class="inner lostScore_hard" style="height:0px;" id="lostScore_hardSinger"></div>
-                                                    <h1 class="ft16 col6 lostScore_hardScore">丢  <i id="lostScore_hardScoreSinger">0</i> 分</h1>
+                                                    <h1 class="ft16 col6 ">丢  <i id="lostScore_hardScoreSinger" class="lostScore_hardScore">0</i> 分</h1>
                                                     <h2>难题</h2>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -553,9 +554,9 @@
                         <!--与同学的对比-->
                         <div class="rep-tab clearfix loadCompareTable" id="loadCompareTablePar">
                             <ul>
-                                <li><a href="javascript:void(0);" class="left currentClass on">本班级</a></li>
-                                <li><a href="javascript:void(0);" class="left currentGrade">本年级</a></li>
-                                <li><a href="javascript:void(0);" class="left currentUnion">联考区</a></li>
+                                <li><a href="javascript:void(0);" class="left currentClass on" id="currentClassPar">本班级</a></li>
+                                <li><a href="javascript:void(0);" class="left currentGrade" id="currentGradePar">本年级</a></li>
+                                <li><a href="javascript:void(0);" class="left currentUnion" id="currentUnionPar">联考区</a></li>
                             </ul>
                         </div>
                         <div>
@@ -576,14 +577,14 @@
 
                                     <!--成绩在全班的位置-->
                                     <div class="proposi rep-botbg-a tc loadPosition" id="loadPositionPar">
-                                        <div class="proposi-tit">成绩在全班的位置</div>
+                                        <div class="proposi-tit" id="proposi-titPar">成绩在全班的位置</div>
                                         <div class="chart tc">
                                             <div id="positionChartPar" class="positionChart" style="height: 400px"></div>
                                         </div>
                                     </div>
                                     <!--成绩与全班平均分、最高分的对比-->
                                     <div class="procomp rep-botbg-b tc loadCompare" id="loadComparePar">
-                                        <div class="procomp-tit">成绩与全班平均分、最高分的对比</div>
+                                        <div class="procomp-tit" id="procomp-titPar">成绩与全班平均分、最高分的对比</div>
                                         <div class="chart tc">
                                             <div id="compareChartPar" class="compareChart" style="height: 400px"></div>
                                         </div>
@@ -789,11 +790,11 @@
                                 <p class="fb ft24">考试难度</p>
                             </div>
 
-                            <table class="protest examDifInfo" style="margin-top: 40px;" id="examDifInfoPar">
+                            <table class="protest examDifInfo" style="margin-top: 40px;" id="examDifInfo">
                                 <tr>
                                     <td class="left"></td>
                                     <td class="right">
-                                        <div class="par-qk-dif difTip" id="difTipPar"></div>
+                                        <div class="par-qk-dif difTip" id="difTip"></div>
                                     </td>
                                 </tr>
                             </table>
@@ -842,6 +843,21 @@
         </div>
     </div>
 </div>
+
+<!--侧边栏-->
+<div class="report-sidebar">
+    <div class="mark">
+        <a href="{$studentUrl}/student/index/" class="rel mark_top">
+            <div class="btn"></div>
+            <div class="cell hidenone">回到顶部</div>
+        </a>
+        <a href="javascript:void(0);" id="btnBackTop" class="rel mark_ind">
+            <div class="btn"></div>
+            <div class="cell hidenone">回到首页</div>
+        </a>
+    </div>
+</div>
+
 
 <script type="remark-template" id="knowledgeControlTemplate">
     <p class="ml30"><b class="ft18 col6">已掌握的知识点</b><span class="col9 ft14 ml10">请继续保持哟~</span></p>
@@ -1013,6 +1029,55 @@
     </div>
 </script>
 
+<script type="remark-template" id="topTenKnowledgeTemplate">
+    <table class="stu-know-table stu-know-table-sh mt30" width="0" border="0">
+        <tr>
+            <th width="9.5%">TOP</th>
+            <th width="16%">热门考点</th>
+            <th width="13%">考点出现总次数</th>
+            <th width="30.5%" class="w-change w-large">出现该考点的学校</th>
+            <th class="s-h"><span class="per-left"></span> 我的掌握率 VS 本市平均掌握率 <span class="pre-right"></span></th>
+        </tr>
+    </table>
+    <table width="0" border="0" class="stu-know-table stu-know-table_b stu-know-table-sh">
+        {foreach from=$dataList item=data name=foo}
+        <tr>
+            {if $smarty.foreach.foo.index eq 0}
+            <td width="9.5%" class="no-num"><span class="no1"></span></td>
+            {elseif $smarty.foreach.foo.index eq 1}
+            <td width="9.5%" class="no-num"><span class="no2"></span></td>
+            {elseif $smarty.foreach.foo.index eq 2}
+            <td width="9.5%" class="no-num"><span class="no3"></span></td>
+            {else}
+            <td width="9.5%" class="no-num">{$smarty.foreach.foo.index + 1}</td>
+            {/if}
+            <td width="16%">{$data.knowledgeName}</td>
+            <td width="13%">{$data.appearCount}</td>
+            <td width="30.5%" class="w-change w-large tl">{$data.schoolName}</td>
+            <td class="s-h td-new">
+                <div>
+                    <div class="percent percent-new percent-new-sh fl">
+                        <div class="percent-cont" style="width:{$data.userRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$data.userRatio}%</div>
+                </div>
+                <div>
+                    <div class="percent percent-new percent-new-sh fl">
+                        <div class="percent-cont-city" style="width:{$data.cityRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$data.cityRatio}%</div>
+                </div>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+    <button class="btn-sh">
+        <span class="btn-sh-s btn-sh-h"></span>
+        <span class="bth-sh-txt-s">收起我的掌握率</span>
+        <span class="bth-sh-txt-h">展开我的掌握率</span>
+    </button>
+</script>
+
 <script src="rep-js/jquery-1.9.1.js"></script>
 <script src="rep-js/echarts-all.js"></script>
 <script src="rep-js/common.js"></script>
@@ -1021,5 +1086,6 @@
 <script src="rep-js/jsmart.js"></script>
 <script src="rep-js/expand.js"></script>
 <script src="rep-js/report.js"></script>
+
 </body>
 </html>
