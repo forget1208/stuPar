@@ -439,6 +439,27 @@
 	margin-top: 130px;
 }
 
+.rep-par-content .rep-sa-read {
+	width: 1000px;
+}
+
+.rep-par-content .rep-sa-read .bd {
+	margin: -10px 11px 0 20px;
+	width: 919px;
+	padding-bottom: 35px;
+}
+
+.rep-par-content .rep-sa-read .hd {
+	margin-left: 10px;
+	background: url("../rep-images/rep-comm.png") no-repeat left -528px;
+}
+
+.rep-par-content  .rep-sa-read .ft {
+	padding: 0;
+	background: url(../rep-images/rep-comm.png) no-repeat 0 -2090px;
+	height: 55px;
+}
+
 @media screen and (max-width: 767px) {
 	body {
 		font-size: 16px;

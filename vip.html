@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="rep-css/report-common.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-stu.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/rep-par.css"/>
-    <link rel="stylesheet" type="text/css" href="rep-css/rep-par.css"/>
     <link rel="stylesheet" type="text/css" href="rep-css/report-stu-all-news.css"/>
     <title>VIP成绩报告</title>
 </head>
@@ -248,6 +247,25 @@
                                     </td>
                                 </tr>
                             </table>
+                        </div>
+                        <!--每门学科考的怎么样?-->
+                        <div id="loadEachSubject" class="loadEachSubject">
+                            <div class="rep-modtit">
+                                <p class="fb ft24">每门学科考的怎么样?</p>
+                                <p class="col9 ft16 mt5">详细分析每门学科的考试情况</p>
+                            </div>
+                            <div class="rep-botbg-b">
+                                <table class="protest">
+                                    <tr>
+                                        <td class="left"></td>
+                                        <td class="right">
+                                            <div class="chart tc">
+                                                <div id="eachSubjectChart" class="eachSubjectChart" style="height: 380px"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                         <!--丢分题难度-->
                         <div class="rep-modtit" id="lazy_loseScoreDif">
@@ -619,6 +637,25 @@
                                 </tr>
                             </table>
                         </div>
+                        <!--每门学科考的怎么样?-->
+                        <div id="loadEachSubjectPar" class="loadEachSubject">
+                            <div class="rep-modtit">
+                                <p class="fb ft24">每门学科考的怎么样?</p>
+                                <p class="col9 ft16 mt5">详细分析每门学科的考试情况</p>
+                            </div>
+                            <div class="rep-botbg-b">
+                                <table class="protest">
+                                    <tr>
+                                        <td class="left"></td>
+                                        <td class="right">
+                                            <div class="chart tc">
+                                                <div id="eachSubjectChartPar" class="eachSubjectChart" style="height: 380px"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         <!--孩子的分数丢哪了？-->
                         <div class="rep-modtit" id="loadLoseScore">
                             <p class="fb ft24">孩子的分数丢哪了？</p>
@@ -860,6 +897,7 @@
 
 
 <script type="remark-template" id="knowledgeControlTemplate">
+    {literal}
     <p class="ml30"><b class="ft18 col6">已掌握的知识点</b><span class="col9 ft14 ml10">请继续保持哟~</span></p>
     <div class="master-infor">
         {if $control neq ""}
@@ -922,11 +960,13 @@
         <h4>{$info}</h4>
         <div class="ft"></div>
     </div>
+    {/literal}
 </script>
 
 
 <!--题目汇总-->
 <script type="remark-template" id="topicCollectListTemplate">
+    {literal}
     <!--题目列表-->
     <a  class="pre" topicStartNumber="" id="topicPreId"></a>
     <div class="hd-ul" id="topicListNumberShow">
@@ -944,10 +984,12 @@
         </ul>
     </div>
     <a  class="next" topicEndNumber="" id="topicNextId"></a>
+    {/literal}
 </script>
 
 <!--题目汇总题干和分析-->
 <script type="remark-template" id="topicCollectProblemAnalysisTemplate">
+    {literal}
     <!--题目题干-->
     <div class="stu-find-title">
         <h1 class="ft16">{$topic1.rawHtml}</h1>
@@ -995,9 +1037,11 @@
         <p class="mt10">答案解析：{$topic1.analysisHtml}</p>
         {/if}
     </div>
+    {/literal}
 </script>
 
 <script type="remark-template" id="checkScoreTemplate">
+    {literal}
     <div class="report-cover" id="checkScore" name="s-0">
         <div class="report-cover-img"></div>
         <button class="report-cover-btn">我要优先查分</button>
@@ -1027,9 +1071,11 @@
             </div>
         </div>
     </div>
+    {/literal}
 </script>
 
 <script type="remark-template" id="topTenKnowledgeTemplate">
+    {literal}
     <table class="stu-know-table stu-know-table-sh mt30" width="0" border="0">
         <tr>
             <th width="9.5%">TOP</th>
@@ -1076,6 +1122,101 @@
         <span class="bth-sh-txt-s">收起我的掌握率</span>
         <span class="bth-sh-txt-h">展开我的掌握率</span>
     </button>
+    {/literal}
+</script>
+
+<script type="remark-template" id="coexistAndIsGolden">
+    {literal}
+    <div class="newest_tk" style="display: none">
+        <div class="closed_con clearfix"><a href="javascript:void(0);"></a></div>
+        <p>智学网上新啦，<b>365学霸套餐专属</b>的密卷强势来袭，精选全国最优质试题资源，语数外每月10套，针对学情精准推送，让提分更高效！学霸成长季，从点击密卷起步!</p>
+        <a class="study" target="_blank" href="{$densePaperPath}">点击学习</a>
+    </div>
+    {/literal}
+</script>
+
+<script type="remark-template" id="friendManage">
+    {literal}
+    <table width="0" border="0">
+        <tbody>
+        <tr>
+            <td class="t_tl"></td>
+            <td class="t_tc"></td>
+            <td class="t_tr"><a id="closeFriManage" href="javascript:;" class="pop_closed"></a></td>
+        </tr>
+        <tr>
+            <td class="t_cl"></td>
+            <td class="t_cc">
+                <div class="pop_manger tc">
+                    <p class="ft14 col3">邀请好友PK</p>
+
+                    <div class="pop_mangercont">
+                        <p class="ft14 col3 lh23 clearfix">
+                            <span id="checkFriend" class="sure_boxon fl"></span>
+                            <!--<span class="sure_box sure_boxon fl">-->
+                            </span><span class="fl">相互关注成绩</span>
+                        </p>
+
+                        <div class="mt10 fl">
+                            <div class="pop_manger_input fl rel">
+                                <input disabled="disabled" id="studentName" type="text" class=" ft14 col6"
+                                       placeholder="在此输入本年级同学姓名">
+
+                                <div class="bd one" id="studentList" style="display:none;">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt10 fl" id="selClass">
+                            <div class="pop_manger_input pop_manger_input2 fl rel ml10">
+                                <div class="hd">
+                                    <span class="ico2 btnSelClass"
+                                          classId="{$studentClazz.id}">{$studentClazz.name}</span>
+                                </div>
+                                <div class="bd classList" style="display:none;">
+                                    {foreach from=$clazzs item=clazz}
+                                    {if $clazz.id eq $studentClazz.id}
+                                    <a href="javascript:void(0);" class="on" classId="{$clazz.id}">{$clazz.name}</a>
+                                    {else}
+                                    <a href="javascript:void(0);" classId="{$clazz.id}">{$clazz.name}</a>
+                                    {/if}
+                                    {/foreach}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" id="btnInvite" class="l_unbtn fr">发送邀请</a>
+                    </div>
+                </div>
+                <p class="red tc" id="errorMsg"></p>
+
+                <div style="height:247px;overflow-y: auto;margin-top: 20px;overflow-x: hidden;width: 500px;">
+                    <table width="0" border="0" class="pop_manger_table ft14 tl mt15 mb10">
+                        <tbody>
+                        {foreach from=$friendList item=friend}
+                        <tr>
+                            <td class="col3 td1">{$friend.friendName}</td>
+                            <td class="col9 td2"><i>{$friend.createTime|date_format:"%Y-%m-%d %H:%M:%S"}</i><em
+                                    class="ml5"></em></td>
+                            <td class="td3"><a href="javascript:void(0);" class="green_a"
+                                               onclick="Transcripts.messageManage(4,'{$friend.friendId}',this);">删除好友</a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td class="t_cr"></td>
+        </tr>
+        <tr>
+            <td class="t_bl"></td>
+            <td class="t_bc"></td>
+            <td class="t_br"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pop_titlea">好友管理</div>
+    {/literal}
 </script>
 
 <script src="rep-js/jquery-1.9.1.js"></script>
