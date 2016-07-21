@@ -4703,22 +4703,19 @@ Report.defaultPage = function () {
         }
         else {
             Report.allSinger = 'Singer';
-            if(Report.paper[paperId]) {
-                var report = new reportCtrl.parSinger();
-                report.init();
-                Report.getStuSingleReportData(paperId);
-                var topicCollectionObj = new TopicCollect();
-                topicCollectionObj.init(paperId); //题目汇总
-                var fore = new forewordCtrl();
-                fore.init(paperId); //这次考试有进步吗
-                Report.bindLoseScoreData(paperId); //丢分题难度
-                var knowledgeControl = new KnowledgeControl();
-                knowledgeControl.init(paperId); //知识点
-                var topTopic = new TopTopic();
-                topTopic.init(paperId); //TOP10
-                Report.bindExamTask(); //考点闯关
-                Report.paper[paperId].initFlag = false;
-            }
+            var report = new reportCtrl.parSinger();
+            report.init();
+            Report.getStuSingleReportData(paperId);
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            Report.bindLoseScoreData(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+            Report.bindExamTask(); //考点闯关
         }
     }
     else {
@@ -4739,26 +4736,23 @@ Report.defaultPage = function () {
             Report.bindSummary(); //绑定小结数据
         }
         else {
-            if(Report.paper[paperId]) {
-                var report = new reportCtrl.parSinger();
-                report.init();
-                var topicCollectionObj = new TopicCollect();
-                topicCollectionObj.init(paperId); //题目汇总
-                var fore = new forewordCtrl();
-                fore.init(paperId); //这次考试有进步吗
-                dataUtil.bindScoreParts(0, paperId); //各分数段人数
-                var ec = new examCompare();
-                ec.init(paperId); //考试难度
-                var dif = new Difficulty();
-                dif.init(paperId); //丢分题难度
-                var knowledgeControl = new KnowledgeControl();
-                knowledgeControl.init(paperId); //知识点
-                var topTopic = new TopTopic();
-                topTopic.init(paperId); //TOP10
-                var recommondControl = new RecommondControl();
-                recommondControl.init(paperId); //推荐内容
-                Report.paper[paperId].initFlag = false;
-            }
+            var report = new reportCtrl.parSinger();
+            report.init();
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            dataUtil.bindScoreParts(0, paperId); //各分数段人数
+            var ec = new examCompare();
+            ec.init(paperId); //考试难度
+            var dif = new Difficulty();
+            dif.init(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+            var recommondControl = new RecommondControl();
+            recommondControl.init(paperId); //推荐内容
         }
     }
 }
