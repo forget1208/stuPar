@@ -8,7 +8,7 @@ var classInfo = {"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441
 var userExamArchives = [{"classId":"2000000020000002363","className":"高一年级1班","classRank":7,"classStudentCount":7,"createDateTime":1466410322248,"examCreateDateTime":1466410145000,"examId":"af7699d4-eac2-4563-8fff-3ecbcf2f8ef7","examName":"成绩补录单科","gradeCode":"10","id":"751e7514-0364-4d8a-af41-90cb3889cac4","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":7,"score":55,"subjectCode":"01A","subjectCodes":["01A"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":7,"schoolRank":7,"score":55,"subjectCode":"01A"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"c0abff51-b173-42cd-aa01-67acb99429c8","examName":"数据指标验证考试2","gradeCode":"11","id":"17e1cc0d-7325-4c02-9405-85cd5cd4ec3c","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":83,"subjectCode":"02","subjectCodes":["02"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":83,"subjectCode":"02"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":6,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeCode":"11","id":"d865c07a-1223-4841-b630-3849665e7aad","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":21,"score":110,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":31,"schoolRank":8,"score":43,"subjectCode":"02"},{"classRank":12,"schoolRank":4,"score":67,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":-1,"classStudentCount":9,"createDateTime":1467709068228,"examCreateDateTime":1449630642000,"examId":"cdf9d2e3-532e-4290-8f64-175bd540b708","examName":"数据指标验证考试3","gradeCode":"11","id":"99046d0e-1296-490c-9401-deba26518f24","isBeTied":true,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":-1,"score":255,"subjectCodes":["02","01"],"tiArchive":{"tiClassRank":1,"tiSchoolRank":3,"tiScore":255,"tiUserSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}]},"tiStudentCount":1,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1463452106126,"examCreateDateTime":1449556497000,"examId":"66915a32-6e07-449e-82e2-3a413ec4661c","examName":"数据指标验证考试1","gradeCode":"11","id":"ff3801f0-a2d2-4375-ab60-e6e9bd888ba1","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":260,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":140,"subjectCode":"02"},{"classRank":1,"schoolRank":2,"score":120,"subjectCode":"01"}],"version":1001}];
 var examClassId = "2000000020000002363";
 //用户各科考试数据
-var userExamDataList = [{"classRank":{"avgScore":116,"highScore":150,"rank":6,"ratio":44,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":110.3,"highScore":170,"rank":21,"ratio":49,"totalNum":40},"paperId":"","score":110,"standardScore":249,"subjectCode":"","subjectName":"总分"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":63.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"02","subjectName":"数学"}];
+var userExamDataList = [{"classRank":{"avgScore":116,"highScore":150,"rank":6,"ratio":44,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":110.3,"highScore":170,"rank":21,"ratio":49,"totalNum":40},"paperId":"","score":110,"standardScore":249,"subjectCode":"","subjectName":"总分"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":63.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"02","subjectName":"数学"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":91.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"01","subjectName":"语文"}];
 //学科分数线数据
 var examScoreLine = [{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":89.1,"goodScore":84.2,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","passScore":69.3,"subjectCode":"01","subjectName":"语文"},{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":135,"goodScore":127.5,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","passScore":105,"subjectCode":"02","subjectName":"数学"}];
 //1显示排名，2显示百分比
@@ -195,6 +195,7 @@ Report.init = function () {
     elements.loseScoreTablePar = $('#loseScoreTablePar');
     elements.rankTable = $("#rankTable");
     elements.rankTablePar = $("#rankTablePar");
+    elements.rankTableVip = $("#rankTableVip");
 
     elements.lazy_topic = $('.lazy_topic');
     elements.historyRankTableSinger = $('.historyRankTableSinger');
@@ -255,7 +256,25 @@ Report.stuParTab = function () {
             Report.allSingerTabHandler(elements.top_subjectListPar.find('a.on').html());
         }
     }
-
+    if (elements.top_subjectList.find('a.on').next().html()) {
+        Report.unvipSinger();
+    }
+    else {
+        $('.rep-stu-content').eq(1).find('.isUnVip').hide();
+        $('.rep-stu-content').eq(1).find('.isVip').show();
+        var paperId = userExamDataList[1].paperId;
+        var report = new reportCtrl.parSinger();
+        report.init();
+        Report.getStuSingleReportData(paperId);
+        var fore = new forewordCtrl();
+        fore.init(paperId); //这次考试有进步吗
+        Report.bindLoseScoreData(paperId); //丢分题难度
+        var knowledgeControl = new KnowledgeControl();
+        knowledgeControl.init(paperId); //知识点
+        var topTopic = new TopTopic();
+        topTopic.init(paperId); //TOP10
+        Report.bindExamTask(); //考点闯关
+    }
 };
 //全科/单科 tab
 Report.allSingerTab = function () {
@@ -291,6 +310,8 @@ Report.allSingerTab = function () {
     } else {
         $('.rep-par-content').eq(index).show().siblings('.rep-par-content').hide();
     }
+
+
     // 进行缓存 如果第一次 则加载  ajax 数据 第二次切换 直接显示 内容 div
     if(Report.paper[paperId].initFlag) {
         //
@@ -301,20 +322,24 @@ Report.allSingerTab = function () {
 
         var topicCollectionObj = new TopicCollect();
         topicCollectionObj.init(paperId); //题目汇总
-
-        // var fore = new forewordCtrl();
-        // fore.init(paperId); //这次考试有进步吗
-        //
-        // var dif = new Difficulty();
-        // dif.init(paperId); //丢分题难度
-        //
-        // var knowledgeControl = new KnowledgeControl();
-        // knowledgeControl.init(paperId); //知识点
-        //
-        // var topTopic = new TopTopic();
-        // topTopic.init(paperId); //TOP10
-
-        Report.unvipSinger();
+        if ($(this).parent().children().length == 1) {
+            Report.unvipSinger();
+        }
+        else {
+            $('.rep-stu-content').eq(1).find('.isUnVip').hide();
+            $('.rep-stu-content').eq(1).find('.isVip').show();
+            var report = new reportCtrl.parSinger();
+            report.init();
+            Report.getStuSingleReportData(paperId);
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            Report.bindLoseScoreData(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+            Report.bindExamTask(); //考点闯关
+        }
         Report.paper[paperId].initFlag = false;
     }
 };
@@ -518,16 +543,12 @@ Report.subjectList = function () {
         }
     }
 
-    // for (k = 0; k < elements.top_subjectList.find('a').length; k++) {
+    for (var i = 0; i < elements.top_subjectList.find('a').length; i++) {
+        if ($(elements.top_subjectList.find('a')[i]).attr('subjectCode') == freeSubjectCode && freeSubjectCode == reportSubjectCode) {
+            $('<div style="display: block;" class="icon"><img src="/module/global/images-report/vip.png"></div>').insertAfter(elements.top_subjectList.find('a')[i]);
 
-        // if (elements.top_subjectList.find('a')[k].attr('subjectCode') == freeSubjectCode && freeSubjectCode == reportSubjectCode) {
-        //     elements.top_subjectList.find('a')[k].append('<div style="display: block;" class="icon"><img src="/module/global/images-report/vip.png"></div>');
-        // }
-
-
-
-    // }
-    // console.log(elements.top_subjectList.find('a.on').html());
+        }
+    }
     //全科/单科
     $('.top_subjectList li a').bind('click',Report.allSingerTab);
 };
@@ -2229,6 +2250,73 @@ Report.bindExamTask = function () {
     }
 }
 
+//vip单科 孩子考得怎么样
+var rankByScoreArray = [];//题目汇总对应的进步几名缓存
+window.reportCtrl = window.reportCtrl || {};
+
+reportCtrl.parSinger = (function(){
+
+    var parSinger = function(){};
+
+    parSinger.prototype.init = function(){
+        this.initUserExamData();
+        // this.initFoot();
+    };
+
+    parSinger.prototype.initUserExamData = function(){
+        // elements.subjectName2.html(userExamData.subjectName);
+        // elements.examName.html(userExamData.examName);
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName == elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName == elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+
+        }
+        if (scoreToLevel == true) {
+            elements.rankTableVip.find('b.stu-yel').html(dataUtil.getScoreToLevel(userExamData.score, userExamData.standardScore));
+        } else {
+            elements.rankTableVip.find('b.stu-yel').html(userExamData.score);
+        }
+        if (forbidAvgScore == true) {
+            elements.rankTableVip.find('.classAverage').html("--");
+            elements.rankTableVip.find('.gradeAverage').html("--");
+        } else if (scoreToLevel == true) {
+            elements.rankTableVip.find('.classAverage').html(dataUtil.getScoreToLevel(userExamData.classRank.avgScore, userExamData.standardScore));
+            elements.rankTableVip.find('.gradeAverage').html(dataUtil.getScoreToLevel(userExamData.gradeRank.avgScore, userExamData.standardScore));
+        } else {
+            elements.rankTableVip.find('.classAverage').html(userExamData.classRank.avgScore);
+            elements.rankTableVip.find('.gradeAverage').html(userExamData.gradeRank.avgScore);
+        }
+        if (forbidRatio == true) {
+            elements.rankTableVip.find('.classPosition').html("--");
+            elements.rankTableVip.find('.gradePosition').html("--");
+        } else if (ratioToLevel == true) {
+            elements.rankTableVip.find('.classPosition').html(dataUtil.getRatioToLevel(userExamData.classRank.ratio));
+            elements.rankTableVip.find('.gradePosition').html(dataUtil.getRatioToLevel(userExamData.gradeRank.ratio));
+        } else {
+            elements.rankTableVip.find('.classPosition').html('前<b>' + (100 - userExamData.classRank.ratio) + '%</b>');
+            elements.rankTableVip.find('.gradePosition').html('前<b>' + (100 - userExamData.gradeRank.ratio) + '%</b>');
+        }
+        // elements.clickAndDownload.hide();//暂时不实现
+        // elements.clickAndDownload.find('.down-dtk').on('click', function() {});
+        // elements.clickAndDownload.find('.down-paper').on('click', function() {});
+    };
+
+    // parSinger.prototype.initFoot = function(){
+    //     var foot = new Foot(userExamData);
+    //     foot.init();
+    // };
+
+    return parSinger;
+})();
 //判断初始页面
 Report.defaultPage = function () {
     if (Report.role == 'student') {
@@ -2245,8 +2333,10 @@ Report.defaultPage = function () {
             var paperId = userExamDataList[1].paperId;
             var topicCollectionObj = new TopicCollect();
             topicCollectionObj.init(paperId); //题目汇总
-            
-            if (a == '体验') {
+            if ($(elements.top_subjectList.find('a.on')).parent().parent().find('div')) {
+                Report.unvipSinger();
+            }
+            else {
                 var report = new reportCtrl.parSinger();
                 report.init();
                 Report.getStuSingleReportData(paperId);
@@ -2258,9 +2348,6 @@ Report.defaultPage = function () {
                 var topTopic = new TopTopic();
                 topTopic.init(paperId); //TOP10
                 Report.bindExamTask(); //考点闯关
-            }
-            else {
-                Report.unvipSinger();
             }
         }
     }
@@ -2277,8 +2364,6 @@ Report.defaultPage = function () {
         }
         else {
             var paperId = userExamDataList[1].paperId;
-            // var report = new reportCtrl.parSinger();
-            // report.init();
             Report.unvipSinger();
             var topicCollectionObj = new TopicCollect();
             topicCollectionObj.init(paperId); //题目汇总

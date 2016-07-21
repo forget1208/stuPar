@@ -195,33 +195,193 @@
                     </div>
                     <!--学生单科-->
                     <div class="rep-stu-content">
-                        <!--主体内容头部-->
-                        <div class="rep-ss-tit rel">
-                            <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
-                            <div class="schooltest examName"  id="examNameSinger"></div>
-                            <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
-                        </div>
-                        <!--我考得怎么样？-->
-                        <div class="report-unvip-basetit bindParentShow">
-                            <div class="report-unvip-line fl"></div>
-                            <div class="tc report-unvip-basetit-txt fl">
-                                <p class="pa">我考得怎么样？</p>
-                                <br>
-                                <p class="pb">单科成绩概述、各班成绩对比</p>
+                        <div class="isUnVip">
+                            <!--主体内容头部-->
+                            <div class="rep-ss-tit rel">
+                                <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
+                                <div class="schooltest examName"  id="examNameSinger"></div>
+                                <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
                             </div>
-                            <div class="report-unvip-line fl"></div>
+                            <!--我考得怎么样？-->
+                            <div class="report-unvip-basetit bindParentShow">
+                                <div class="report-unvip-line fl"></div>
+                                <div class="tc report-unvip-basetit-txt fl">
+                                    <p class="pa">我考得怎么样？</p>
+                                    <br>
+                                    <p class="pb">单科成绩概述、各班成绩对比</p>
+                                </div>
+                                <div class="report-unvip-line fl"></div>
+                            </div>
+                            <ul class="stus-comp clearfix bindParentShow rankTable" style="width: 360px; margin: 50px auto;" id="rankTable">
+                                <li>
+                                    <div class="hd fl">分数</div>
+                                    <div class="bd fl"><b class="stu-yel"></b></div>
+                                </li>
+
+                            </ul>
+
+                            <!--优先查分-->
+                            <div id="checkScoreContainerSinger" class="checkScoreContainer"></div>
+                            <div id="randomDisplaySinger" class="randomDisplay"></div>
                         </div>
-                        <ul class="stus-comp clearfix bindParentShow rankTable" style="width: 360px; margin: 50px auto;" id="rankTable">
-                            <li>
-                                <div class="hd fl">分数</div>
-                                <div class="bd fl"><b class="stu-yel"></b></div>
-                            </li>
+                        <div class="isVip" style="display: none;">
+                            <!--主体内容头部-->
+                            <div class="rep-ss-tit rel">
+                                <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
+                                <div class="schooltest examName" id="examNameSinger"></div>
+                                <div class="vip-exclusive"></div>
+                                <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
+                            </div>
+                            <!--我考得怎么样？-->
+                            <div class="rep-botbg-a">
+                                <div class="rep-modtit">
+                                    <p class="fb ft24">我考得怎么样？</p>
+                                    <p class="col9 ft16 mt5">单科成绩概述、各班成绩对比</p>
+                                </div>
+                                <ul class="stus-comp clearfix rankTable" id="rankTableVip">
+                                    <li>
+                                        <div class="hd">分数</div>
+                                        <div class="bd"><b class="stu-yel">520</b></div>
+                                    </li>
+                                    <li>
+                                        <div class="hd">班级平均分</div>
+                                        <div class="bd classAverage">520</div>
+                                    </li>
+                                    <li>
+                                        <div class="hd">年级平均分</div>
+                                        <div class="bd gradeAverage">520</div>
+                                    </li>
+                                    <li>
+                                        <div class="hd">我的成绩在全班的位置</div>
+                                        <div class="bd classPosition">前<b>58%</b></div>
+                                    </li>
+                                    <li>
+                                        <div class="hd">我的成绩在年级的位置</div>
+                                        <div class="bd gradePosition">前<b>58%</b></div>
+                                    </li>
+                                </ul>
+                                <!--<p class="tc clickAndDownload" id="clickAndDownloadPar">-->
+                                <!--<a href="javascript:void(0);" class="down-dtk">点击下载答题卡</a>-->
+                                <!--<a href="javascript:void(0);" class="down-paper">点击下载试卷</a>-->
+                                <!--</p>-->
+                            </div>
+                            <!--我的得分率与其他同学的对比-->
+                            <div class="fircompare rep-botbg-b" id="compareStudentScore">
+                                <p class="tc ft20 stu-gary mt30 mb40">我的得分率与其他同学的对比</p>
+                                <div class="rep-tab clearfix ">
+                                    <ul class="_compare">
+                                        <li><a href="javascript:void(0);" id="compareClass" class="left on">本班</a></li>
+                                        <li><a href="javascript:void(0);" id="compareGrade" class="right">本年级</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <dl>
+                                        <dd>
+                                            <table class="protest" style="margin-top: 40px;">
+                                                <tr>
+                                                    <td class="left" >
+                                                        <b><div id="_tipId"></div></b>
+                                                        <div id="_tipId1"></div></td>
+                                                    <td class="right">
+                                                        <div class="chart tc" id="subjectScoreChart" style="height: 440px;">
 
-                        </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </dd>
+                                        <dd class="hidenone"></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <!--题目汇总-->
+                            <div class="stus-topic rep-botbg-b tc lazy_topic" id="lazy_topicVip">
+                                <div class="rep-modtit">
+                                    <p class="fb ft24">题目汇总</p>
+                                </div>
+                                <div class="hd clearfix tc rel" >
+                                    <div class="topicNumberList" id="topicNumberList"></div>
+                                </div>
+                                <div class="rep-modtit-bd tl ft14">
+                                    <div class="topicCollectProblemAnalysis" id="topicCollectProblemAnalysis"></div>
+                                </div>
+                                <!-- <a href="#" class="stus-topicput">导出错题</a>-->
+                            </div>
+                            <!--这次考试有进步吗?-->
+                            <div class="rep-modtit lazy_historyRank" id="lazy_historyRank">
+                                <p class="fb ft24">这次考试有进步吗?</p>
+                                <p class="col9 ft16 mt5">宏观对比历次考试的成绩情况</p>
+                            </div>
+                            <div class="rep-botbg-b historyRankTableSinger" id="historyRankTableSinger">
+                                <table class="protest">
+                                    <tr>
+                                        <td class="left"></td>
+                                        <td class="right">
+                                            <div class="clearfix">
+                                                <div class="tab clearfix fl ">
+                                                    <a href="javascript:;" class="gradeall on">本班</a>
+                                                    <a href="javascript:;" class="grade">本年级</a>
+                                                </div>
+                                                <div class="col6 fl mt30 ml20"></div>
+                                            </div>
+                                            <div class="chart tc">
+                                                <div id="historyRankChartSinger" class="historyRankChartSinger" style="height: 280px"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--丢分题难度-->
+                            <div class="rep-modtit" id="loseScore">
+                                <p class="fb ft24">丢分题难度</p>
+                                <p class="col9 ft16 mt5">发现问题，分析问题，总结经验</p>
+                            </div>
+                            <div class="rep-botbg-b">
+                                <table class="protest">
+                                    <tr>
+                                        <td class="left"> <b><h1 id="subjectScoreTitle"></h1></b>
 
-                        <!--优先查分-->
-                        <div id="checkScoreContainerSinger" class="checkScoreContainer"></div>
-                        <div id="randomDisplaySinger" class="randomDisplay"></div>
+                                            <h2 id="subjectScoreRemarkSinger" class="subjectScoreRemark"></h2></td>
+                                        <td class="right">
+                                            <div class="par-chartk-warp">
+                                                <div class="par-chartk tc  rel">
+                                                    <div class="easy fl pane">
+                                                        <div class="inner lostScore_simple" style="height:200px;" id="lostScore_simpleSinger"></div>
+                                                        <h1 class="ft16 col6 ">丢 <i id="lostScore_simpleScoreSinger" class="lostScore_simpleScore">0</i> 分</h1>
+                                                        <h2>简单题</h2>
+                                                    </div>
+                                                    <div class="nor fl pane">
+                                                        <div class="inner lostScore_middle" style="height:100px;" id="lostScore_middleSinger"></div>
+                                                        <h1 class="ft16 col6 ">丢 <i id="lostScore_middleScoreSinger" class="lostScore_middleScore">0</i> 分</h1>
+                                                        <h2>中等题</h2>
+                                                    </div>
+                                                    <div class="hard fl pane">
+                                                        <div class="inner lostScore_hard" style="height:0px;" id="lostScore_hardSinger"></div>
+                                                        <h1 class="ft16 col6 ">丢  <i id="lostScore_hardScoreSinger" class="lostScore_hardScore">0</i> 分</h1>
+                                                        <h2>难题</h2>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="par-chartk-bottom"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--知识点掌握情况-->
+                            <div class="rep-modtit howToImprove" id="howToImprove">
+                                <p class="fb ft24">知识点掌握情况</p>
+                            </div>
+                            <div class="rep-botbg-b knowledgeControl" id="knowledgeControl"></div>
+                            <!--本市本月热门考点TOP10-->
+                            <div class="rep-modtit currentCityTopTen" id="currentCityTopTen">
+                                <p class="fb ft24">本市最近一个月热门考点TOP10</p>
+                            </div>
+                            <div class="rep-botbg-b br1 rel currentCityTopTen" id="topTenKnowledge"></div>
+                            <div class="rep-botbg-b rep-hide currentCityTopTen"></div>
+                            <!-- 用户反馈-->
+                            {include file="/zhixuebao/feesreport/foot/index.html"}
+                        </div>
                     </div>
                 </div>
                 <!--好友成绩PK-->
@@ -964,7 +1124,6 @@
     <a  class="next" topicEndNumber="" id="topicNextId"></a>
 
 </script>
-
 <!--题目汇总题干和分析-->
 <script type="remark-template" id="topicCollectProblemAnalysisTemplate">
 
@@ -1017,7 +1176,124 @@
     </div>
 
 </script>
+<!--TOP10-->
+<script type="remark-template" id="topTenKnowledgeTemplate">
+    {literal}
+    <table class="stu-know-table stu-know-table-sh mt30" width="0" border="0">
+        <tr>
+            <th width="9.5%">TOP</th>
+            <th width="16%">热门考点</th>
+            <th width="13%">考点出现总次数</th>
+            <th width="30.5%" class="w-change w-large">出现该考点的学校</th>
+            <th class="s-h"><span class="per-left"></span> 我的掌握率 VS 本市平均掌握率 <span class="pre-right"></span></th>
+        </tr>
+    </table>
+    <table width="0" border="0" class="stu-know-table stu-know-table_b stu-know-table-sh">
+        {foreach from=$dataList item=data name=foo}
+        <tr>
+            {if $smarty.foreach.foo.index eq 0}
+            <td width="9.5%" class="no-num"><span class="no1"></span></td>
+            {elseif $smarty.foreach.foo.index eq 1}
+            <td width="9.5%" class="no-num"><span class="no2"></span></td>
+            {elseif $smarty.foreach.foo.index eq 2}
+            <td width="9.5%" class="no-num"><span class="no3"></span></td>
+            {else}
+            <td width="9.5%" class="no-num">{$smarty.foreach.foo.index + 1}</td>
+            {/if}
+            <td width="16%">{$data.knowledgeName}</td>
+            <td width="13%">{$data.appearCount}</td>
+            <td width="30.5%" class="w-change w-large tl">{$data.schoolName}</td>
+            <td class="s-h td-new">
+                <div>
+                    <div class="percent percent-new percent-new-sh fl">
+                        <div class="percent-cont" style="width:{$data.userRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$data.userRatio}%</div>
+                </div>
+                <div>
+                    <div class="percent percent-new percent-new-sh fl">
+                        <div class="percent-cont-city" style="width:{$data.cityRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$data.cityRatio}%</div>
+                </div>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+    <button class="btn-sh">
+        <span class="btn-sh-s btn-sh-h"></span>
+        <span class="bth-sh-txt-s">收起我的掌握率</span>
+        <span class="bth-sh-txt-h">展开我的掌握率</span>
+    </button>
+    {/literal}
+</script>
+<!--知识点-->
+<script type="remark-template" id="knowledgeControlTemplate">
+    {literal}
+    <p class="ml30"><b class="ft18 col6">已掌握的知识点</b><span class="col9 ft14 ml10">请继续保持哟~</span></p>
+    <div class="master-infor">
+        {if $control neq ""}
+        {foreach from=$control item=know}
+        <span>{$know.knowledgeName}</span>
+        {/foreach}
+        {else}
+        <span>暂无</span>
+        {/if}
+    </div>
+    <p class="ml30"><b class="ft18 col6">未掌握的知识点</b><span class="col9 ft14 ml10">后期需要重点关注~</span></p>
+    {if $notControl neq ""}
+    <table class="stu-know-table stu-know-table-new mt30" width="0" border="0">
+        <tr>
+            <th width="10%">序号</th>
+            <th width="35%">知识点</th>
+            <th width="10%">所占分值</th>
+            <th>
+                <div>
+                    <span class="per-left"></span> 我的掌握率
+                </div>
+                <div> VS </div>
+                <div>
+                    本市平均掌握率 <span class="pre-right"></span>
+                </div>
+            </th>
+        </tr>
+    </table>
+    <table width="0" border="0" class="stu-know-table stu-know-table_b ">
+        {foreach from=$notControl item=unknown name=foo}
+        <tr>
+            <td width="10%">{$smarty.foreach.foo.index+1}</td>
+            <td width="35%">{$unknown.knowledgeName}</td>
+            <td width="10%">{$unknown.totalScore}</td>
+            <td class="td-new">
+                <div>
+                    <div class="percent percent-new fl">
+                        <div class="percent-cont" style="width:{$unknown.scoreRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$unknown.scoreRatio}%</div>
+                </div>
+                <div>
+                    <div class="percent percent-new fl">
+                        <div class="percent-cont-city" style="width:{$unknown.cityScoreRatio + 1.1}%"></div>
+                    </div>
+                    <div class="percent-count-num fl">{$unknown.cityScoreRatio}%</div>
+                </div>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+    {else}
+    <div class="master-infor"><span>暂无</span></div>
+    {/if}
 
+    <div class="rep-ps-dc">
+        <h1>知识点</h1>
+        <h2><i>{$counts}</i><em>个</em></h2>
+        <h3>孩子掌握的不是很好的知识点有{$counts}个</h3>
+        <h4>{$info}</h4>
+        <div class="ft"></div>
+    </div>
+    {/literal}
+</script>
 <script src="rep-js/jquery-1.9.1.js"></script>
 <script src="rep-js/echarts-all.js"></script>
 <script src="rep-js/common.js"></script>
