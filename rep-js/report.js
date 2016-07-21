@@ -594,9 +594,9 @@ Report.bindUserExamData = function (data) {
         var examScoreHTML = '<li><div class="rel stu-paperli"><div class="pic"><img src="' + basePath + '/public/module/global/rep-images/stu-paper.png" width="130" height="175"></div><div class="cover"><p>';
         if (scoreToLevel == true) {
             if (data.subjectName == "总分") {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
+                examScoreHTML += dataUtil.getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="score">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score active">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
+                examScoreHTML += dataUtil.getScoreToLevel(data.score, data.standardScore) + '</p><a  href="javascript:void(0);" paperId="' + data.paperId + '" class="score active">' + data.subjectName + '</a><a  href="' + basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + data.subjectCode + '&paperId=' + data.paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId") + '" class="ana">试卷+解析</a>';
             }
         } else {
             if (data.subjectName == "总分") {
@@ -629,7 +629,6 @@ Report.subjectList = function () {
                 $('.top_subjectList').append('<li><a href="javascript:void(0);" paperId="'+ subjectPaperId[j] + '">' + subjectName[j] + '</a>');
                 elements.top_subjectList.children().eq(0).find('a').addClass('on');
                 elements.top_subjectListPar.children().eq(0).find('a').addClass('on');
-                console.log(subjectPaperId[j]);
             }
         }
         if (Report.role == 'student') {
@@ -1653,11 +1652,9 @@ Report.bindEachSubjectData = function () {
  */
 Report.bindLoseScoreData = function (paperId) {
 
-    var _this = this,
-        jsonUrl = '',
+    var jsonUrl = '',
         option = {},
         optionTxt = {};
-    _this.paperId = paperId;
     if (Report.allSinger == 'All') {
         jsonUrl = 'getLostScoreOfDifficulty';
         option = {"examId":Request.QueryString("examId")};
@@ -1665,53 +1662,52 @@ Report.bindLoseScoreData = function (paperId) {
     }
     else {
         jsonUrl = 'getSubjectLostScoreByDifficulty';
-        option = {userId: currentUser.id, paperId: _this.paperId};
-        optionTxt = {examId: Request.QueryString("examId"), paperId: _this.paperId, role: 'student'};
+        option = {userId: currentUser.id, paperId: paperId};
+        optionTxt = {examId: Request.QueryString("examId"), paperId: paperId, role: 'student'};
     }
-    $.getJSON("0.txt",
-        // $.getJSON(basePath + "/zhixuebao/feesReport/" + jsonUrl + "/",
-        option, function (data) {
-            var totalLostScore = 0;
-            $.each(data, function(k, v) {
-                totalLostScore += v.lostScoreValue;
-            });
-
-            if (!!_this.paperId) {
-                for(var i = 0; i < data.length; i++) {
-                    var lostData = data[i];
-                    if (data[i].lostScoreTypeName == "难题") {
-                        elements.lostScore_hardSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_hardScoreSinger.text(lostData.lostScoreValue);
-                    } else if (data[i].lostScoreTypeName == "中等题") {
-                        elements.lostScore_middleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_middleScoreSinger.text(lostData.lostScoreValue);
-                    } else if (data[i].lostScoreTypeName == "简单题") {
-                        elements.lostScore_simpleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_simpleScoreSinger.text(lostData.lostScoreValue);
-                    } else {
-                        continue;
-                    }
-                }
-            }
-            else {
-                for(var i = 0; i < data.length; i++) {
-                    var lostData = data[i];
-                    if (data[i].lostScoreTypeName == "难题") {
-                        elements.lostScore_hard.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_hardScore.text(lostData.lostScoreValue);
-                    } else if (data[i].lostScoreTypeName == "中等题") {
-                        elements.lostScore_middle.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_middleScore.text(lostData.lostScoreValue);
-                    } else if (data[i].lostScoreTypeName == "简单题") {
-                        elements.lostScore_simple.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                        elements.lostScore_simpleScore.text(lostData.lostScoreValue);
-                    } else {
-                        continue;
-                    }
-                }
-            }
-
+    $.getJSON(basePath + "/zhixuebao/feesReport/" + jsonUrl + "/",
+    option, function (data) {
+        var totalLostScore = 0;
+        $.each(data, function(k, v) {
+            totalLostScore += v.lostScoreValue;
         });
+
+        if (!!paperId) {
+            for(var i = 0; i < data.length; i++) {
+                var lostData = data[i];
+                if (data[i].lostScoreTypeName == "难题") {
+                    elements.lostScore_hardSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_hardScoreSinger.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "中等题") {
+                    elements.lostScore_middleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_middleScoreSinger.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "简单题") {
+                    elements.lostScore_simpleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_simpleScoreSinger.text(lostData.lostScoreValue);
+                } else {
+                    continue;
+                }
+            }
+        }
+        else {
+            for(var i = 0; i < data.length; i++) {
+                var lostData = data[i];
+                if (data[i].lostScoreTypeName == "难题") {
+                    elements.lostScore_hard.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_hardScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "中等题") {
+                    elements.lostScore_middle.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_middleScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "简单题") {
+                    elements.lostScore_simple.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_simpleScore.text(lostData.lostScoreValue);
+                } else {
+                    continue;
+                }
+            }
+        }
+
+    });
 
     $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
         optionTxt, function (data) {
@@ -1991,9 +1987,9 @@ Report.bindUserExamDataPar = function () {
         var examScoreHTML = '<li><div class="rel stu-paperli par-paperli"><div class="pic"><img src="' + basePath + '/public/module/global/rep-images/stu-paper.png" width="130" height="155"></div><div class="cover"><p class="mb30">';
         if (scoreToLevel == true) {
             if (data.subjectName == "总分") {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
+                examScoreHTML += dataUtil.getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" class="ana">' + data.subjectName + '</a>';
             } else {
-                examScoreHTML += getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" paperId="' + data.paperId + '" class="ana active">' + data.subjectName + '</a>';
+                examScoreHTML += dataUtil.getScoreToLevel(data.score, data.standardScore) + '</p><a href="javascript:void(0);" paperId="' + data.paperId + '" class="ana active">' + data.subjectName + '</a>';
             }
         } else {
             if (data.subjectName == "总分") {
