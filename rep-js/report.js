@@ -2246,83 +2246,83 @@ reportCtrl.parSinger = (function(){
     return parSinger;
 })();
 
-var lazyCtrl = {
-
-    init: function(){
-        //对可视区域进行懒加载
-        var Winload = $class(Lazyload, proto);
-
-        //0. 懒加载 [题目汇总]
-        new Winload({
-            elems: $id("lazy_topic"),
-            container: window,
-            ondataload: function (elem) {
-                if(!!isMobile) {
-                    elements.lazy_topic.remove();
-                }
-                else {
-                    var topicCollectionObj = new TopicCollect();
-                    topicCollectionObj.init();
-                }
-            }
-        });
-        //1. 懒加载 [这次考试有进步吗？]
-        new Winload({
-            elems: $id("lazy_historyRank"),
-            container: window,
-            ondataload: function (elem) {
-                var fore = new forewordCtrl();
-                fore.init();
-            }
-        });
-        //2. 懒加载 [从考试情况看孩子学习-各分数段人员数量]
-        new Winload({
-            elems: $id("examChart"),
-            container: window,
-            ondataload: function (elem) {
-                dataUtil.bindScoreParts(0);
-            }
-        });
-        //3. 懒加载 [考试难度]
-        new Winload({
-            elems: $id("lazy_examDif"),
-            container: window,
-            ondataload: function (elem) {
-                var ec = new examCompare();
-                ec.init();
-            }
-        });
-        //4. 懒加载 [丢分题难度]
-        new Winload({
-            elems: $id("lazy_loseScoreDif"),
-            container: window,
-            ondataload: function (elem) {
-                // var dif = new diffcult("reportParSinger");
-                // dif.init();
-                var dif = new Difficulty();
-                dif.init();
-            }
-        });
-        //5. 懒加载[知识点掌握情况]
-        new Winload({
-            elems: $id("howToImprove"),
-            container: window,
-            ondataload: function (elem) {
-                var knowledgeControl = new KnowledgeControl();
-                knowledgeControl.init();
-            }
-        });
-        //6. 懒加载[根据您孩子的情况，我们推荐补习以下内容]
-        new Winload({
-            elems: $id("recommondControl"),
-            container: window,
-            ondataload: function (elem) {
-                var recommondControl = new RecommondControl();
-                recommondControl.init();
-            }
-        });
-    }
-};
+// var lazyCtrl = {
+//
+//     init: function(){
+//         //对可视区域进行懒加载
+//         var Winload = $class(Lazyload, proto);
+//
+//         //0. 懒加载 [题目汇总]
+//         new Winload({
+//             elems: $id("lazy_topic"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 if(!!isMobile) {
+//                     elements.lazy_topic.remove();
+//                 }
+//                 else {
+//                     var topicCollectionObj = new TopicCollect();
+//                     topicCollectionObj.init();
+//                 }
+//             }
+//         });
+//         //1. 懒加载 [这次考试有进步吗？]
+//         new Winload({
+//             elems: $id("lazy_historyRank"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var fore = new forewordCtrl();
+//                 fore.init();
+//             }
+//         });
+//         //2. 懒加载 [从考试情况看孩子学习-各分数段人员数量]
+//         new Winload({
+//             elems: $id("examChart"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 dataUtil.bindScoreParts(0);
+//             }
+//         });
+//         //3. 懒加载 [考试难度]
+//         new Winload({
+//             elems: $id("lazy_examDif"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var ec = new examCompare();
+//                 ec.init();
+//             }
+//         });
+//         //4. 懒加载 [丢分题难度]
+//         new Winload({
+//             elems: $id("lazy_loseScoreDif"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 // var dif = new diffcult("reportParSinger");
+//                 // dif.init();
+//                 var dif = new Difficulty();
+//                 dif.init();
+//             }
+//         });
+//         //5. 懒加载[知识点掌握情况]
+//         new Winload({
+//             elems: $id("howToImprove"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var knowledgeControl = new KnowledgeControl();
+//                 knowledgeControl.init();
+//             }
+//         });
+//         //6. 懒加载[根据您孩子的情况，我们推荐补习以下内容]
+//         new Winload({
+//             elems: $id("recommondControl"),
+//             container: window,
+//             ondataload: function (elem) {
+//                 var recommondControl = new RecommondControl();
+//                 recommondControl.init();
+//             }
+//         });
+//     }
+// };
 
 var chartUtil = {
     /**
