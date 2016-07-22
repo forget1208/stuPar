@@ -289,9 +289,7 @@ Report.allSingerTab = function () {
         index++;
     }
     $(this).addClass('on').parent().siblings().children().removeClass('on');
-    var paperId = '',
-        localSubjectRatios = '',
-        localClassRatios = '';
+    var paperId = '';
 
     if (Report.role == 'student') {
         elements.subjectName2.text($(this).text());
@@ -301,31 +299,27 @@ Report.allSingerTab = function () {
         }
         else {
             Report.allSinger = 'Singer';
-        }
-        //查看试卷解析
-        elements.analysisMain.click(function () {
-            window.location.href = basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + userExamData.subjectCode + '&paperId=' + paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId");
-        });
-        if ($(elements.top_subjectList.find('a.on')).attr('subjectCode') != freeSubjectCode) {
-            $('.rep-stu-content').eq(1).find('.isVip').hide();
-            $('.rep-stu-content').eq(1).find('.isUnVip').show();
-            Report.unvipSinger();
-        }
-        else {
-            $('.rep-stu-content').eq(1).find('.isUnVip').hide();
-            $('.rep-stu-content').eq(1).find('.isVip').show();
-            var paperId = userExamDataList[1].paperId;
-            var report = new reportCtrl.parSinger();
-            report.init();
-            var fore = new forewordCtrl();
-            fore.init(paperId); //这次考试有进步吗
-            Report.getStuSingleReportData(paperId);
-            Report.bindLoseScoreData(paperId); //丢分题难度
-            var knowledgeControl = new KnowledgeControl();
-            knowledgeControl.init(paperId); //知识点
-            var topTopic = new TopTopic();
-            topTopic.init(paperId); //TOP10
-            Report.bindExamTask(); //考点闯关
+            if ($(elements.top_subjectList.find('a.on')).attr('subjectCode') != freeSubjectCode) {
+                $('.rep-stu-content').eq(index).find('.isVip').hide();
+                $('.rep-stu-content').eq(index).find('.isUnVip').show();
+                Report.unvipSinger();
+            }
+            else {
+                $('.rep-stu-content').eq(index).find('.isUnVip').hide();
+                $('.rep-stu-content').eq(index).find('.isVip').show();
+                var paperId = userExamDataList[1].paperId;
+                var report = new reportCtrl.parSinger();
+                report.init();
+                var fore = new forewordCtrl();
+                fore.init(paperId); //这次考试有进步吗
+                Report.getStuSingleReportData(paperId);
+                Report.bindLoseScoreData(paperId); //丢分题难度
+                var knowledgeControl = new KnowledgeControl();
+                knowledgeControl.init(paperId); //知识点
+                var topTopic = new TopTopic();
+                topTopic.init(paperId); //TOP10
+                Report.bindExamTask(); //考点闯关
+            }
         }
         //查看试卷解析
         elements.analysisMain.click(function () {
@@ -335,15 +329,12 @@ Report.allSingerTab = function () {
     else {
         elements.subjectName2Par.text($(this).text());
         paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
-        console.log('aaa');
         if (elements.top_subjectListPar.find('a.on').html() == '全科') {
-            console.log('1');
             Report.bindIntroductionData(); //导读信息
             Report.bindUserExamDataPar(); //孩子考得怎么样
             Report.unvip();
         }
         else {
-            console.log('2');
             Report.unvipSinger();
             var topicCollectionObj = new TopicCollect();
             topicCollectionObj.init(paperId); //题目汇总
@@ -365,19 +356,12 @@ Report.allSingerTab = function () {
 };
 
 Report.allSingerTabHandler = function (subjectName) {
-    var paperId = '',
-        localSubjectRatios = '',
-        localClassRatios = '';
+    var paperId = '';
     if (Report.role == 'student') {
         $('.rep-stu-content').eq(1).show().siblings('.rep-stu-content').hide();
         elements.subjectName2.text(subjectName);
         paperId = elements.top_subjectList.find('a.on').attr('paperId');
-        if (elements.top_subjectList.find('a.on').html() == '全科') {
-            Report.allSinger = 'All';
-        }
-        else {
-            Report.allSinger = 'Singer';
-        }
+        Report.allSinger = 'Singer';
         if ($(elements.top_subjectList.find('a.on')).attr('subjectCode') != freeSubjectCode) {
             $('.rep-stu-content').eq(1).find('.isVip').hide();
             $('.rep-stu-content').eq(1).find('.isUnVip').show();
@@ -1726,9 +1710,8 @@ Report.getStuSingleReportData = function (paperId) {
         cache:true,
         success: function (data) {
             data = JSON.parse(data);
-            console.log('data:' + JSON.stringify(data));
-            localSubjectRatios = data.subjectRatios;
-            localClassRatios = data.classRatios;
+            var localSubjectRatios = data.subjectRatios;
+            var localClassRatios = data.classRatios;
             $.each(userExamDataList, function(k, v) {
                 if(v.paperId == paperId) {
                     userExamData = v;
@@ -1748,6 +1731,916 @@ Report.getStuSingleReportData = function (paperId) {
             }
         }
     });
+};
+
+//我的得分率与其他同学的对比文案信息
+var tipsStudentInfo =[];
+
+var tipsUtilStu = {
+
+    init: function (paperId) {
+        this.paperId = paperId;
+        this.initTipData();
+    },
+
+    /**
+     * 初始化提示信息
+     */
+    initTipData: function (ratioInfo,id) {
+        var _this = this;
+        var tips =[];
+
+        if(id){
+            if(tipsStudentInfo[1]){
+                tips[1]=tipsStudentInfo[1];
+                $('#_tipId').text(tips[1]['title']);
+                $('#_tipId1').text(tips[1]['desc']);
+            }else{
+                $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
+                    {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:1},function(data){
+                        tipsStudentInfo[1] =$.parseJSON(data);
+                        tips[1]=$.parseJSON(data);
+                        $('#_tipId').text(tips[1]['title']);
+                        $('#_tipId1').text(tips[1]['desc']);
+                    });
+            }
+        }else{
+            if(tipsStudentInfo[0]){
+                tips[0]=tipsStudentInfo[0];
+                $('#_tipId').text(tips[0]['title']);
+                $('#_tipId1').text(tips[0]['desc']);
+            }else{
+                $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
+                    {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:0},function(data){
+                        tipsStudentInfo[0] =$.parseJSON(data);
+                        tips[0] = $.parseJSON(data);
+                        $('#_tipId').text(tips[0]['title']);
+                        $('#_tipId1').text(tips[0]['desc']);
+                    });
+            }
+        }
+    },
+
+    /**
+     * 哪些题我失误了提示语。
+     * @param subjectRatio 学生得分率
+     * @param ratioInfos 得分率(可能为：班级、年级、跟我相近的同学)。
+     */
+    getTips: function (subjectRatios, ratioInfos) {
+        if (!subjectRatios || !ratioInfos) {
+            return "";
+        }
+        var tips = [];
+        var topicNums1 = [], topicNums2 = []; //
+        var len = subjectRatios.length;
+        for (var i = 0; i < len; i++) {
+            if (ratioInfos[i].scoreRatio - subjectRatios[i].scoreRatio > 25) {
+                topicNums1.push(subjectRatios[i].topicNum);
+            } else if (subjectRatios[i].scoreRatio - ratioInfos[i].scoreRatio > 25) {
+                topicNums2.push(subjectRatios[i].topicNum);
+            }
+        }
+        if (topicNums1.length > 0) {
+            tips.push("<h1>第" + topicNums1.join("、") + "题做对的人很多哦，你怎么这么粗心呢?</h1>");
+        }
+        if (topicNums2.length > 0) {
+            tips.push("<h1>第" + topicNums2.join("、") + "题做对的人不多哦，你就是其中一个！你的学霸之气又显露出来了！</h1>");
+        }
+        if (topicNums1.length == 0 && topicNums2.length == 0) {
+            return "<h1>你每道题的得分率都和班级平均得分率紧紧吻合，一点儿不脱离群众！</h1>";
+        }
+        return tips.join("");
+    },
+    /**
+     * 简单题、中档题、难题的提示信息
+     */
+    getDiffcultTip: function (result) {
+        if (!result) {
+            return "";
+        }
+        var tipArr = [];
+        var tip1 = ""; //简单题、中等题、难题的提示信息
+        var tip2 = ""; //建议信息
+        var losts = result;
+        var maxLostScore = 0;//丢的最多分
+        var lostOne = null;
+        for (var i = 0; i < losts.length; i++) {
+            maxLostScore = losts[i].lostScoreValue > maxLostScore ? losts[i].lostScoreValue : maxLostScore;
+        }
+        for (var j = 0; j < losts.length; j++) {
+            if (maxLostScore == 0) {
+                break;
+            }
+            if (losts[j].lostScoreValue == maxLostScore) {
+                lostOne = losts[j];
+                break;
+            }
+        }
+
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName == elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName == elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+
+        }
+
+        //丢分情况，判断该怎么提示
+        if (lostOne != null) {
+            if (lostOne.lostScoreTypeName == "难题") {
+                tip1 = "在难题上丢分最多已经是比较理想的情况了。学霸体质妥妥的。";
+                tip2 = "难题上丢分是可以理解的事情，多练习不同题型，多钻研解题技巧就好了！";
+            } else if (lostOne.lostScoreTypeName == "中等题") {
+                tip1 = "知识基本掌握了，但要注意易混内容，扫清死角。";
+                tip2 = "中档题失分多是因为知识出现死角或者熟练度不够，要注意复习的全面性，多关注错题本哦！";
+            } else if (lostOne.lostScoreTypeName == "简单题") {
+                var ifSocre = userExamData.score + lostOne.lostScoreValue;
+                errTopicObj.getUserSubjectClassRank(ifSocre, function (result) {
+                    if (result) {
+                        var beatRatio = result.ratio - userExamData.classRank.ratio;
+                        tip1 = "简单题丢这么多分，你够粗心的！丢的这些分足够你在班级多击败" + beatRatio + "%的同学。";
+                        tip2 = "要克服粗心的毛病哦！另外，提高熟练度也能够有效克服粗心的问题。在智学做练习的时候多关注熟练度指数啊。";
+
+                        elements.tipId1.html("<h2>" + tip1 + "</h2>");
+                        elements.tipId2.html("<p>" + tip2 + "</p>");
+
+                        return new Array();
+                    }
+                });
+            }
+        } else {//没丢分情况
+            tip1 = currentUser.name + "的表现太棒了！满分！";
+            tip2 = currentUser.name + "能够轻松自如驾驭各种难度的题型，说明你学习比较游刃有余，潜力也比较大，这种情况下，可以适度开发一下潜能，挑战下更高难度的题型，学习一些综合性的专题内容等。";
+        }
+        tipArr.push("<h2>" + tip1 + "</h2>");
+        tipArr.push("<p>" + tip2 + "</p>");
+        return tipArr;
+    },
+
+    initRankTipData: function (ranks) {
+        if (!ranks) {
+            return;
+        }
+        var _ratios = [];//每次的班级得分率(击败率)
+        //排序，最后一次考试放最后
+        for (var i = ranks.length - 1; i >= 0; i--) {
+            _ratios.push(ranks[i].classRank.ratio);
+        }
+
+        var title = "";
+        var tip = "";
+        if (_ratios.length == 1) {
+            tip = "我只知道你一次考试成绩，还需要时间来了解你哦！";
+        } else if (dataUtilStu.isMaxScore(ranks)) {
+            if (userExamData.subjectCode == "01" || userExamData.subjectCode == "01A") {
+                title = "语文学习渐入佳境，最高成绩出现！";
+                tip = "语文学科创历史新高了！语文上的每一点进步都很不容易，因为背后都是每一天的坚持换来的。一定要总结自己的学习方法，基础知识多记多练，坚持多阅读多感悟，多摘抄多练笔，这就是语文的捷径了。";
+            } else {
+                title = "当当当当！个人最好成绩出现了！";
+                tip = "这一刻应该与家人朋友分享啊！相信你以后还会创造新的记录！";
+            }
+        } else if (dataUtilStu.isMinScore(ranks)) {
+            title = "哎呀呀，这是你发挥最不好的一次。";
+            if (userExamData.subjectCode == "01" || userExamData.subjectCode == "01A") {
+                tip = "你语文从来没考的这么糟糕过是吧？比沮丧更重要的是总结教训。是不是最近忽视了语文的学习？是不是该背诵的没好好背？或者最近的阅读文段有点难？又或者，有时候不是你不够努力，只是别人更努力！但是不管怎么样，你都要记住，持每天积累学习，坚持多阅读多感悟，多摘抄多练笔。还可以跟着后面的学习建议及时查漏补缺。";
+            } else {
+                tip = "有时候不是你不够努力，只是别人更努力！相信下次你会大反击！";
+            }
+        } else {
+            var len = _ratios.length;
+            if (userExamData.subjectCode == "01" || userExamData.subjectCode == "01A") {
+                if (_ratios[len - 1] > _ratios[len - 2]) {//进步的情况
+                    if (_ratios[len - 1] - _ratios[len - 2] > 15) {
+                        title = "见证奇迹！语文成绩大幅提高！";
+                        tip = "语文成绩是不太容易迅速提高的，你能进步这么多，离不开这段时间的努力，而且我相信你一定是在这门学科上越来越有感觉了。";
+                    } else if (_ratios[len - 1] - _ratios[len - 2] > 5 && _ratios[len - 1] - _ratios[len - 2] <= 15) {
+                        title = "语文进步很快！坚持和积累才是语文的捷径。";
+                        tip = "语文属于积累型学科，不在于今天学了几个小时，重要的是，是否每天坚持学习。爱上语文，坚持积累，语文成绩就会进步。";
+                    } else if (_ratios[len - 1] - _ratios[len - 2] > 0 && _ratios[len - 1] - _ratios[len - 2] <= 5) {
+                        title = "成绩小幅进步，比较平稳。";
+                        tip = "语文属于积累型学科，不太容易取得大幅度进步。积累型学科最重要的就是坚持，不需要每天花太多时间做额外的补习，但是一定要每天坚持学习。多读好的文章对于提高阅读和写作能力都有帮助，每天做一道基础知识题目，有助于积累知识，避免基础知识部分丢分。这都是很好的学习方法。";
+                    }
+                } else if (_ratios[len - 1] == _ratios[len - 2]) {
+                    title = "成绩很平稳，居然和上次一样！";
+                    tip = "成绩平稳也是件很不容易的事情。语文是积累型学科，进步本来就不太容易。如果你已经有成熟的适合自己的学习方法，就按照自己的方法和节奏坚持下去吧，如果还没有，就赶快找到适合自己的学习方法和学习节奏。每天一道基础知识题，每天阅读一篇好文章，都是很重要的语文学习方法。";
+                } else {//退步的情况
+                    if (_ratios[len - 2] - _ratios[len - 1] <= 5) {
+                        title = "有一种成绩小幅度下滑叫做迂回前进。";
+                        tip = "成绩的波动在所难免，前进的道路都是曲折的！不必过于紧张，不过还是要总结哪部分成绩下降了。阅读和写作是语文的两大核心能力，但是这部分提分是比较慢的，基础知识比较琐碎，每天做一道题坚持一个月就能明显进步。根据自己的情况制定适合自己的学习策略吧，或者看看我们的学习建议。";
+                    } else if (_ratios[len - 2] - _ratios[len - 1] > 5 && _ratios[len - 2] - _ratios[len - 1] <= 15) {
+                        title = "成绩下滑了，及时总结教训吧！";
+                        tip = "语文成绩明显下降，这是一件危险的事情。语文虽然不建议每天投入大量时间突击式学习，但是坚持学习是很重要的，哪怕每天只能做一道基础知识题目也行。另外，合理安排学习时间和学习内容是很重要的，多听听建议吧！";
+                    } else {
+                        title = "成绩下滑严重，需要详细的诊断分析。";
+                        tip = "语文是积累型学科，不太容易产生大的波动，这次成绩下滑这么严重，什么原因呢？语文的重要性毋容置疑，语文学不会，数学读题能读懂吗？物理说啥能理解吗？英语语法能学会吗？更不用说大段大段文字的历史地理政治了！即使是件发挥失常事件，也要想到所有的偶然都包含必然，所以你还是要检讨下是不是最近对语文的投入不够？别忘了，语文必须坚持积累！基础识记的内容一定要花时间多积累，不是考前抱佛脚，一定要每天固定投入半个小时来做基础题、背诗文。语文就是一个长期积累，厚积薄发的学科，请一定结合学习建议及时查漏补缺！";
+                    }
+                }
+            } else {
+                if (_ratios[len - 1] > _ratios[len - 2]) {//进步的情况
+                    if (_ratios[len - 1] - _ratios[len - 2] > 15) {
+                        title = "成绩起飞！地球已经阻挡不了你前进的步伐了！";
+                        tip = "成绩快速提高是你努力的结果，记得分享你的心得给大家啊！";
+                    } else if (_ratios[len - 1] - _ratios[len - 2] > 5 && _ratios[len - 1] - _ratios[len - 2] <= 15) {
+                        title = "成绩提速！隐隐露出学霸的气质了！";
+                        tip = "相信你一定在这门课程的学习上颇有心得，试试用学习这门课程的热情去对待别的学科，你也会提高的！";
+                    } else if (_ratios[len - 1] - _ratios[len - 2] > 0 && _ratios[len - 1] - _ratios[len - 2] <= 5) {
+                        title = "进步啦！请保持进步的姿势！";
+                        tip = "就是这个姿势！带着你良好的进步感觉继续前进吧！也许你对于提高这门学科成绩已经有一些心得了，无论如何，学习热情、良好的学习习惯和有重点的学习策略都是很重要的，这些都可以在学习建议中找到！";
+                    }
+                } else if (_ratios[len - 1] == _ratios[len - 2]) {
+                    title = "这一刻应该与家人朋友分享啊！相信你以后还会创造新的记录！";
+                    tip = "成绩平稳也是件很不容易的事情，保持这门学科的优势吧！努力的付出是需要时间来收获成果的，保持热情，认真查看学习建议！";
+                } else {//退步的情况
+                    if (_ratios[len - 2] - _ratios[len - 1] <= 5) {
+                        title = "有一种成绩小幅度下滑叫做迂回前进。";
+                        tip = "成绩的波动在所难免，前进的道路都是曲折的！";
+                    } else if (_ratios[len - 2] - _ratios[len - 1] > 5 && _ratios[len - 2] - _ratios[len - 1] <= 15) {
+                        title = "成绩下滑了，及时总结教训吧！";
+                        tip = "成绩下滑超过正常波动范围，需要对照后面的原因分析及时总结教训。即使是发挥失常或者马虎大意，也要重视，因为马虎大意和不会只有一步之遥。";
+                    } else {
+                        title = "成绩下滑严重，需要详细的诊断分析。";
+                        tip = "成绩严重下滑，是发挥失常还是这阶段的学习出了问题？需要及时总结原因，多注意看后面的原因分析啊。同时，合理分配学习时间也是很重要的。请认真参看学习建议，并及时听取老师的指导意见。";
+                    }
+                }
+            }
+        }
+        var html = "<h1>" + title + "</h1><p>" + tip + "</p>";
+        $("#rankTip").html(html);
+    }
+};
+/**
+ * 对比班级、年级。
+ */
+var CompareCtrl = (function () {
+
+    var compareCtrl = function (schoolId, classId, paperId, userId, subjectRatio) {
+        this.schoolId = schoolId;
+        this.classId = classId;
+        this.paperId = paperId;
+        this.userId = userId;
+        this.subjectRatio = subjectRatio;
+        this.count = 10; //默认比较10位同学
+    };
+
+    compareCtrl.prototype.init = function () {
+        this.initEvent();
+    };
+
+    compareCtrl.prototype.initEvent = function () {
+        var _this = this;
+        $("._compare").click(function (event) {
+            //$(this).parent().children().removeClass("on");
+            event.target = event.target ? event.target : event.srcElement;
+            $("._compare li a").removeClass("on");
+            $(event.target).addClass("on");
+            var id = $(event.target).attr("id");
+            var params = {};
+            if (id == "compareGrade") {
+                params.schoolId = _this.schoolId;
+                params.paperId = _this.paperId;
+                _this.getTopicRatioInfo(id, params, function (data) {
+                    var chartParams = dataUtilStu.geneChartParams(_this.subjectRatio, data);//年级得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "年级得分率");
+                    tipsUtilStu.initTipData(data,id);
+                });
+            } else if (id == "compareNearby") {
+                params.userId = _this.userId;
+                params.paperId = _this.paperId;
+                params.count = _this.count;
+                _this.getTopicRatioInfo(id, params, function (data) {
+                    var chartParams = dataUtilStu.geneChartParams(_this.subjectRatio, data);//相近同学得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "相近同学得分率");
+                    tipsUtilStu.initTipData(data);
+                });
+            } else {
+                params.classId = _this.classId;
+                params.paperId = _this.paperId;
+                _this.getTopicRatioInfo(id, params, function (data) {
+                    var chartParams = dataUtilStu.geneChartParams(_this.subjectRatio, data);//班级得分率
+                    chartUtilStu.bindSubjectScoreChartData(chartParams, "班级得分率");
+                    tipsUtilStu.initTipData(data);
+                });
+            }
+        });
+
+
+    };
+
+    compareCtrl.prototype.getTopicRatioInfo = function (id, params, callback) {
+        var url = "";
+        switch (id) {
+            case "compareGrade":
+                url = "/zhixuebao/feesReport/getGradeSubjectTopicRatio/";
+                break;
+            case "compareNearby":
+                url = "/zhixuebao/feesReport/getNearbySubjectTopicRatio/";
+                break;
+            default:
+                url = "/zhixuebao/feesReport/getClassSubjectTopicRatio/";
+        }
+        var URL = basePath + url;
+        $.getJSON(URL, params, callback);
+    };
+
+    return compareCtrl;
+})();
+
+var chartUtilStu = {
+    /**
+     * 一些初始化信息
+     */
+    init: function (subjectRatioInfo, classRatioInfo) {
+        this.bindSubjectScoreChartData(dataUtilStu.geneChartParams(subjectRatioInfo, classRatioInfo), "班级得分率");
+        this.bindUserExamData();
+        //this.bindUserInfo();
+        this.initHeadFoot();
+    },
+    /**
+     * 初始化学生信息
+     */
+    bindUserExamData: function () {
+
+        var userExamData;
+        for ( var i = 0; i < userExamDataList.length; i++){
+            if (Report.role == 'student') {
+                if (userExamDataList[i].subjectName == elements.subjectName2.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+            else {
+                if (userExamDataList[i].subjectName == elements.subjectName2Par.text()) {
+                    userExamData = userExamDataList[i];
+                }
+            }
+
+        }
+
+        elements.subjectName2.html(userExamData.subjectName);
+        elements.examName.html(userExamData.examName);
+        elements.userName.html(currentUser.name);
+        if (scoreToLevel == true) {
+            elements.rankTable.find('b.stu-yel').html(dataUtilStu.getScoreToLevel(userExamData.score, userExamData.standardScore));
+        } else {
+            elements.rankTable.find('b.stu-yel').html(userExamData.score);
+        }
+        if (forbidAvgScore == true) {
+            elements.rankTable.find('.classAverage').html("--");
+            elements.rankTable.find('.gradeAverage').html("--");
+        } else if (scoreToLevel == true) {
+            elements.rankTable.find('.classAverage').html(dataUtilStu.getScoreToLevel(userExamData.classRank.avgScore, userExamData.standardScore));
+            elements.rankTable.find('.gradeAverage').html(dataUtilStu.getScoreToLevel(userExamData.gradeRank.avgScore, userExamData.standardScore));
+        } else {
+            elements.rankTable.find('.classAverage').html(userExamData.classRank.avgScore);
+            elements.rankTable.find('.gradeAverage').html(userExamData.gradeRank.avgScore);
+        }
+        if (forbidRatio == true) {
+            elements.rankTable.find('.classPosition').html("--");
+            elements.rankTable.find('.gradePosition').html("--");
+        } else if (ratioToLevel == true) {
+            elements.rankTable.find('.classPosition').html(dataUtilStu.getRatioToLevel(userExamData.classRank.ratio));
+            elements.rankTable.find('.gradePosition').html(dataUtilStu.getRatioToLevel(userExamData.gradeRank.ratio));
+        } else {
+            elements.rankTable.find('.classPosition').html('前<b>' + (100 - userExamData.classRank.ratio) + '%</b>');
+            elements.rankTable.find('.gradePosition').html('前<b>' + (100 - userExamData.gradeRank.ratio) + '%</b>');
+        }
+    },
+
+    /**
+     * 绑定用户基本信息
+     */
+    bindUserInfo: function () {
+        var userName = currentUser.name;
+        if (userName.length > 6) {
+            userName = userName.substring(0, 6) + "…";
+        }
+        elements.userName.text(userName);
+        initUserAvatar(currentUser.avatar, elements.userAvatar);
+    },
+
+    /**
+     * 初始化头部底部
+     */
+    initHeadFoot: function () {
+
+        var foot = new Foot(userExamData);
+        foot.init();
+
+        // var examSubjectData = [];
+        // examSubjectData = $.grep(userExamDataList, function (n, i) {
+        //     return n.subjectCode;
+        // });
+        // var foot = new Foot(userExamData);
+        // foot.init();
+        // var subjectListHtml = "";
+        // for (var i = 0; i < examSubjectData.length; i++) {
+        //     var data = examSubjectData[i];
+        //     var onClass = "";
+        //     if (Request.QueryString("paperId") == data.paperId) {
+        //         onClass = 'class="on cur"';
+        //     }
+        //     subjectListHtml += '<a ' + onClass + ' href="' + basePath + '/zhixuebao/feesReport/reportStuSinger/?paperId=' + data.paperId + '&classId=' + Request.QueryString("classId") + '&examId=' + Request.QueryString("examId") + '">' + data.subjectName + '</a>';
+        // }
+        // elements.subjectList.html(subjectListHtml);
+        // if (!isVip) {
+        //     elements.subjectList.find("a").attr("href", "#");
+        //     elements.subjectList.find("a").click(function () {
+        //         if (!$(this).hasClass("cur")) {
+        //             var url = studentUrl + "/vip/goodsList/";
+        //             window.open(url);
+        //         }
+        //     });
+        // }
+    },
+
+    /**
+     * 初始化图表(我的得分率与其他同学的对比)
+     * @param chartParams 图标参数
+     * @param ratioName 被学生比较的标题(如：班级得分率)
+     */
+    bindSubjectScoreChartData: function (chartParams, ratioName) {
+        var subjectName = chartParams['topicNums'];
+        var myScore = chartParams['ratios'];
+        var avgScore= chartParams['ratioInfo'];
+        var myChart = echarts.init(document.getElementById('subjectScoreChart'), 'macarons');
+        var chartLegend = ['我的成绩','平均分'];
+        var option = {
+            title: {
+                text:'我的分数与平均得分率的对比'
+            },
+            tooltip : {
+                trigger: 'axis',
+                formatter : '{b}<br/>{a0}:{c0}%<br/>{a1}:{c1}%'
+            },
+            legend: {
+                data:chartLegend
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: subjectName,
+                    axisLabel: {
+                        interval: 0,
+                        formatter: function (val) {
+                            return val.length > 12 ? val.substring(0, 12) + "…" : val;
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        formatter: function(data){
+                            return data + '%';
+                        }
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'我的成绩',
+                    type: 'bar',
+                    barWidth: 40,
+                    data: myScore,
+                    itemStyle: {
+                        normal: {
+                            color: '#f9c443',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: function(data){
+                                    return data.value + '%';
+                                },
+                                textStyle:{
+                                    color:'#000000',
+                                    fontSize:16
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    name:'平均分',
+                    type:'line',
+                    smooth:false,
+                    data:avgScore,
+                    itemStyle:{
+                        normal:{
+                            color:'#99c865',
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: function(data){
+                                    return data.value + '%';
+                                },
+                                textStyle:{
+                                    color:'#EF2647',
+                                    fontSize:16
+                                }
+                            }
+                        }
+
+                    }
+                }
+            ]
+        };
+        if (subjectName.length > 5) {
+            option.dataZoom = {
+                show: true,
+                start: 0,
+                end: 5 / subjectName.length * 100,
+                showDetail: true,
+                zoomLock: true,
+                height: 15,
+                fillerColor: "#30B398",
+                handleColor: "#30B398",
+                backgroundColor: "#FFFFFF",
+                dataBackgroundColor: "#FFFFFF"
+            };
+        }
+
+        myChart.setOption(option);
+    },
+
+    /**
+     * 这次考试有进步吗20160612
+     * @param chartParams
+     */
+    bindRankChartData: function (chartParams) {
+        var examNameList = [];
+        var ratioList =[];
+        if(chartParams.ratios.length >5){
+            for (var i = 1; i <= 5; i++) {
+
+                examNameList.push(chartParams.examNames[chartParams.ratios.length-i]);
+                ratioList.push(chartParams.ratios[chartParams.ratios.length-i]);
+            }
+        }else{
+            for (var i = 0; i < chartParams.ratios.length; i++) {
+
+                examNameList.push(chartParams.examNames[i]);
+                ratioList.push(chartParams.ratios[i]);
+            }
+        }
+
+
+        var chart = echarts.init(document.getElementById('rankChart'), 'macarons');
+        var option = {
+            xAxis: [
+                {
+                    type: 'category',
+                    data: examNameList,
+                    axisLabel: {
+                        interval: 0,
+                        formatter: function (val) {
+                            return val.length > 10 ? val.substring(0, 10) + "…" : val;
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: function (val) {
+                            var tmp = 100 - val;
+                            return tmp + '%';
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#30B398'
+                        }
+                    }
+                }
+            ],
+            series: [
+                {
+                    type: 'line',
+                    smooth: false,
+                    data: ratioList,
+                    itemStyle: {
+                        normal: {
+                            color: '#FD6C9B',
+                            label: {
+                                show: true,
+                                formatter: function (param) {
+                                    param.value = 100 - param.value;
+                                    return '前'+param.value + "%";
+                                },
+                                textStyle: {
+                                    color: '#514F59',
+                                    fontSize: 18
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+
+
+        chart.setOption(option);
+    }
+
+
+};
+
+var dataUtilStu = {
+    /**
+     * 获取学生班级、年级排名信息
+     */
+    getRankTableTemplate: function () {
+        var data = userExamData;
+        var html = __rankTableTemplate__({"rankData": data,
+            "ratioToLevelText": dataUtilStu.ratioToLevelText(data),
+            "scoreToLevelText": dataUtilStu.scoreToLevelText(data),
+            "isForbidAvgScore": dataUtilStu.isForbidAvgScore(forbidAvgScore),
+            "isForbidRatio": dataUtilStu.isForbidRatio(forbidRatio)});
+        return html;
+    },
+    isRatioToLevel: function (isRatioToLevel) {
+        if (isRatioToLevel) {
+            return isRatioToLevel;
+        }
+        return false;
+    },
+    /**
+     * 班级击败比率 等级text。
+     * 上海某些学校要求 将报告中的击败率修改为等级.
+     * add: 2015-12-08
+     */
+    classRatioLeval: function (ueDate) {
+        var data = ueDate;
+        var result = "D";
+        if (data.classRank.ratio >= 75) {
+            result = "A";
+        } else if (data.classRank.ratio >= 50) {
+            result = "B";
+        } else if (data.classRank.ratio >= 25) {
+            result = "C";
+        } else {
+            result = "D";
+        }
+        return result;
+    },
+    /**
+     * 年级击败比率 等级text。
+     * @param ueDate
+     * @returns {String}
+     */
+    gradeRatioLeval: function (ueDate) {
+        var data = ueDate;
+        var result = "D";
+        if (data.gradeRank.ratio >= 75) {
+            result = "A";
+        } else if (data.gradeRank.ratio >= 50) {
+            result = "B";
+        } else if (data.gradeRank.ratio >= 25) {
+            result = "C";
+        } else {
+            result = "D";
+        }
+        return result;
+    },
+
+    /**
+     * 击败比率 等级text。
+     * (包括班级、年级的击败比率)
+     * @param data
+     * @returns {___anonymous8437_8477}
+     */
+    ratioToLevelText: function (data) {
+        var result = {classRatioText: null, gradeRatioText: null};
+        var is = this.isRatioToLevel(ratioToLevel);
+        if (is) {
+            result.classRatioText = this.classRatioLeval(data);
+            result.gradeRatioText = this.gradeRatioLeval(data);
+        }
+        return result;
+    },
+
+
+    /**
+     * 分数转为等级情况下：需展示的等级文本.
+     */
+    scoreToLevelText: function (data) {
+        var result = {classHighScoreText: null, gradeHighScoreText: null, myRankText: null};
+        var is = this.isScoreToLevel(scoreToLevel);
+        if (is) {
+            //满分
+            var sScore = data.standardScore;
+            result.classHighScoreText = this.getScoreToLevel(data.classRank.highScore, sScore);
+            result.gradeHighScoreText = this.getScoreToLevel(data.gradeRank.highScore, sScore);
+            result.myScoreText = this.getScoreToLevel(data.score, sScore);
+        }
+        return result;
+    },
+
+    /**
+     * 是否将分数展示为等级
+     * @param is
+     * @returns 是否
+     */
+    isScoreToLevel: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 分数等级
+     * 安徽某些学校要将 最高分、我的得分展示为等级.
+     * @param score
+     * @param standardScore
+     * @returns {String} 等级[A B C D]
+     */
+    getScoreToLevel: function (score, standardScore) {
+        var level = "D";
+        if (score >= standardScore * 0.85) {
+            level = "A";
+        } else if (score >= standardScore * 0.7) {
+            level = "B";
+        } else if (score >= standardScore * 0.6) {
+            level = "C";
+        } else {
+            level = "D";
+        }
+        return level;
+    },
+
+    /**
+     * 获取击败率等级
+     */
+    getRatioToLevel: function (ratio) {
+        var level = "D";
+        if (ratio >= 75) {
+            level = "A"
+        } else if (ratio >= 50) {
+            level = "B"
+        } else if (ratio >= 25) {
+            level = "C"
+        } else {
+            level = "D"
+        }
+        return level;
+    },
+
+    /**
+     * 是否屏蔽平均分。
+     * (始终展示为 --)
+     * @param is
+     * @returns 是否
+     */
+    isForbidAvgScore: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 是否屏蔽击败比率
+     * @param is
+     * @returns 是否
+     */
+    isForbidRatio: function (is) {
+        if (is) {
+            return is;
+        }
+        return false;
+    },
+
+    /**
+     * 获取错题题号列表html
+     */
+    getErrTopicNoTemplate: function (topics) {
+        var html = __errTopicNoTemplate__({"errTopics": topics});
+        return html;
+    },
+
+    /**
+     * 获取错题答案解析html
+     */
+    getErrTopicAnswerTemplate: function (topic, improveRank) {
+        var html = __errTopicAnswerTemplate__({"topic1": topic, "rankImprove": improveRank});
+        return html;
+    },
+    /**
+     * 这里只传入ratioInfo，可能是班级或年级题目得分率信息
+     * 因为始终拿当前学生得分率和班级或年级得分率比较
+     */
+    geneChartParams: function (subjectRatioInfo, ratioInfo) {
+        var _subjectRatio = subjectRatioInfo;
+        var _ratioInfo = ratioInfo;
+        if (!_subjectRatio && !_ratioInfo) {
+            return null;
+        }
+        //1.我的得分率
+        var topicNums = [], subjectRatios = [];
+        for (var i = 0, topic; topic = _subjectRatio[i++];) {
+            topicNums.push(topic.topicNum + "题");
+            subjectRatios.push(topic.scoreRatio);
+        }
+
+        //2.班级得分率
+        var ratios = [];
+        for (var i = 0, topic; topic = _ratioInfo[i++];) {
+            ratios.push(topic.scoreRatio);
+        }
+
+        var chartParams = {};
+        chartParams.topicNums = topicNums;//题号
+        chartParams.ratios = subjectRatios;//我的得分率
+        chartParams.ratioInfo = ratios; //班级或年级得分率
+        return chartParams;
+    },
+
+    geneRankChartParams: function (ranks) {
+        if (!ranks) {
+            return null;
+        }
+        var _examNames = [];
+        var _ranks = [];
+        var _thisIndex = -1;
+        for (var i = ranks.length - 1; i >= 0; i--) {
+            _examNames.push(ranks[i].examName);
+            _ranks.push(ranks[i].classRank.ratio);
+            if (userExamData.examId == ranks[i].examId) {
+                _thisIndex = ranks.length - 1 - i;
+            }
+        }
+        var charParams = {};
+        charParams.examNames = _examNames;
+        charParams.ratios = _ranks;
+        charParams.thisIndex = _thisIndex;
+        return charParams;
+    },
+    /**
+     * 从历史考试中判断单科，最后一次考试是否为最高分数
+     */
+    isMaxScore: function (ranks) {
+        if (!ranks || ranks.length == 1) {
+            return false;
+        }
+        var maxScore = 0;
+        for (var i = 1; i < ranks.length; i++) {
+            maxScore = ranks[i].score > maxScore ? ranks[i].score : maxScore;
+        }
+        //最后一次考试 和 以前所有次考试的最高分比较
+        if (ranks[0].score > maxScore) {
+            return true;
+        }
+        return false;
+    },
+    /**
+     * 最后一次考试-是否为最低分
+     * @param ranks
+     * @returns {Boolean}
+     */
+    isMinScore: function (ranks) {
+        if (!ranks || ranks.length == 1) {
+            return false;
+        }
+        var minScore = 999;
+        for (var i = 1; i < ranks.length; i++) {
+            minScore = ranks[i].score < minScore ? ranks[i].score : minScore;
+        }
+        //最后一次考试 和 以前所有次考试的最低分比较
+        if (ranks[0].score < minScore) {
+            return true;
+        }
+        return false;
+    }
+
 };
 
 /**
@@ -2374,7 +3267,7 @@ Report.defaultPage = function () {
             Report.unvip();
         }
         else {
-            Report.allSinger = 'Singer';
+            // Report.allSinger = 'Singer';
             // var paperId = userExamDataList[1].paperId;
             // var topicCollectionObj = new TopicCollect();
             // topicCollectionObj.init(paperId); //题目汇总
