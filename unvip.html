@@ -195,13 +195,13 @@
                     </div>
                     <!--学生单科-->
                     <div class="rep-stu-content">
+                        <!--主体内容头部-->
+                        <div class="rep-ss-tit rel">
+                            <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
+                            <div class="schooltest examName"  id="examNameSinger"></div>
+                            <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
+                        </div>
                         <div class="isUnVip">
-                            <!--主体内容头部-->
-                            <div class="rep-ss-tit rel">
-                                <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
-                                <div class="schooltest examName"  id="examNameSinger"></div>
-                                <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
-                            </div>
                             <!--我考得怎么样？-->
                             <div class="report-unvip-basetit bindParentShow">
                                 <div class="report-unvip-line fl"></div>
@@ -219,19 +219,11 @@
                                 </li>
 
                             </ul>
-
                             <!--优先查分-->
                             <div id="checkScoreContainerSinger" class="checkScoreContainer"></div>
                             <div id="randomDisplaySinger" class="randomDisplay"></div>
                         </div>
                         <div class="isVip" style="display: none;">
-                            <!--主体内容头部-->
-                            <div class="rep-ss-tit rel">
-                                <div class="rep-name"><span id="subjectName2"></span>成绩报告</div>
-                                <div class="schooltest examName" id="examNameSinger"></div>
-                                <div class="vip-exclusive"></div>
-                                <a href="javascript:void(0);" class="report-ana" id="analysisMain">查看试卷解析</a>
-                            </div>
                             <!--我考得怎么样？-->
                             <div class="rep-botbg-a">
                                 <div class="rep-modtit">
@@ -295,7 +287,7 @@
                                 </div>
                             </div>
                             <!--题目汇总-->
-                            <div class="stus-topic rep-botbg-b tc lazy_topic" id="lazy_topicVip">
+                            <div class="stus-topic rep-botbg-b tc lazy_topic" id="lazy_topicSinger">
                                 <div class="rep-modtit">
                                     <p class="fb ft24">题目汇总</p>
                                 </div>
@@ -542,7 +534,7 @@
 </script>
 <!--学生全科-->
 <script type="remark-template" id="randomDisplayTemplate">
-
+    {literal}
     <div class="title">{$userName|truncate:15:"":true}同学的成绩问题深入分析</div>
     <!--与其他同学的对比-->
     <div class="fircompare">
@@ -634,11 +626,11 @@
             </div>
         </div>
     </div>
-
+    {/literal}
 </script>
 <!--家长全科-->
 <script type="remark-template" id="randomDisplayTemplatePar">
-
+    {literal}
     <div class="title">{$userName|truncate:15:"":true}同学的成绩问题深入分析</div>
     <!--与其他同学的对比-->
     <div class="fircompare">
@@ -730,11 +722,11 @@
             </div>
         </div>
     </div>
-
+    {/literal}
 </script>
 <!--学生单科-->
 <script type="remark-template" id="randomDisplayTemplateSinger">
-
+    {literal}
     <div class="title">{$userName|truncate:15:"":true}同学的成绩问题深入分析</div>
 
     <!--我的得分率与其他同学的对比-->
@@ -836,11 +828,11 @@
         </div>
     </div>
     <div class="clearfix"></div>
-
+    {/literal}
 </script>
 <!--家长单科-->
 <script type="remark-template" id="randomDisplayTemplateSingerPar">
-
+    {literal}
     <div class="title">{$userName|truncate:15:"":true}同学的成绩问题深入分析</div>
     <!--与其他同学的对比-->
     <div class="fircompare">
@@ -986,7 +978,7 @@
     </div>
     <div class="mt80"></div>
     <div class="clearfix"></div>
-
+    {/literal}
 </script>
 <!--好友PK-->
 <script type="remark-template" id="friendManage">
@@ -1074,7 +1066,7 @@
 </script>
 <!--弹窗 假如本次考试是高考-->
 <script type="remark-template" id="nceeVolunteerPopTemplate">
-
+    {literal}
     <table width="0" border="0" id="popNcee">
         <tbody><tr>
             <td class="t_tl"></td>
@@ -1100,11 +1092,11 @@
         </tr>
         </tbody>
     </table>
-
+    {/literal}
 </script>
 <!--题目汇总-->
 <script type="remark-template" id="topicCollectListTemplate">
-
+    {literal}
     <!--题目列表-->
     <a  class="pre" topicStartNumber="" id="topicPreId"></a>
     <div class="hd-ul" id="topicListNumberShow">
@@ -1122,11 +1114,11 @@
         </ul>
     </div>
     <a  class="next" topicEndNumber="" id="topicNextId"></a>
-
+    {/literal}
 </script>
 <!--题目汇总题干和分析-->
 <script type="remark-template" id="topicCollectProblemAnalysisTemplate">
-
+    {literal}
     <!--题目题干-->
     <div class="stu-find-title">
         <h1 class="ft16">{$topic1.rawHtml}</h1>
@@ -1174,7 +1166,7 @@
         <p class="mt10">答案解析：{$topic1.analysisHtml}</p>
         {/if}
     </div>
-
+    {/literal}
 </script>
 <!--TOP10-->
 <script type="remark-template" id="topTenKnowledgeTemplate">
@@ -1292,6 +1284,83 @@
         <h4>{$info}</h4>
         <div class="ft"></div>
     </div>
+    {/literal}
+</script>
+
+<script type="remark-template" id="avatarTemplate">
+    {literal}
+    <div class="my fl">
+        <div class="fr pic rel">
+            <div class="inside fr">
+                {if $user.avatar}
+                <img onerror="{$basePath}/public/module/global/images/admin01.jpg" src="{$user.avatar}" width="140"
+                     height="140">
+                {else}
+                <img src="{$basePath}/public/module/global/images/admin01.jpg" width="140" height="140">
+                {/if}
+            </div>
+            <div class="outside"></div>
+        </div>
+        <div class="fr medal tr">
+            <p class="ft14  medal_txt">我获得称号</p>
+
+            <p>
+                {foreach from=$user.titleList item=data}
+                {if $data.level eq 1}
+                <span title="{$data.name}" class="medal_pic medal_picd"></span>
+                {elseif $data.level eq 2}
+                <span title="{$data.name}" class="medal_pic medal_picc"></span>
+                {elseif $data.level eq 3}
+                <span title="{$data.name}" class="medal_pic medal_picb"></span>
+                {else}
+                <span title="{$data.name}" class="medal_pic medal_pica"></span>
+                {/if}
+                {/foreach}
+            </p>
+        </div>
+    </div>
+    <!--左侧头像结束 -->
+    <div class="choice fr rel">
+        {if !$friend.isFriend}
+        <a data-id="{$friend.userId}" href="javascript:;" id="btnAddFriend" class="fl"></a>
+        {/if}
+        <div class="inside fl">
+            {if $friend.avatar}
+            <img onerror="{$basePath}/public/module/global/images/admin01.jpg" src="{$friend.avatar}" width="140"
+                 height="140">
+            {else}
+            <img src="{$basePath}/public/module/global/images/admin01.jpg" width="140" height="140">
+            {/if}
+        </div>
+        <div class="outside"></div>
+        <div class="fl ml15">
+            {if $friend.isFriend}
+            <p class="col11 ft14 choice_txt dt-white" style="width: 140px;height: 20px;">{$friend.name}获得称号</p>
+
+            <p class="mt10">
+                {foreach from=$friend.titleList item=data}
+                {if $data.level eq 1}
+                <span title="{$data.name}" class="medal_pic medal_picd"></span>
+                {elseif $data.level eq 2}
+                <span title="{$data.name}" class="medal_pic medal_picc"></span>
+                {elseif $data.level eq 3}
+                <span title="{$data.name}" class="medal_pic medal_picb"></span>
+                {else}
+                <span title="{$data.name}" class="medal_pic medal_pica"></span>
+                {/if}
+                {/foreach}
+            </p>
+            {else}
+            <p class="col11 ft14 choice_txt">快来挑战我吧！</p>
+
+            <p class="mt10">
+
+            </p>
+            {/if}
+        </div>
+    </div>
+    <div class="clear"></div>
+    <p class="tc ft16 tag">成绩</p>
     {/literal}
 </script>
 <script src="rep-js/jquery-1.9.1.js"></script>

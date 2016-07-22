@@ -1219,6 +1219,83 @@
     {/literal}
 </script>
 
+<script type="remark-template" id="avatarTemplate">
+    {literal}
+    <div class="my fl">
+        <div class="fr pic rel">
+            <div class="inside fr">
+                {if $user.avatar}
+                <img onerror="{$basePath}/public/module/global/images/admin01.jpg" src="{$user.avatar}" width="140"
+                     height="140">
+                {else}
+                <img src="{$basePath}/public/module/global/images/admin01.jpg" width="140" height="140">
+                {/if}
+            </div>
+            <div class="outside"></div>
+        </div>
+        <div class="fr medal tr">
+            <p class="ft14  medal_txt">我获得称号</p>
+
+            <p>
+                {foreach from=$user.titleList item=data}
+                {if $data.level eq 1}
+                <span title="{$data.name}" class="medal_pic medal_picd"></span>
+                {elseif $data.level eq 2}
+                <span title="{$data.name}" class="medal_pic medal_picc"></span>
+                {elseif $data.level eq 3}
+                <span title="{$data.name}" class="medal_pic medal_picb"></span>
+                {else}
+                <span title="{$data.name}" class="medal_pic medal_pica"></span>
+                {/if}
+                {/foreach}
+            </p>
+        </div>
+    </div>
+    <!--左侧头像结束 -->
+    <div class="choice fr rel">
+        {if !$friend.isFriend}
+        <a data-id="{$friend.userId}" href="javascript:;" id="btnAddFriend" class="fl"></a>
+        {/if}
+        <div class="inside fl">
+            {if $friend.avatar}
+            <img onerror="{$basePath}/public/module/global/images/admin01.jpg" src="{$friend.avatar}" width="140"
+                 height="140">
+            {else}
+            <img src="{$basePath}/public/module/global/images/admin01.jpg" width="140" height="140">
+            {/if}
+        </div>
+        <div class="outside"></div>
+        <div class="fl ml15">
+            {if $friend.isFriend}
+            <p class="col11 ft14 choice_txt dt-white" style="width: 140px;height: 20px;">{$friend.name}获得称号</p>
+
+            <p class="mt10">
+                {foreach from=$friend.titleList item=data}
+                {if $data.level eq 1}
+                <span title="{$data.name}" class="medal_pic medal_picd"></span>
+                {elseif $data.level eq 2}
+                <span title="{$data.name}" class="medal_pic medal_picc"></span>
+                {elseif $data.level eq 3}
+                <span title="{$data.name}" class="medal_pic medal_picb"></span>
+                {else}
+                <span title="{$data.name}" class="medal_pic medal_pica"></span>
+                {/if}
+                {/foreach}
+            </p>
+            {else}
+            <p class="col11 ft14 choice_txt">快来挑战我吧！</p>
+
+            <p class="mt10">
+
+            </p>
+            {/if}
+        </div>
+    </div>
+    <div class="clear"></div>
+    <p class="tc ft16 tag">成绩</p>
+    {/literal}
+</script>
+
 <script src="rep-js/jquery-1.9.1.js"></script>
 <script src="rep-js/echarts-all.js"></script>
 <script src="rep-js/common.js"></script>
