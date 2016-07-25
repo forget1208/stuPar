@@ -3,33 +3,33 @@
  */
 
 // 全部基础数据
-// var basePath = 'http://localhost:8092/zhixuebao';
-// var currentUser = {"id":"2000000020000269186","isAdmin":false,"loginName":"zx30024501","name":"小明一","role":"student"};
-// var classInfo = {"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014};
-// var userExamArchives = [{"classId":"2000000020000002363","className":"高一年级1班","classRank":7,"classStudentCount":7,"createDateTime":1466410322248,"examCreateDateTime":1466410145000,"examId":"af7699d4-eac2-4563-8fff-3ecbcf2f8ef7","examName":"成绩补录单科","gradeCode":"10","id":"751e7514-0364-4d8a-af41-90cb3889cac4","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":7,"score":55,"subjectCode":"01A","subjectCodes":["01A"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":7,"schoolRank":7,"score":55,"subjectCode":"01A"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"c0abff51-b173-42cd-aa01-67acb99429c8","examName":"数据指标验证考试2","gradeCode":"11","id":"17e1cc0d-7325-4c02-9405-85cd5cd4ec3c","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":83,"subjectCode":"02","subjectCodes":["02"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":83,"subjectCode":"02"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":6,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeCode":"11","id":"d865c07a-1223-4841-b630-3849665e7aad","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":21,"score":110,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":31,"schoolRank":8,"score":43,"subjectCode":"02"},{"classRank":12,"schoolRank":4,"score":67,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":-1,"classStudentCount":9,"createDateTime":1467709068228,"examCreateDateTime":1449630642000,"examId":"cdf9d2e3-532e-4290-8f64-175bd540b708","examName":"数据指标验证考试3","gradeCode":"11","id":"99046d0e-1296-490c-9401-deba26518f24","isBeTied":true,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":-1,"score":255,"subjectCodes":["02","01"],"tiArchive":{"tiClassRank":1,"tiSchoolRank":3,"tiScore":255,"tiUserSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}]},"tiStudentCount":1,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1463452106126,"examCreateDateTime":1449556497000,"examId":"66915a32-6e07-449e-82e2-3a413ec4661c","examName":"数据指标验证考试1","gradeCode":"11","id":"ff3801f0-a2d2-4375-ab60-e6e9bd888ba1","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":260,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":140,"subjectCode":"02"},{"classRank":1,"schoolRank":2,"score":120,"subjectCode":"01"}],"version":1001}];
-// var examClassId = "2000000020000002363";
-//用户各科考试数据
-// var userExamDataList = [{"classRank":{"avgScore":116,"highScore":150,"rank":6,"ratio":44,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":110.3,"highScore":170,"rank":21,"ratio":49,"totalNum":40},"paperId":"","score":110,"standardScore":249,"subjectCode":"","subjectName":"总分"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":63.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"02","subjectName":"数学"},{"classRank":{"avgScore":58.7,"highScore":80,"rank":4,"ratio":67,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":56.3,"highScore":87,"rank":12,"ratio":72,"totalNum":40},"isShowRank":false,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","score":67,"standardScore":99,"subjectCode":"01","subjectName":"语文"}];
-//学科分数线数据
-// var examScoreLine = [{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":89.1,"goodScore":84.2,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","passScore":69.3,"subjectCode":"01","subjectName":"语文"},{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":135,"goodScore":127.5,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","passScore":105,"subjectCode":"02","subjectName":"数学"}];
-//1显示排名，2显示百分比
-// var rankModel = 2;
-// var isVip = true;
-// var ratioToLevel = false;
-// var scoreToLevel = false;
-// var forbidAvgScore = false;
-// var forbidRatio = false;
-// var isProject120 = false;
-// var freeSubjectCode = '01';
-// var isCoexistAndIsGolden = true;
-// var isNceeVolunteer = false;
-// var userInfo = {"birthday":1441900800000,"clazz":{"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014},"code":"30024501","gender":"1","id":"2000000020000269186","loginName":"zx30024501","name":"小明一","roles":[{"cName":"学生","eName":"student"}]};
-// var studentUrl = 'http://localhost:8088/student';
-// var introduction = [{"role":"student","desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"},{"role":"parent","desc":"您的孩子小明一本次考试在班级中的位置是前56%，处于压力和风险最大的中游段。但是年级位置高于班级位置，很值得欣喜。结合报告中的年级位置和学情弱点分析，才能更清晰地把握我孩子现在的情况。数学学科拖后腿较严重。要引起重视！中间段成绩比较密集，提高一点成绩排名上，尤其是年级排名上都会有很大进步。扬长和补短是提高成绩的两条路径，优势学科的提高潜力往往不如劣势学科大，比如数学学科上，您孩子和前面一名的分差只有几分，作为突破学科来拉动成绩提高还是很合适的。了解是沟通和帮助的第一步。看VIP报告，获得更多孩子的学情诊断和潜力、薄弱项分析。"}];
-// var knowledges = [{"cityScoreRatio":72,"knowledgeCode":"020549004001004n","knowledgeName":"向量的数量积","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":58,"knowledgeCode":"020549006000001","knowledgeName":"空间几何体的三视图与直观图","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":64,"knowledgeCode":"020549006000002","knowledgeName":"空间几何体的表面积与体积","score":1,"scoreRatio":9,"totalScore":11},{"cityScoreRatio":75,"knowledgeCode":"020549007000002","knowledgeName":"两条直线的位置关系","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":69,"knowledgeCode":"020549007000013n","knowledgeName":"多面体和旋转体上的最短距离（折叠与展开图）","score":7,"scoreRatio":37,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549007002003","knowledgeName":"圆锥曲线综合","score":11,"scoreRatio":37,"totalScore":30},{"cityScoreRatio":63,"knowledgeCode":"020549007002004","knowledgeName":"椭圆","score":10,"scoreRatio":53,"totalScore":19},{"cityScoreRatio":75,"knowledgeCode":"020549007002005","knowledgeName":"双曲线","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":66,"knowledgeCode":"020549007004001","knowledgeName":"圆","score":6,"scoreRatio":25,"totalScore":24},{"cityScoreRatio":65,"knowledgeCode":"020549008000001","knowledgeName":"用样本估计总体","score":6,"scoreRatio":100,"totalScore":6},{"cityScoreRatio":90,"knowledgeCode":"020549008004000n","knowledgeName":"圆的标准方程","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":72,"knowledgeCode":"020549008004003n","knowledgeName":"圆有关的轨迹问题","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008005002n","knowledgeName":"圆与圆的位置关系及判定","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008006000n","knowledgeName":"椭圆的概念及标准方程","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":72,"knowledgeCode":"020549008006002n","knowledgeName":"直线与椭圆的位置关系","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":86,"knowledgeCode":"020549008009006n","knowledgeName":"圆锥曲线中的综合问题","score":9,"scoreRatio":36,"totalScore":25}];
-// var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
-// var isHideScore = false;
-// var isMobile = '';
+var basePath = 'http://localhost:8092/zhixuebao';
+var currentUser = {"id":"2000000020000269186","isAdmin":false,"loginName":"zx30024501","name":"小明一","role":"student"};
+var classInfo = {"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014};
+var userExamArchives = [{"classId":"2000000020000002363","className":"高一年级1班","classRank":7,"classStudentCount":7,"createDateTime":1466410322248,"examCreateDateTime":1466410145000,"examId":"af7699d4-eac2-4563-8fff-3ecbcf2f8ef7","examName":"成绩补录单科","gradeCode":"10","id":"751e7514-0364-4d8a-af41-90cb3889cac4","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":7,"score":55,"subjectCode":"01A","subjectCodes":["01A"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":7,"schoolRank":7,"score":55,"subjectCode":"01A"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"c0abff51-b173-42cd-aa01-67acb99429c8","examName":"数据指标验证考试2","gradeCode":"11","id":"17e1cc0d-7325-4c02-9405-85cd5cd4ec3c","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":83,"subjectCode":"02","subjectCodes":["02"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":83,"subjectCode":"02"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":6,"classStudentCount":10,"createDateTime":1462427140096,"examCreateDateTime":1462410970000,"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeCode":"11","id":"d865c07a-1223-4841-b630-3849665e7aad","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":21,"score":110,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":31,"schoolRank":8,"score":43,"subjectCode":"02"},{"classRank":12,"schoolRank":4,"score":67,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":-1,"classStudentCount":9,"createDateTime":1467709068228,"examCreateDateTime":1449630642000,"examId":"cdf9d2e3-532e-4290-8f64-175bd540b708","examName":"数据指标验证考试3","gradeCode":"11","id":"99046d0e-1296-490c-9401-deba26518f24","isBeTied":true,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":-1,"score":255,"subjectCodes":["02","01"],"tiArchive":{"tiClassRank":1,"tiSchoolRank":3,"tiScore":255,"tiUserSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}]},"tiStudentCount":1,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":-1,"schoolRank":-1,"score":135,"subjectCode":"02"},{"classRank":-1,"schoolRank":-1,"score":120,"subjectCode":"01"}],"version":1001},{"classId":"2000000020000002363","className":"高二年级1班","classRank":1,"classStudentCount":10,"createDateTime":1463452106126,"examCreateDateTime":1449556497000,"examId":"66915a32-6e07-449e-82e2-3a413ec4661c","examName":"数据指标验证考试1","gradeCode":"11","id":"ff3801f0-a2d2-4375-ab60-e6e9bd888ba1","isBeTied":false,"isFinal":true,"schoolId":"2000000020000000513","schoolRank":2,"score":260,"subjectCodes":["02","01"],"tiStudentCount":0,"userId":"2000000020000269186","userName":"小明一","userNum":"30024501","userSubjectScores":[{"classRank":1,"schoolRank":2,"score":140,"subjectCode":"02"},{"classRank":1,"schoolRank":2,"score":120,"subjectCode":"01"}],"version":1001}];
+var examClassId = "2000000020000002363";
+// 用户各科考试数据
+var userExamDataList = [{"classRank":{"avgScore":116,"highScore":150,"rank":6,"ratio":44,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":110.3,"highScore":170,"rank":21,"ratio":49,"totalNum":40},"paperId":"","score":110,"standardScore":249,"subjectCode":"","subjectName":"总分"},{"classRank":{"avgScore":57.3,"highScore":75,"rank":8,"ratio":22,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":63.6,"highScore":94,"rank":31,"ratio":9,"totalNum":34},"isShowRank":false,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","score":43,"standardScore":150,"subjectCode":"02","subjectName":"数学"},{"classRank":{"avgScore":58.7,"highScore":80,"rank":4,"ratio":67,"totalNum":10},"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","examName":"数据指标验证考试2","gradeRank":{"avgScore":56.3,"highScore":87,"rank":12,"ratio":72,"totalNum":40},"isShowRank":false,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","score":67,"standardScore":99,"subjectCode":"01","subjectName":"语文"}];
+// 学科分数线数据
+var examScoreLine = [{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":89.1,"goodScore":84.2,"paperId":"913b592f-2a9b-444b-93b8-fec473ee3cff","passScore":69.3,"subjectCode":"01","subjectName":"语文"},{"examId":"ba111c26-50c0-40c1-99df-3be01a25228a","excellentScore":135,"goodScore":127.5,"paperId":"500861b3-d912-433e-87fd-f067ac93adcc","passScore":105,"subjectCode":"02","subjectName":"数学"}];
+// 1显示排名，2显示百分比
+var rankModel = 2;
+var isVip = true;
+var ratioToLevel = false;
+var scoreToLevel = false;
+var forbidAvgScore = false;
+var forbidRatio = false;
+var isProject120 = false;
+var freeSubjectCode = '01';
+var isCoexistAndIsGolden = true;
+var isNceeVolunteer = false;
+var userInfo = {"birthday":1441900800000,"clazz":{"code":"7dbc8cab-f9a7-4589-8277-7b185ff22d93","createTime":1441953552000,"grade":{"code":"11","name":"高二年级","phase":{"code":"05"},"sort":2},"id":"2000000020000002363","isGraduated":false,"name":"高二年级1班","order":311001,"school":{"areaId":"0","cityId":"3","code":"0","countryId":"1","districtId":"5","educationalSystem":{"code":"04","createTime":1443456000000,"name":"高中(三年制)","phase":"05","updateTime":1443456000000},"id":"2000000020000000513","name":"西城中学","phase":{"code":"05"},"provinceId":"2"},"year":2014},"code":"30024501","gender":"1","id":"2000000020000269186","loginName":"zx30024501","name":"小明一","roles":[{"cName":"学生","eName":"student"}]};
+var studentUrl = 'http://localhost:8088/student';
+var introduction = [{"role":"student","desc":"你本次考试班级位置是前56%，中游竞争激烈，逆水行舟，不进则退啊。值得高兴的是，年级位置高于班级位置。对比班级位置和年级位置，你会更容易发现自己的优势和不足，能帮助你更好地制定学习进步计划。数学学科明显薄弱，要注意查看学科报告中给出的原因分析与学习建议。数学学科上，你和前面一名的分差只有几分，中间段成绩比较密集，作为突破学科来拉动成绩提高还是很合适的。知己知彼，方能百战百胜。关注VIP，了解自己，关注全局，大踏步前进吧！"},{"role":"parent","desc":"您的孩子小明一本次考试在班级中的位置是前56%，处于压力和风险最大的中游段。但是年级位置高于班级位置，很值得欣喜。结合报告中的年级位置和学情弱点分析，才能更清晰地把握我孩子现在的情况。数学学科拖后腿较严重。要引起重视！中间段成绩比较密集，提高一点成绩排名上，尤其是年级排名上都会有很大进步。扬长和补短是提高成绩的两条路径，优势学科的提高潜力往往不如劣势学科大，比如数学学科上，您孩子和前面一名的分差只有几分，作为突破学科来拉动成绩提高还是很合适的。了解是沟通和帮助的第一步。看VIP报告，获得更多孩子的学情诊断和潜力、薄弱项分析。"}];
+var knowledges = [{"cityScoreRatio":72,"knowledgeCode":"020549004001004n","knowledgeName":"向量的数量积","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":58,"knowledgeCode":"020549006000001","knowledgeName":"空间几何体的三视图与直观图","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":64,"knowledgeCode":"020549006000002","knowledgeName":"空间几何体的表面积与体积","score":1,"scoreRatio":9,"totalScore":11},{"cityScoreRatio":75,"knowledgeCode":"020549007000002","knowledgeName":"两条直线的位置关系","score":0,"scoreRatio":0,"totalScore":6},{"cityScoreRatio":69,"knowledgeCode":"020549007000013n","knowledgeName":"多面体和旋转体上的最短距离（折叠与展开图）","score":7,"scoreRatio":37,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549007002003","knowledgeName":"圆锥曲线综合","score":11,"scoreRatio":37,"totalScore":30},{"cityScoreRatio":63,"knowledgeCode":"020549007002004","knowledgeName":"椭圆","score":10,"scoreRatio":53,"totalScore":19},{"cityScoreRatio":75,"knowledgeCode":"020549007002005","knowledgeName":"双曲线","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":66,"knowledgeCode":"020549007004001","knowledgeName":"圆","score":6,"scoreRatio":25,"totalScore":24},{"cityScoreRatio":65,"knowledgeCode":"020549008000001","knowledgeName":"用样本估计总体","score":6,"scoreRatio":100,"totalScore":6},{"cityScoreRatio":90,"knowledgeCode":"020549008004000n","knowledgeName":"圆的标准方程","score":1,"scoreRatio":20,"totalScore":5},{"cityScoreRatio":72,"knowledgeCode":"020549008004003n","knowledgeName":"圆有关的轨迹问题","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008005002n","knowledgeName":"圆与圆的位置关系及判定","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":73,"knowledgeCode":"020549008006000n","knowledgeName":"椭圆的概念及标准方程","score":9,"scoreRatio":47,"totalScore":19},{"cityScoreRatio":72,"knowledgeCode":"020549008006002n","knowledgeName":"直线与椭圆的位置关系","score":1,"scoreRatio":5,"totalScore":19},{"cityScoreRatio":86,"knowledgeCode":"020549008009006n","knowledgeName":"圆锥曲线中的综合问题","score":9,"scoreRatio":36,"totalScore":25}];
+var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
+var isHideScore = false;
+var isMobile = '';
 //----------------------
 
 //定义 elements
@@ -37,7 +37,8 @@ var elements = elements || {};
 
 //基础 属性
 var Report = {
-    role : window.location.href.indexOf('StuAll') > -1 ? 'student' : 'parent',
+    // role : window.location.href.indexOf('StuAll') > -1 ? 'student' : 'parent',
+    role : 'student',
     parUpdateFlag : true,
     paper : {}, //单科 缓存变量
     allSinger : ''
@@ -89,6 +90,8 @@ var levelList = {
 };
 
 var provinceList={"2":"1","21":"3","40":"5","235":"6","377":"7","500":"8","629":"9","707":"10","861":"2","881":"11","1010":"12","1123":"13","1262":"14","1366":"15","1489":"16","1664":"17","1859":"18","1989":"19","2139":"20","2301":"21","2439":"22","2469":"4","2510":"23","2731":"24","2832":"25","2985":"26","3067":"27","3195":"28","3308":"29","3361":"30","3394":"31","3510":"32","3511":"33","3512":"34"};
+
+var studyTask = null;
 
 var popupDialog = {
     //定制弹窗
@@ -224,7 +227,9 @@ Report.stuParTab = function () {
     $(this).addClass('on').siblings('a').removeClass('on');
     $('.rep-content').eq(index).show().siblings('.rep-content').hide();
     compareScore = 'class';
+    var paperId = '';
     if ($(this).hasClass('stu')) {
+        paperId = elements.top_subjectList.find('a.on').attr('paperId');
         Report.role = 'student';
         Report.bindLoseScoreData(paperId); //丢分题难度
         Report.bindExamTask(); //考点闯关
@@ -273,11 +278,14 @@ Report.allSingerTab = function () {
         }
         else {
             Report.allSinger = 'Singer';
+            //查看试卷解析
+            elements.analysisMain.click(function () {
+                window.location.href = basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + userExamData.subjectCode + '&paperId=' + paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId");
+            });
+            var how = new howtodoCtrl();
+            how.init(paperId);
+            how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
         }
-        //查看试卷解析
-        elements.analysisMain.click(function () {
-            window.location.href = basePath + '/zhixuebao/transcript/analysis/main/?subjectCode=' + userExamData.subjectCode + '&paperId=' + paperId + '&classId=' + examClassId + '&examId=' + Request.QueryString("examId");
-        });
     }
     else {
         elements.subjectName2Par.text($(this).text());
@@ -341,16 +349,53 @@ Report.allSingerTabHandler = function (subjectName) {
         }
         else {
             Report.allSinger = 'Singer';
+            var report = new reportCtrl.parSinger();
+            report.init();
+            Report.getStuSingleReportData(paperId);
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            Report.bindLoseScoreData(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var how = new howtodoCtrl();
+            how.init(paperId);
+            how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
         }
     }
     else {
         $('.rep-par-content').eq(1).show().siblings('.rep-par-content').hide();
         elements.subjectName2Par.text(subjectName);
         paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
+        if (elements.top_subjectListPar.find('a.on').html() == '全科') {
+            Report.allSinger = 'All';
+        }
+        else {
+            var report = new reportCtrl.parSinger();
+            report.init();
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            dataUtil.bindScoreParts(0, paperId); //各分数段人数
+            var ec = new examCompare();
+            ec.init(paperId); //考试难度
+            var dif = new Difficulty();
+            dif.init(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+            var recommondControl = new RecommondControl();
+            recommondControl.init(paperId); //推荐内容
+        }
     }
     // 进行缓存 如果第一次 则加载  ajax 数据 第二次切换 直接显示 内容 div
     if(Report.paper[paperId].initFlag) {
-        //
+
         Report.getStuSingleReportData(paperId);
 
         var report = new reportCtrl.parSinger();
@@ -4678,6 +4723,245 @@ var dataUtilStu = {
 
 };
 
+// 单科 考点闯关
+var howtodoCtrl = (function () {
+    var howtodoCtrl = function () {};
+    howtodoCtrl.prototype.init = function (paperId) {
+        this.paperId = paperId;
+        this.initLearnKnow();
+    };
+    howtodoCtrl.prototype.initLearnKnow = function () {
+        this.getLearnKnowledgeList(function (result) {
+            var knows1 = [];//现在立马学-简单，很快能学会
+            var knows2 = [];//期末前必须学
+
+
+            for (var i = 0; i < result.easy2learn.length; i++) {
+                var newName1 = dealName(result.easy2learn[i].name);
+                var newName2 = dealName(result.free2learn[i].name);
+                knows1.push("<li>" + newName1 + "</li>");
+                knows2.push("<li>" + newName2 + "</li>");
+            }
+
+            if (knows1.length == 0) {
+                knows1.push("<li>暂无知识点</li>");
+            }
+            if (knows2.length == 0) {
+                knows2.push("<li>暂无知识点</li>");
+            }
+
+//			$("#knowList1").html(knows1.join(""));
+            $("#knowList2").html(knows2.join(""));
+        });
+        var dealName = function (knowName) {
+            if (!knowName) {
+                return "";
+            }
+            var index = knowName.lastIndexOf(">>");
+            if (index != -1) {
+                var newName = knowName.substring(index + 2);
+                return newName;
+            } else {
+                return knowName;
+            }
+            return "";
+        };
+    };
+    howtodoCtrl.prototype.getLearnKnowledgeList = function (callback) {
+        var url = basePath + "/zhixuebao/feesReport/getLearnKnowledgeList/";
+        $.getJSON(url, {"paperId": this.paperId, "isMaster": false}, callback);
+    };
+
+    howtodoCtrl.prototype.getTaskByPaper = function (paperId, callback) {
+        $.ajax({
+            url: basePath + "/zhixuebao/studytask/getTaskByPaper/",
+            data: {paperId: paperId},
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                try {
+                    var _data = data;
+                    if (typeof data == "string") {
+                        _data = eval('(' + data + ')');
+                    }
+                    if (typeof callback == "function") {
+                        callback(data);
+                    }
+                } catch (e) {
+                    if (typeof callback == "function") {
+                        callback(null);
+                    }
+                }
+            },
+            error: function (data) {
+                if (typeof callback == "function") {
+                    callback(null);
+                }
+            }
+        });
+    }
+    /**
+     * 生成任务关卡
+     * @param element 包含任务关卡的标签id
+     * @param examId 考试Id
+     * @param paperId 试卷Id
+     */
+    howtodoCtrl.prototype.createTaskHtml = function (element, examId, paperId) {
+        _this = this;
+        if (studyTask == null) {
+            this.getTaskByPaper(paperId, function (data) {
+                studyTask = data;
+                taskHtml(studyTask);
+            });
+        } else {
+            taskHtml(studyTask);
+        }
+
+        function taskHtml(data) {
+            var html = '';
+            var missions;
+            var count = 0;
+
+            if (data && data.missions) {
+                missions = data.missions;
+                count = missions && missions.length;
+            }
+
+            if (count == 0) {
+                html = '<p style="color: gray;font-size: 24px;margin: 40px 0 0 100px;">暂时无法获取到闯关任务</p>';
+            }else{
+                var iconCss = _this.getSubjectIconCss(data['subjectName']);
+                html+='<div class="left fl">'+
+                    '<div class="icon"><div class="subbtnb '+iconCss+'"></div></div>'+
+                    '<p class="sub">'+data['subjectName']+'</p>'+
+                    '<p class="col6 ft14 tc">共计'+count+'个知识点未掌握</p>'+
+                    "</div>"
+            }
+
+
+
+            for (var j = 0; j < count; j++) {
+                if (missions[j].locked) {
+                    html += '<a href="javascript:void(0);" title="' + _this.filterKnowledgeName(missions[j].knowledge.knowledgeName) + '" class="cg-mod-lock fl">';
+                } else {
+                    if (j + 1 == count) {
+                        html += '<a href="javascript:void(0)" title="' + _this.filterKnowledgeName(missions[j].knowledge.knowledgeName) + '" data-subject="' + data.subjectCode +
+                            '" data-mission="' + missions[j].missionId + '" data-knowledge="' + missions[j].knowledge.knowledgeCode + '" class="cg-mod-nor fl last">';
+                    } else {
+                        html += '<a href="javascript:void(0)" title="' + _this.filterKnowledgeName(missions[j].knowledge.knowledgeName) + '" data-subject="' + data.subjectCode +
+                            '" data-mission="' + missions[j].missionId + '" data-knowledge="' + missions[j].knowledge.knowledgeCode + '" class="cg-mod-nor fl">';
+                    }
+                }
+                html += '<p class="ft14 col3 txt"><b>关卡' + (j + 1) + '：</b>' + interceptString(_this.filterKnowledgeName(missions[j].knowledge.knowledgeName), 36, true) + '</p>';
+                html += '<div class="clearfix">';
+                if (missions[j].locked) {
+                    html += '<div class="fen-lock"></div>';
+                } else {
+                    var star = 0;
+                    if (missions[j].scoredOne) {
+                        star++;
+                    }
+                    if (missions[j].scoredTwo) {
+                        star++;
+                    }
+                    if (missions[j].scoredThree) {
+                        star++;
+                    }
+                    if (star == 1) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    } else if (star == 2) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    } else if (star == 3) {
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                        html += '<div class="star-btn"></div>';
+                    } else {
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                        html += '<div class="star-btn star-unbtn"></div>';
+                    }
+                }
+                html += '</div>';
+                html += '</a>';
+            }
+            $(element).html(html);
+            $(element).find("a").click(function () {
+                if (!$(this).hasClass("cg-mod-lock")) {
+                    var knowledge = $(this).attr("data-knowledge"),
+                        subjectCode = $(this).attr("data-subject"),
+                        last = false,
+                        missionId = $(this).attr("data-mission");
+                    window.location.href = basePath + "/zhixuebao/studytask/index/?subjectCode=" + subjectCode + "&knowledge=" +
+                        knowledge + "&missionId=" + missionId + "&examId=" + examId + "&last=" + last + "&flag=report" +
+                        "&paperId=" + _this.paperId + "&classId=" + Request.QueryString("classId");
+                }
+            });
+        }
+    }
+
+    /**
+     * 通过不同的科目获取到不同的图标
+     */
+    howtodoCtrl.prototype.getSubjectIconCss =function(subjectName){
+        var iconCss;
+        switch(subjectName)
+        {
+            case '化学':
+                iconCss='subbtnb-chemistry';
+                break;
+            case '历史':
+                iconCss='subbtnb-history';
+                break;
+            case '语文':
+                iconCss='subbtnb-chinese';
+                break;
+            case '物理':
+                iconCss='subbtnb-physical';
+                break;
+            case '地理':
+                iconCss='subbtnb-geography';
+                break;
+            case '英语':
+                iconCss='subbtnb-english';
+                break;
+            case '生物':
+                iconCss='subbtnb-biology';
+                break;
+            case '数学':
+                iconCss='subbtnb-math';
+                break;
+            case '政治':
+                iconCss='subbtnb-politics';
+                break;
+            case '计算机':
+                iconCss='subbtnb-computer';
+                break;
+            case '科学':
+                iconCss='subbtnb-science';
+                break;
+            /*  case '':
+             iconCss='subbtnb-heddle';
+             break;
+             case 2:
+             iconCss='subbtnb-daniel';
+             break;*/
+            default:
+                iconCss='subbtnb-chinese';
+        }
+        return iconCss;
+    }
+
+    howtodoCtrl.prototype.filterKnowledgeName = function (name) {
+        var ary = name.split('>>');
+        return ary.length == 1 ? ary[0] : ary[ary.length - 1];
+    }
+
+    return howtodoCtrl;
+})();
 //判断初始页面
 Report.defaultPage = function () {
     if (Report.role == 'student') {
@@ -4698,26 +4982,29 @@ Report.defaultPage = function () {
             }
             Report.bindLoseScoreData(); //丢分题难度
             Report.bindHowDoIData(); //我该怎么办
+            Report.bindExamTask(); //考点闯关
             Report.bindSummary(); //绑定小结数据
             Report.isCoexistAndIsGolden(); //弹窗
         }
-        else {
-            var paperId = userExamDataList[1].paperId;
-            Report.allSinger = 'Singer';
-            var report = new reportCtrl.parSinger();
-            report.init();
-            Report.getStuSingleReportData(paperId);
-            var topicCollectionObj = new TopicCollect();
-            topicCollectionObj.init(paperId); //题目汇总
-            var fore = new forewordCtrl();
-            fore.init(paperId); //这次考试有进步吗
-            Report.bindLoseScoreData(paperId); //丢分题难度
-            var knowledgeControl = new KnowledgeControl();
-            knowledgeControl.init(paperId); //知识点
-            var topTopic = new TopTopic();
-            topTopic.init(paperId); //TOP10
-            Report.bindExamTask(); //考点闯关
-        }
+        // else {
+        //     var paperId = userExamDataList[1].paperId;
+        //     Report.allSinger = 'Singer';
+        //     var report = new reportCtrl.parSinger();
+        //     report.init();
+        //     Report.getStuSingleReportData(paperId);
+        //     var topicCollectionObj = new TopicCollect();
+        //     topicCollectionObj.init(paperId); //题目汇总
+        //     var fore = new forewordCtrl();
+        //     fore.init(paperId); //这次考试有进步吗
+        //     Report.bindLoseScoreData(paperId); //丢分题难度
+        //     var knowledgeControl = new KnowledgeControl();
+        //     knowledgeControl.init(paperId); //知识点
+        //     var how = new howtodoCtrl();
+        //     how.init(paperId);
+        //     how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
+        //     var topTopic = new TopTopic();
+        //     topTopic.init(paperId); //TOP10
+        // }
     }
     else {
         $('.par').addClass('on');
@@ -4736,26 +5023,26 @@ Report.defaultPage = function () {
             Report.bindHowDoIData(); //我该怎么督促孩子
             Report.bindSummary(); //绑定小结数据
         }
-        else {
-            var paperId = userExamDataList[1].paperId;
-            var report = new reportCtrl.parSinger();
-            report.init();
-            var topicCollectionObj = new TopicCollect();
-            topicCollectionObj.init(paperId); //题目汇总
-            var fore = new forewordCtrl();
-            fore.init(paperId); //这次考试有进步吗
-            dataUtil.bindScoreParts(0, paperId); //各分数段人数
-            var ec = new examCompare();
-            ec.init(paperId); //考试难度
-            var dif = new Difficulty();
-            dif.init(paperId); //丢分题难度
-            var knowledgeControl = new KnowledgeControl();
-            knowledgeControl.init(paperId); //知识点
-            var topTopic = new TopTopic();
-            topTopic.init(paperId); //TOP10
-            var recommondControl = new RecommondControl();
-            recommondControl.init(paperId); //推荐内容
-        }
+        // else {
+        //     var paperId = userExamDataList[1].paperId;
+        //     var report = new reportCtrl.parSinger();
+        //     report.init();
+        //     var topicCollectionObj = new TopicCollect();
+        //     topicCollectionObj.init(paperId); //题目汇总
+        //     var fore = new forewordCtrl();
+        //     fore.init(paperId); //这次考试有进步吗
+        //     dataUtil.bindScoreParts(0, paperId); //各分数段人数
+        //     var ec = new examCompare();
+        //     ec.init(paperId); //考试难度
+        //     var dif = new Difficulty();
+        //     dif.init(paperId); //丢分题难度
+        //     var knowledgeControl = new KnowledgeControl();
+        //     knowledgeControl.init(paperId); //知识点
+        //     var topTopic = new TopTopic();
+        //     topTopic.init(paperId); //TOP10
+        //     var recommondControl = new RecommondControl();
+        //     recommondControl.init(paperId); //推荐内容
+        // }
     }
 }
 

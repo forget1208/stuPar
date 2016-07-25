@@ -251,7 +251,7 @@ Report.stuParTab = function () {
 
     Report.bindIntroductionData(); //导读
     Report.unvip();
-    if (userExamDataList.length < 4) {
+    if (userExamDataList.length < 4 || isFinal == 'false') {
         if (Report.role == 'student') {
             Report.allSingerTabHandler(elements.top_subjectList.find('a.on').html());
             if ($(elements.top_subjectList.find('a.on')).attr('subjectCode') != freeSubjectCode) {
