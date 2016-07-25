@@ -1772,7 +1772,7 @@ Report.bindLoseScoreData = function (paperId) {
                         }
                     }
                 }
-                callback(Report.paper[_this.paperId].WrongTopicList);
+                callback(Report.paper[_this.paperId].LoseScoreData);
             });
     }
 
