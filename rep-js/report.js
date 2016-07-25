@@ -349,54 +349,54 @@ Report.allSingerTabHandler = function (subjectName) {
     if (Report.role == 'student') {
         $('.rep-stu-content').eq(1).show().siblings('.rep-stu-content').hide();
         elements.subjectName2.text(subjectName);
-        paperId = elements.top_subjectList.find('a.on').attr('paperId');
+        // paperId = elements.top_subjectList.find('a.on').attr('paperId');
         // if (elements.top_subjectList.find('a.on').html() == '全科') {
         //     Report.allSinger = 'All';
         // }
         // else {
-            Report.allSinger = 'Singer';
-            var report = new reportCtrl.parSinger();
-            report.init();
-            Report.getStuSingleReportData(paperId);
-            var topicCollectionObj = new TopicCollect();
-            topicCollectionObj.init(paperId); //题目汇总
-            var fore = new forewordCtrl();
-            fore.init(paperId); //这次考试有进步吗
-            Report.bindLoseScoreData(paperId); //丢分题难度
-            var knowledgeControl = new KnowledgeControl();
-            knowledgeControl.init(paperId); //知识点
-            var how = new howtodoCtrl();
-            how.init(paperId);
-            how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
-            var topTopic = new TopTopic();
-            topTopic.init(paperId); //TOP10
+        //     Report.allSinger = 'Singer';
+        //     var report = new reportCtrl.parSinger();
+        //     report.init();
+        //     Report.getStuSingleReportData(paperId);
+        //     var topicCollectionObj = new TopicCollect();
+        //     topicCollectionObj.init(paperId); //题目汇总
+        //     var fore = new forewordCtrl();
+        //     fore.init(paperId); //这次考试有进步吗
+        //     Report.bindLoseScoreData(paperId); //丢分题难度
+        //     var knowledgeControl = new KnowledgeControl();
+        //     knowledgeControl.init(paperId); //知识点
+        //     var how = new howtodoCtrl();
+        //     how.init(paperId);
+        //     how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
+        //     var topTopic = new TopTopic();
+        //     topTopic.init(paperId); //TOP10
         // }
     }
     else {
         $('.rep-par-content').eq(1).show().siblings('.rep-par-content').hide();
         elements.subjectName2Par.text(subjectName);
-        paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
+        // paperId = elements.top_subjectListPar.find('a.on').attr('paperId');
         // if (elements.top_subjectListPar.find('a.on').html() == '全科') {
         //     Report.allSinger = 'All';
         // }
         // else {
-            var report = new reportCtrl.parSinger();
-            report.init();
-            var topicCollectionObj = new TopicCollect();
-            topicCollectionObj.init(paperId); //题目汇总
-            var fore = new forewordCtrl();
-            fore.init(paperId); //这次考试有进步吗
-            dataUtil.bindScoreParts(0, paperId); //各分数段人数
-            var ec = new examCompare();
-            ec.init(paperId); //考试难度
-            var dif = new Difficulty();
-            dif.init(paperId); //丢分题难度
-            var knowledgeControl = new KnowledgeControl();
-            knowledgeControl.init(paperId); //知识点
-            var topTopic = new TopTopic();
-            topTopic.init(paperId); //TOP10
-            var recommondControl = new RecommondControl();
-            recommondControl.init(paperId); //推荐内容
+        //     var report = new reportCtrl.parSinger();
+        //     report.init();
+        //     var topicCollectionObj = new TopicCollect();
+        //     topicCollectionObj.init(paperId); //题目汇总
+        //     var fore = new forewordCtrl();
+        //     fore.init(paperId); //这次考试有进步吗
+        //     dataUtil.bindScoreParts(0, paperId); //各分数段人数
+        //     var ec = new examCompare();
+        //     ec.init(paperId); //考试难度
+        //     var dif = new Difficulty();
+        //     dif.init(paperId); //丢分题难度
+        //     var knowledgeControl = new KnowledgeControl();
+        //     knowledgeControl.init(paperId); //知识点
+        //     var topTopic = new TopTopic();
+        //     topTopic.init(paperId); //TOP10
+        //     var recommondControl = new RecommondControl();
+        //     recommondControl.init(paperId); //推荐内容
         // }
     }
     // 进行缓存 如果第一次 则加载  ajax 数据 第二次切换 直接显示 内容 div
@@ -4992,25 +4992,25 @@ Report.defaultPage = function () {
             Report.bindSummary(); //绑定小结数据
             Report.isCoexistAndIsGolden(); //弹窗
         }
-        // else {
-        //     var paperId = userExamDataList[1].paperId;
-        //     Report.allSinger = 'Singer';
-        //     var report = new reportCtrl.parSinger();
-        //     report.init();
-        //     Report.getStuSingleReportData(paperId);
-        //     var topicCollectionObj = new TopicCollect();
-        //     topicCollectionObj.init(paperId); //题目汇总
-        //     var fore = new forewordCtrl();
-        //     fore.init(paperId); //这次考试有进步吗
-        //     Report.bindLoseScoreData(paperId); //丢分题难度
-        //     var knowledgeControl = new KnowledgeControl();
-        //     knowledgeControl.init(paperId); //知识点
-        //     var how = new howtodoCtrl();
-        //     how.init(paperId);
-        //     how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
-        //     var topTopic = new TopTopic();
-        //     topTopic.init(paperId); //TOP10
-        // }
+        else {
+            var paperId = userExamDataList[1].paperId;
+            Report.allSinger = 'Singer';
+            var report = new reportCtrl.parSinger();
+            report.init();
+            Report.getStuSingleReportData(paperId);
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            Report.bindLoseScoreData(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var how = new howtodoCtrl();
+            how.init(paperId);
+            how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+        }
     }
     else {
         $('.par').addClass('on');
@@ -5029,26 +5029,26 @@ Report.defaultPage = function () {
             Report.bindHowDoIData(); //我该怎么督促孩子
             Report.bindSummary(); //绑定小结数据
         }
-        // else {
-        //     var paperId = userExamDataList[1].paperId;
-        //     var report = new reportCtrl.parSinger();
-        //     report.init();
-        //     var topicCollectionObj = new TopicCollect();
-        //     topicCollectionObj.init(paperId); //题目汇总
-        //     var fore = new forewordCtrl();
-        //     fore.init(paperId); //这次考试有进步吗
-        //     dataUtil.bindScoreParts(0, paperId); //各分数段人数
-        //     var ec = new examCompare();
-        //     ec.init(paperId); //考试难度
-        //     var dif = new Difficulty();
-        //     dif.init(paperId); //丢分题难度
-        //     var knowledgeControl = new KnowledgeControl();
-        //     knowledgeControl.init(paperId); //知识点
-        //     var topTopic = new TopTopic();
-        //     topTopic.init(paperId); //TOP10
-        //     var recommondControl = new RecommondControl();
-        //     recommondControl.init(paperId); //推荐内容
-        // }
+        else {
+            var paperId = userExamDataList[1].paperId;
+            var report = new reportCtrl.parSinger();
+            report.init();
+            var topicCollectionObj = new TopicCollect();
+            topicCollectionObj.init(paperId); //题目汇总
+            var fore = new forewordCtrl();
+            fore.init(paperId); //这次考试有进步吗
+            dataUtil.bindScoreParts(0, paperId); //各分数段人数
+            var ec = new examCompare();
+            ec.init(paperId); //考试难度
+            var dif = new Difficulty();
+            dif.init(paperId); //丢分题难度
+            var knowledgeControl = new KnowledgeControl();
+            knowledgeControl.init(paperId); //知识点
+            var topTopic = new TopTopic();
+            topTopic.init(paperId); //TOP10
+            var recommondControl = new RecommondControl();
+            recommondControl.init(paperId); //推荐内容
+        }
     }
 }
 
