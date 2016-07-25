@@ -1716,65 +1716,59 @@ Report.bindLoseScoreData = function (paperId) {
     var jsonUrl = '',
         option = {},
         optionTxt = {};
-    if(!!Report.paper[_this.paperId].LoseScoreData) {
-        callback(Report.paper[_this.paperId].LoseScoreData); 
+    if (Report.allSinger == 'All') {
+        jsonUrl = 'getLostScoreOfDifficulty';
+        option = {"examId":Request.QueryString("examId")};
+        optionTxt = {examId: Request.QueryString("examId"), role: 'student'};
     }
     else {
-        if (Report.allSinger == 'All') {
-            jsonUrl = 'getLostScoreOfDifficulty';
-            option = {"examId":Request.QueryString("examId")};
-            optionTxt = {examId: Request.QueryString("examId"), role: 'student'};
+        jsonUrl = 'getSubjectLostScoreByDifficulty';
+        option = {userId: currentUser.id, paperId: paperId};
+        optionTxt = {examId: Request.QueryString("examId"), paperId: paperId, role: 'student'};
+    }
+    $.getJSON(basePath + "/zhixuebao/feesReport/" + jsonUrl + "/",
+    option, function (data) {
+        var totalLostScore = 0;
+        $.each(data, function(k, v) {
+            totalLostScore += v.lostScoreValue;
+        });
+
+        if (!!paperId) {
+            for(var i = 0; i < data.length; i++) {
+                var lostData = data[i];
+                if (data[i].lostScoreTypeName == "难题") {
+                    elements.lostScore_hardSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_hardScoreSinger.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "中等题") {
+                    elements.lostScore_middleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_middleScoreSinger.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "简单题") {
+                    elements.lostScore_simpleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_simpleScoreSinger.text(lostData.lostScoreValue);
+                } else {
+                    continue;
+                }
+            }
         }
         else {
-            jsonUrl = 'getSubjectLostScoreByDifficulty';
-            option = {userId: currentUser.id, paperId: paperId};
-            optionTxt = {examId: Request.QueryString("examId"), paperId: paperId, role: 'student'};
+            for(var i = 0; i < data.length; i++) {
+                var lostData = data[i];
+                if (data[i].lostScoreTypeName == "难题") {
+                    elements.lostScore_hard.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_hardScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "中等题") {
+                    elements.lostScore_middle.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_middleScore.text(lostData.lostScoreValue);
+                } else if (data[i].lostScoreTypeName == "简单题") {
+                    elements.lostScore_simple.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
+                    elements.lostScore_simpleScore.text(lostData.lostScoreValue);
+                } else {
+                    continue;
+                }
+            }
         }
-        $.getJSON(basePath + "/zhixuebao/feesReport/" + jsonUrl + "/",
-            option, function (data) {
-                Report.paper[_this.paperId].LoseScoreData=data;
-                var totalLostScore = 0;
-                $.each(data, function(k, v) {
-                    totalLostScore += v.lostScoreValue;
-                });
 
-                if (!!paperId) {
-                    for(var i = 0; i < data.length; i++) {
-                        var lostData = data[i];
-                        if (data[i].lostScoreTypeName == "难题") {
-                            elements.lostScore_hardSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_hardScoreSinger.text(lostData.lostScoreValue);
-                        } else if (data[i].lostScoreTypeName == "中等题") {
-                            elements.lostScore_middleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_middleScoreSinger.text(lostData.lostScoreValue);
-                        } else if (data[i].lostScoreTypeName == "简单题") {
-                            elements.lostScore_simpleSinger.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_simpleScoreSinger.text(lostData.lostScoreValue);
-                        } else {
-                            continue;
-                        }
-                    }
-                }
-                else {
-                    for(var i = 0; i < data.length; i++) {
-                        var lostData = data[i];
-                        if (data[i].lostScoreTypeName == "难题") {
-                            elements.lostScore_hard.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_hardScore.text(lostData.lostScoreValue);
-                        } else if (data[i].lostScoreTypeName == "中等题") {
-                            elements.lostScore_middle.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_middleScore.text(lostData.lostScoreValue);
-                        } else if (data[i].lostScoreTypeName == "简单题") {
-                            elements.lostScore_simple.height(totalLostScore == 0 ? 0 : lostData.lostScoreValue / totalLostScore * 200);
-                            elements.lostScore_simpleScore.text(lostData.lostScoreValue);
-                        } else {
-                            continue;
-                        }
-                    }
-                }
-                callback(Report.paper[_this.paperId].LoseScoreData);
-            });
-    }
+    });
 
     $.getJSON(basePath + "/zhixuebao/feesReport/getDropPointsDifficultyIntro/",
         optionTxt, function (data) {
@@ -3664,8 +3658,15 @@ var KnowledgeControl = (function() {
 
     knowledgeControl.prototype.getKnowledgeCountData = function(callback){
         var _this = this;
-        var url = basePath + '/zhixuebao/feesReport/getknowledges/';
-        $.getJSON(url,{paperId:_this.paperId,role:Report.role},callback);
+        if(!!Report.paper[_this.paperId].KnowledgeCountData) {
+            callback(Report.paper[_this.paperId].KnowledgeCountData);
+        }
+        else {
+            var url = basePath + '/zhixuebao/feesReport/getknowledges/';
+            $.getJSON(url,{paperId:_this.paperId,role:Report.role},function (data) {Report.paper[_this.paperId].KnowledgeCountData=data; callback(Report.paper[_this.paperId].KnowledgeCountData);});
+        }
+
+        // $.getJSON(url,{paperId:_this.paperId,role:Report.role},callback);
     };
 
     knowledgeControl.prototype.getKnowledgeCountInfo = function(callback){
