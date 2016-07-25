@@ -441,37 +441,46 @@ Report.allSingerTabHandler = function (subjectName) {
 }
 //
 Report.getStuSingleReportData = function (paperId) {
-    $.ajax({
-        url:basePath + "/zhixuebao/feesReport/getStuSingleReportData/",
-        type:'GET',
-        contentType:'JSON',
-        async:false,
-        data:{paperId:paperId,classId: examClassId},
-        cache:true,
-        success: function (data) {
-            data = JSON.parse(data);
-            var localSubjectRatios = data.subjectRatios;
-            var localClassRatios = data.classRatios;
-            $.each(userExamDataList, function(k, v) {
-                if(v.paperId == paperId) {
-                    userExamData = v;
-                    return false;
-                }
-            });
 
-            if (Report.role == 'student') {
-                chartUtilStu.init(localSubjectRatios, localClassRatios);
-
-                tipsUtilStu.init(paperId);
-
-                var compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, paperId, currentUser.id, localSubjectRatios);
-                compareCtrl.init(); //得分率 对比班级、年级
-
-                $(".rep-ps-dc").hide(); //隐藏知识点统计
+    if (!!Report.paper[paperId].StuSingleReportData ) {
+        Report.getStuSingleReportDataHandler(Report.paper[paperId].StuSingleReportData);
+    } else {
+        $.ajax({
+            url:basePath + "/zhixuebao/feesReport/getStuSingleReportData/",
+            type:'GET',
+            contentType:'JSON',
+            async:false,
+            data:{paperId:paperId,classId: examClassId},
+            cache:true,
+            success: function (data) {
+                Report.paper[paperId].StuSingleReportData = JSON.parse(data);
+                Report.getStuSingleReportDataHandler(Report.paper[paperId].StuSingleReportData);
             }
+        });
+    }
+};
+Report.getStuSingleReportDataHandler = function(data) {
+
+    var localSubjectRatios = data.subjectRatios;
+    var localClassRatios = data.classRatios;
+    $.each(userExamDataList, function(k, v) {
+        if(v.paperId == paperId) {
+            userExamData = v;
+            return false;
         }
     });
-};
+
+    if (Report.role == 'student') {
+        chartUtilStu.init(localSubjectRatios, localClassRatios);
+
+        tipsUtilStu.init(paperId);
+
+        var compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, paperId, currentUser.id, localSubjectRatios);
+        compareCtrl.init(); //得分率 对比班级、年级
+
+        $(".rep-ps-dc").hide(); //隐藏知识点统计
+    }
+}
 
 /**
  * 绑定导读信息
@@ -693,7 +702,7 @@ Report.subjectList = function () {
     else {
         for (j = 0; j < subjectName.length; j++) {
             if (subjectName[j] == '总分') {
-                $('.top_subjectList').append('<li><a href="javascript:void(0);" class="on">全科</a>');
+                $('.top_subjectList').append('<li><a href="javascript:void(0);" paperId="allId" class="on">全科</a>');
             }
             else {
                 $('.top_subjectList').append('<li><a href="javascript:void(0);" paperId="'+ subjectPaperId[j] + '">' + subjectName[j] + '</a>');
@@ -3078,10 +3087,16 @@ var TopicCollect = (function () {
      */
     topicCollect.prototype.getWrongTopicList = function (callback) {
         var _this = this;
-        var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
-        var userId = currentUser.id;
-        // var paperId = Request.QueryString("paperId");
-        $.getJSON(url, {userId: userId, paperId:_this.paperId, pageIndex: 1, pageSize: 10}, callback);
+
+        if(!!Report.paper[_this.paperId].WrongTopicList) {
+            callback(Report.paper[_this.paperId].WrongTopicList);
+        } else {
+            var url = basePath + "/zhixuebao/feesReport/getUserSubjectTopicList/";
+            var userId = currentUser.id;
+            // var paperId = Request.QueryString("paperId");
+            $.getJSON(url, {userId: userId, paperId:_this.paperId, pageIndex: 1, pageSize: 10}, function (data) {Report.paper[_this.paperId].WrongTopicList=data; callback(Report.paper[_this.paperId].WrongTopicList);});
+        }
+        // $.getJSON(url, {userId: userId, paperId:_this.paperId, pageIndex: 1, pageSize: 10}, callback);
 
     };
 
@@ -3382,8 +3397,14 @@ var examCompare = (function(){
     };
 
     examCompare.prototype.getLastExamText = function(callback) {
-        var url = basePath + '/zhixuebao/feesReport/getSummaryOfDifficultyInfo/';
-        $.getJSON(url,{examId:Request.QueryString("examId"),paperId:this.paperId,role:Report.role},callback);
+        if(!!Report.paper[_this.paperId].WrongTopicList) {
+            callback(Report.paper[_this.paperId].WrongTopicList);
+        } else {
+            var url = basePath + '/zhixuebao/feesReport/getSummaryOfDifficultyInfo/';
+            $.getJSON(url,{examId:Request.QueryString("examId"),paperId:this.paperId,role:Report.role},function (data) {Report.paper[_this.paperId].WrongTopicList=data; callback(Report.paper[_this.paperId].WrongTopicList);});
+        }
+
+        // $.getJSON(url,{examId:Request.QueryString("examId"),paperId:this.paperId,role:Report.role},callback);
     };
 
     examCompare.prototype.getLastExamCompareResult = function(callback){
