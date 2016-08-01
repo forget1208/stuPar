@@ -34,7 +34,7 @@ var subjectRatioInfo = [{"score":0,"scoreRatio":0,"standardScore":6,"topicId":"a
 var webGaokaoqRootUrl = 'http://zhixue.gaokaoq.com';
 var isHideScore = false;
 var isMobile = '';
-var isFinal = true;
+var isFinal = false;
 var reportSubjectCode = '01';
 
 //定义 elements
@@ -3280,7 +3280,7 @@ var howtodoCtrl = (function () {
         }
         else {
             var url = basePath + "/zhixuebao/feesReport/getLearnKnowledgeList/";
-            $.getJSON(url, {"paperId": this.paperId, "isMaster": false}, function (data) {Report.paper[_this.paperId].LearnKnowledgeList=data; callback(Report.paper[_this.paperId].LearnKnowledgeList);});
+            $.getJSON(url, {"paperId": _this.paperId, "isMaster": false}, function (data) {Report.paper[_this.paperId].LearnKnowledgeList=data; callback(Report.paper[_this.paperId].LearnKnowledgeList);});
         }
         // $.getJSON(url, {"paperId": this.paperId, "isMaster": false}, callback);
     };

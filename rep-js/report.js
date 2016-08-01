@@ -4715,7 +4715,7 @@ var howtodoCtrl = (function () {
         }
         else {
             var url = basePath + "/zhixuebao/feesReport/getLearnKnowledgeList/";
-            $.getJSON(url, {"paperId": this.paperId, "isMaster": false}, function (data) {Report.paper[_this.paperId].LearnKnowledgeList=data; callback(Report.paper[_this.paperId].LearnKnowledgeList);});
+            $.getJSON(url, {"paperId": _this.paperId, "isMaster": false}, function (data) {Report.paper[_this.paperId].LearnKnowledgeList=data; callback(Report.paper[_this.paperId].LearnKnowledgeList);});
         }
         // $.getJSON(url, {"paperId": this.paperId, "isMaster": false}, callback);
     };
@@ -4759,6 +4759,7 @@ var howtodoCtrl = (function () {
         if(!!Report.paper[paperId].studyTask) {
             taskHtml(Report.paper[paperId].studyTask);
         } else {
+
             this.getTaskByPaper(paperId, function (data) {
                 Report.paper[paperId].studyTask = data;
                 taskHtml(Report.paper[paperId].studyTask);
