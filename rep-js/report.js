@@ -1597,74 +1597,62 @@ Report.bindCompareData = function () {
 var historyRankData = true;
 var historyRankDataPar = true;
 Report.bindHistoryRankData = function () {
-    if (Report.role == 'student') {
-        if (historyRankData) {
-            var userExamRankHistory = '';
-            getScoreImproveIntro(Request.QueryString("examId"), 0);
-            $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
-                {examId: Request.QueryString("examId"), pageIndex: 1, pageSize: 5}, function (data) {
-                    userExamRankHistory = data;
-                    historyRankDataHandle(userExamRankHistory, 0);
-                });
-
-            elements.historyRankTable.eq(0).find('.gradeall').on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                elements.historyRankTable.eq(0).find('a').removeClass('on');
-                _this.addClass('on');
+    var userExamRankHistory = '';
+    getScoreImproveIntro(Request.QueryString("examId"), 0);
+    if (userExamRankHistory ===  '') {
+        $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
+            {examId: Request.QueryString("examId"), pageIndex: 1, pageSize: 5}, function (data) {
+                userExamRankHistory = data;
                 historyRankDataHandle(userExamRankHistory, 0);
-                getScoreImproveIntro(Request.QueryString("examId"), 0);
             });
-
-            elements.historyRankTable.eq(0).find('.grade').on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                elements.historyRankTable.eq(0).find('a').removeClass('on');
-                _this.addClass('on');
-                historyRankDataHandle(userExamRankHistory, 1);
-                getScoreImproveIntro(Request.QueryString("examId"), 1);
-            });
-            historyRankData = false;
-        }
     }
     else {
-        if (historyRankDataPar) {
-            var userExamRankHistory = '';
-            getScoreImproveIntro(Request.QueryString("examId"), 0);
-            $.getJSON(basePath + "/zhixuebao/feesReport/getUserExamRankHistory/",
-                {examId: Request.QueryString("examId"), pageIndex: 1, pageSize: 5}, function (data) {
-                    userExamRankHistory = data;
-                    historyRankDataHandle(userExamRankHistory, 0);
-                });
-
-            elements.historyRankTable.eq(1).find('.gradeall').on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                elements.historyRankTable.eq(1).find('a').removeClass('on');
-                _this.addClass('on');
-                historyRankDataHandle(userExamRankHistory, 0);
-                getScoreImproveIntro(Request.QueryString("examId"), 0);
-            });
-
-            elements.historyRankTable.eq(1).find('.grade').on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                elements.historyRankTable.eq(1).find('a').removeClass('on');
-                _this.addClass('on');
-                historyRankDataHandle(userExamRankHistory, 1);
-                getScoreImproveIntro(Request.QueryString("examId"), 1);
-            });
-            historyRankDataPar = false;
-        }
+        historyRankDataHandle(userExamRankHistory, 0);
     }
+
+    elements.historyRankTable.eq(0).find('.gradeall').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.eq(0).find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 0);
+        getScoreImproveIntro(Request.QueryString("examId"), 0);
+    });
+
+    elements.historyRankTable.eq(0).find('.grade').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.eq(0).find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 1);
+        getScoreImproveIntro(Request.QueryString("examId"), 1);
+    });
+
+    elements.historyRankTable.eq(1).find('.gradeall').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.eq(1).find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 0);
+        getScoreImproveIntro(Request.QueryString("examId"), 0);
+    });
+
+    elements.historyRankTable.eq(1).find('.grade').on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        elements.historyRankTable.eq(1).find('a').removeClass('on');
+        _this.addClass('on');
+        historyRankDataHandle(userExamRankHistory, 1);
+        getScoreImproveIntro(Request.QueryString("examId"), 1);
+    });
 
 
     /**
@@ -1787,22 +1775,42 @@ Report.bindHistoryRankData = function () {
      * @param scope
      */
     function getScoreImproveIntro(examId, scope) {
-        $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
-            {examId: examId, role: Report.role, scope: scope}, function(data) {
-                var text = '';
-                if(!!data && !!data.desc) {
-                    text += '<b>' + data.desc + '</b>';
-                }
-                // if(!!data && !!data.title) {
-                //     text = '<b>' + data.title + '</b>' + text;
-                // }
-                elements.historyRankTable.find('.left').html(text);
-            });
-        if(scope) {
-            elements.historyRankTable.find('.col6').html('本学期考试你在年级的位置分别是');
+        var _index = 0;
+        if (Report.role =='student') {
+            _index = 0;
         }
         else {
-            elements.historyRankTable.find('.col6').html('本学期考试你在全班的位置分别是');
+            _index = 0;
+        }
+        var scoreImproveIntroData = '';
+
+        if (scoreImproveIntroData === '') {
+            $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
+                {examId: examId, role: Report.role, scope: scope}, function(data) {
+                    scoreImproveIntroData = data;
+                    getScoreImproveIntroHandler(scoreImproveIntroData);
+                });
+        }
+        else {
+            getScoreImproveIntroHandler(scoreImproveIntroData);
+        }
+
+        var getScoreImproveIntroHandler = function (data) {
+            var text = '';
+            if(!!data && !!data.desc) {
+                text += '<b>' + data.desc + '</b>';
+            }
+            // if(!!data && !!data.title) {
+            //     text = '<b>' + data.title + '</b>' + text;
+            // }
+            elements.historyRankTable.eq(_index).find('.left').html(text);
+        };
+
+        if(scope) {
+            elements.historyRankTable.eq(_index).find('.col6').html('本学期考试你在年级的位置分别是');
+        }
+        else {
+            elements.historyRankTable.eq(_index).find('.col6').html('本学期考试你在全班的位置分别是');
         }
     }
 };
@@ -3335,401 +3343,254 @@ var TopicCollect = (function () {
 /**
  * 这次考试有进步吗?
  */
-var singerInit = true;
-var singerInitPar = true;
 var forewordCtrl = (function(){
-    if (Report.role == 'student') {
-        if (singerInit) {
-            var forewordCtrl  = function(){};
+    var forewordCtrl  = function(){};
 
-            forewordCtrl.prototype.init = function(paperId){
-                this.paperId = paperId;
-                var self = this;
-                var userExamRankHistory = '';
-                getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
-                $.getJSON(basePath + "/zhixuebao/feesReport/getUserSubjectRankHistory/",
-                    {userId: currentRealStudent.id, paperId:self.paperId, pageIndex: 1, pageSize: 5}, function (data) {
-                        userExamRankHistory = data;
-                        historyRankDataHandle(userExamRankHistory, 0);
-                    });
+    forewordCtrl.prototype.init = function(paperId){
+        this.paperId = paperId;
+        var self = this;
 
-                /**
-                 * 历史数据处理
-                 * @param userExamRankHistory
-                 * @param scope
-                 */
-                function historyRankDataHandle(userExamRankHistory, scope) {
+        getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
 
-                    if (!userExamRankHistory) {
-                        return;
-                    }
-                    var examNameList = [];
-                    var classRatioList = [];
-                    var gradeRatioList = [];
-                    var thisIndex = -1;
-                    for (var i = 0; i < 5 && i != userExamRankHistory.list.length; ++i) {
-                        var userData = userExamRankHistory.list[i];
-                        // if (userExamData.examId == userData.examId) {
-                        //     thisIndex = i;
-                        //     continue;
-                        // }
-                        examNameList.unshift(userData.examName);
-                        classRatioList.unshift(userData.classRank.ratio);
-                        gradeRatioList.unshift(userData.gradeRank.ratio);
-                    }
-                    if(thisIndex != -1) {
-                        examNameList.push(userExamRankHistory.list[thisIndex].examName);
-                        classRatioList.push(userExamRankHistory.list[thisIndex].classRank.ratio);
-                        gradeRatioList.push(userExamRankHistory.list[thisIndex].gradeRank.ratio);
-                    }
-                    if(scope) {
-                        bindHistoryRankChartData(examNameList, gradeRatioList);
-                    }
-                    else {
-                        bindHistoryRankChartData(examNameList, classRatioList);
-                    }
-                }
-
-                /**
-                 * 绑定图表
-                 * @param examNameList
-                 * @param ratioList
-                 */
-                function bindHistoryRankChartData(examNameList, ratioList) {
-
-                    var chart = '';
-                    chart = echarts.init(document.getElementById('historyRankChartSinger'), 'macarons');
-                    var option = {
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: examNameList,
-                                axisLabel: {
-                                    interval: 0,
-                                    formatter: function (val) {
-                                        if(!!isMobile) {
-                                            return val.length > 5 ? val.substring(0, 5) + "…" : val;
-                                        }
-                                        return formatterEchartsData(val, examNameList.length);
-                                    }
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        color: '#30B398'
-                                    }
-                                }
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                axisLabel: {
-                                    formatter: function (val) {
-                                        var tmp = 100 - val;
-                                        return tmp + '%';
-                                    }
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        color: '#30B398'
-                                    }
-                                }
-                            }
-                        ],
-                        series: [
-                            {
-                                type: 'line',
-                                smooth: false,
-                                data: ratioList,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#FD6C9B',
-                                        label: {
-                                            show: true,
-                                            formatter: function (param) {
-                                                param.value = 100 - param.value;
-                                                return '前' + param.value + '%';
-                                            },
-                                            textStyle: {
-                                                color: '#514F59',
-                                                fontSize: 18
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    };
-                    if (!!isMobile && examNameList.length > 2) {
-                        option.dataZoom = {
-                            show: true,
-                            start: 0,
-                            end: 2 / examNameList.length * 100,
-                            showDetail: true,
-                            zoomLock: true,
-                            height: 15,
-                            fillerColor: "#30B398",
-                            handleColor: "#30B398",
-                            backgroundColor: "#FFFFFF",
-                            dataBackgroundColor: "#FFFFFF"
-                        };
-                    }
-                    chart.setOption(option);
-                }
-
-                /**
-                 * 获取文案（这次考试有进步吗？）
-                 * @param examId
-                 * @param paperId
-                 * @param scope
-                 */
-                function getScoreImproveIntro(examId, paperId, scope) {
-
-                    $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
-                        {examId: examId, paperId: paperId, role: Report.role, scope: scope}, function(data) {
-                            var text = '';
-                            if(!!data && !!data.desc) {
-                                text += '<b>' + data.desc + '</b>';
-                            }
-                            // if(!!data && !!data.title) {
-                            // 	text = '<b>' + data.title + '</b>' + text;
-                            // }
-                            elements.historyRankTableSinger.eq(0).find('.left').html(text);
-                        });
-                    if(scope) {
-                        elements.historyRankTableSinger.eq(0).find('.col6').html('本学期考试你在年级的位置分别是');
-                    }
-                    else {
-                        elements.historyRankTableSinger.eq(0).find('.col6').html('本学期考试你在全班的位置分别是');
-                    }
-                }
-
-                elements.historyRankTableSinger.eq(0).find('.gradeall').on('click', function() {
-                    var _this = $(this);
-                    if(_this.hasClass('on')) {
-                        return;
-                    }
-                    elements.historyRankTableSinger.eq(0).find('a').removeClass('on');
-                    _this.addClass('on');
+        var userExamRankHistory = '';
+        if (userExamRankHistory ===  '')
+        {
+            $.getJSON(basePath + "/zhixuebao/feesReport/getUserSubjectRankHistory/",
+                {userId: currentRealStudent.id, paperId:self.paperId, pageIndex: 1, pageSize: 5}, function (data) {
+                    userExamRankHistory = data;
                     historyRankDataHandle(userExamRankHistory, 0);
-                    getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
                 });
+        } else {
+            historyRankDataHandle(userExamRankHistory, 0);
+        }
 
-                elements.historyRankTableSinger.eq(0).find('.grade').on('click', function() {
-                    var _this = $(this);
-                    if(_this.hasClass('on')) {
-                        return;
+
+        /**
+         * 历史数据处理
+         * @param userExamRankHistory
+         * @param scope
+         */
+        function historyRankDataHandle(userExamRankHistory, scope) {
+
+            if (!userExamRankHistory) {
+                return;
+            }
+            var examNameList = [];
+            var classRatioList = [];
+            var gradeRatioList = [];
+            var thisIndex = -1;
+            for (var i = 0; i < 5 && i != userExamRankHistory.list.length; ++i) {
+                var userData = userExamRankHistory.list[i];
+                // if (userExamData.examId == userData.examId) {
+                //     thisIndex = i;
+                //     continue;
+                // }
+                examNameList.unshift(userData.examName);
+                classRatioList.unshift(userData.classRank.ratio);
+                gradeRatioList.unshift(userData.gradeRank.ratio);
+            }
+            if(thisIndex != -1) {
+                examNameList.push(userExamRankHistory.list[thisIndex].examName);
+                classRatioList.push(userExamRankHistory.list[thisIndex].classRank.ratio);
+                gradeRatioList.push(userExamRankHistory.list[thisIndex].gradeRank.ratio);
+            }
+            if(scope) {
+                bindHistoryRankChartData(examNameList, gradeRatioList);
+            }
+            else {
+                bindHistoryRankChartData(examNameList, classRatioList);
+            }
+        }
+
+        /**
+         * 绑定图表
+         * @param examNameList
+         * @param ratioList
+         */
+        function bindHistoryRankChartData(examNameList, ratioList) {
+
+            var chart;
+            //chart = echarts.init(document.getElementById('historyRankChartSinger'), 'macarons');
+            if (Report.role =='student') {
+                chart = echarts.init(document.getElementById('historyRankChartSinger'), 'macarons');
+            }
+            else {
+                chart = echarts.init(document.getElementById('historyRankChartSingerPar'), 'macarons');
+            }
+            var option = {
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: examNameList,
+                        axisLabel: {
+                            interval: 0,
+                            formatter: function (val) {
+                                if(!!isMobile) {
+                                    return val.length > 5 ? val.substring(0, 5) + "…" : val;
+                                }
+                                return formatterEchartsData(val, examNameList.length);
+                            }
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: '#30B398'
+                            }
+                        }
                     }
-                    elements.historyRankTableSinger.eq(0).find('a').removeClass('on');
-                    _this.addClass('on');
-                    historyRankDataHandle(userExamRankHistory, 1);
-                    getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 1);
-                });
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (val) {
+                                var tmp = 100 - val;
+                                return tmp + '%';
+                            }
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: '#30B398'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        type: 'line',
+                        smooth: false,
+                        data: ratioList,
+                        itemStyle: {
+                            normal: {
+                                color: '#FD6C9B',
+                                label: {
+                                    show: true,
+                                    formatter: function (param) {
+                                        param.value = 100 - param.value;
+                                        return '前' + param.value + '%';
+                                    },
+                                    textStyle: {
+                                        color: '#514F59',
+                                        fontSize: 18
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+            if (!!isMobile && examNameList.length > 2) {
+                option.dataZoom = {
+                    show: true,
+                    start: 0,
+                    end: 2 / examNameList.length * 100,
+                    showDetail: true,
+                    zoomLock: true,
+                    height: 15,
+                    fillerColor: "#30B398",
+                    handleColor: "#30B398",
+                    backgroundColor: "#FFFFFF",
+                    dataBackgroundColor: "#FFFFFF"
+                };
+            }
+            chart.setOption(option);
+        }
+
+        /**
+         * 获取文案（这次考试有进步吗？）
+         * @param examId
+         * @param paperId
+         * @param scope
+         */
+        function getScoreImproveIntro(examId, paperId, scope) {
+            var _index = 0;
+            if (Report.role =='student') {
+                _index = 0;
+            }
+            else {
+                _index = 0;
+            }
+
+            var scoreImproveIntroData = '';
+
+            if (scoreImproveIntroData === '') {
+                $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
+                    {examId: examId, paperId: paperId, role: Report.role, scope: scope}, function(data) {
+
+                        scoreImproveIntroData = data;
+                        getScoreImproveIntroHandler(scoreImproveIntroData);
+                    });
+            } else {
+                getScoreImproveIntroHandler(scoreImproveIntroData);
+            }
+
+
+            var getScoreImproveIntroHandler = function (data) {
+                var text = '';
+                if(!!data && !!data.desc) {
+                    text += '<b>' + data.desc + '</b>';
+                }
+                // if(!!data && !!data.title) {
+                // 	text = '<b>' + data.title + '</b>' + text;
+                // }
+                elements.historyRankTableSinger.eq(_index).find('.left').html(text);
             };
 
-            return forewordCtrl;
-            singerInit = false;
+            if(scope) {
+                elements.historyRankTableSinger.eq(_index).find('.col6').html('本学期考试你在年级的位置分别是');
+            }
+            else {
+                elements.historyRankTableSinger.eq(_index).find('.col6').html('本学期考试你在全班的位置分别是');
+            }
         }
-    }
-    else {
-        if (singerInitPar) {
-            var forewordCtrl  = function(){};
 
-            forewordCtrl.prototype.init = function(paperId){
-                this.paperId = paperId;
-                var self = this;
-                var userExamRankHistory = '';
-                getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
-                $.getJSON(basePath + "/zhixuebao/feesReport/getUserSubjectRankHistory/",
-                    {userId: currentRealStudent.id, paperId:self.paperId, pageIndex: 1, pageSize: 5}, function (data) {
-                        userExamRankHistory = data;
-                        historyRankDataHandle(userExamRankHistory, 0);
-                    });
+        elements.historyRankTableSinger.eq(0).find('.gradeall').on('click', function() {
+            var _this = $(this);
+            if(_this.hasClass('on')) {
+                return;
+            }
+            elements.historyRankTableSinger.eq(0).find('a').removeClass('on');
+            _this.addClass('on');
+            historyRankDataHandle(userExamRankHistory, 0);
+            getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
+        });
 
-                /**
-                 * 历史数据处理
-                 * @param userExamRankHistory
-                 * @param scope
-                 */
-                function historyRankDataHandle(userExamRankHistory, scope) {
+        elements.historyRankTableSinger.eq(0).find('.grade').on('click', function() {
+            var _this = $(this);
+            if(_this.hasClass('on')) {
+                return;
+            }
+            elements.historyRankTableSinger.eq(0).find('a').removeClass('on');
+            _this.addClass('on');
+            historyRankDataHandle(userExamRankHistory, 1);
+            getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 1);
+        });
 
-                    if (!userExamRankHistory) {
-                        return;
-                    }
-                    var examNameList = [];
-                    var classRatioList = [];
-                    var gradeRatioList = [];
-                    var thisIndex = -1;
-                    for (var i = 0; i < 5 && i != userExamRankHistory.list.length; ++i) {
-                        var userData = userExamRankHistory.list[i];
-                        // if (userExamData.examId == userData.examId) {
-                        //     thisIndex = i;
-                        //     continue;
-                        // }
-                        examNameList.unshift(userData.examName);
-                        classRatioList.unshift(userData.classRank.ratio);
-                        gradeRatioList.unshift(userData.gradeRank.ratio);
-                    }
-                    if(thisIndex != -1) {
-                        examNameList.push(userExamRankHistory.list[thisIndex].examName);
-                        classRatioList.push(userExamRankHistory.list[thisIndex].classRank.ratio);
-                        gradeRatioList.push(userExamRankHistory.list[thisIndex].gradeRank.ratio);
-                    }
-                    if(scope) {
-                        bindHistoryRankChartData(examNameList, gradeRatioList);
-                    }
-                    else {
-                        bindHistoryRankChartData(examNameList, classRatioList);
-                    }
-                }
+        // parent
+        elements.historyRankTableSinger.eq(1).find('.gradeall').on('click', function() {
+            var _this = $(this);
+            if(_this.hasClass('on')) {
+                return;
+            }
+            elements.historyRankTableSinger.eq(1).find('a').removeClass('on');
+            _this.addClass('on');
+            historyRankDataHandle(userExamRankHistory, 0);
+            getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
+        });
 
-                /**
-                 * 绑定图表
-                 * @param examNameList
-                 * @param ratioList
-                 */
-                function bindHistoryRankChartData(examNameList, ratioList) {
-
-                    var chart = '';
-                    chart = echarts.init(document.getElementById('historyRankChartSingerPar'), 'macarons');
-                    var option = {
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: examNameList,
-                                axisLabel: {
-                                    interval: 0,
-                                    formatter: function (val) {
-                                        if(!!isMobile) {
-                                            return val.length > 5 ? val.substring(0, 5) + "…" : val;
-                                        }
-                                        return formatterEchartsData(val, examNameList.length);
-                                    }
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        color: '#30B398'
-                                    }
-                                }
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                axisLabel: {
-                                    formatter: function (val) {
-                                        var tmp = 100 - val;
-                                        return tmp + '%';
-                                    }
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        color: '#30B398'
-                                    }
-                                }
-                            }
-                        ],
-                        series: [
-                            {
-                                type: 'line',
-                                smooth: false,
-                                data: ratioList,
-                                itemStyle: {
-                                    normal: {
-                                        color: '#FD6C9B',
-                                        label: {
-                                            show: true,
-                                            formatter: function (param) {
-                                                param.value = 100 - param.value;
-                                                return '前' + param.value + '%';
-                                            },
-                                            textStyle: {
-                                                color: '#514F59',
-                                                fontSize: 18
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    };
-                    if (!!isMobile && examNameList.length > 2) {
-                        option.dataZoom = {
-                            show: true,
-                            start: 0,
-                            end: 2 / examNameList.length * 100,
-                            showDetail: true,
-                            zoomLock: true,
-                            height: 15,
-                            fillerColor: "#30B398",
-                            handleColor: "#30B398",
-                            backgroundColor: "#FFFFFF",
-                            dataBackgroundColor: "#FFFFFF"
-                        };
-                    }
-                    chart.setOption(option);
-                }
-
-                /**
-                 * 获取文案（这次考试有进步吗？）
-                 * @param examId
-                 * @param paperId
-                 * @param scope
-                 */
-                function getScoreImproveIntro(examId, paperId, scope) {
-
-                    $.getJSON(basePath + "/zhixuebao/feesReport/getScoreImproveIntro/",
-                        {examId: examId, paperId: paperId, role: Report.role, scope: scope}, function(data) {
-                            var text = '';
-                            if(!!data && !!data.desc) {
-                                text += '<b>' + data.desc + '</b>';
-                            }
-                            // if(!!data && !!data.title) {
-                            // 	text = '<b>' + data.title + '</b>' + text;
-                            // }
-                            elements.historyRankTableSinger.eq(1).find('.left').html(text);
-                        });
-                    if(scope) {
-                        elements.historyRankTableSinger.eq(1).find('.col6').html('本学期考试你在年级的位置分别是');
-                    }
-                    else {
-                        elements.historyRankTableSinger.eq(1).find('.col6').html('本学期考试你在全班的位置分别是');
-                    }
-                }
-
-                elements.historyRankTableSinger.eq(1).find('.gradeall').on('click', function() {
-                    var _this = $(this);
-                    if(_this.hasClass('on')) {
-                        return;
-                    }
-                    elements.historyRankTableSinger.eq(1).find('a').removeClass('on');
-                    _this.addClass('on');
-                    historyRankDataHandle(userExamRankHistory, 0);
-                    getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 0);
-                });
-
-                elements.historyRankTableSinger.eq(1).find('.grade').on('click', function() {
-                    var _this = $(this);
-                    if(_this.hasClass('on')) {
-                        return;
-                    }
-                    elements.historyRankTableSinger.eq(1).find('a').removeClass('on');
-                    _this.addClass('on');
-                    historyRankDataHandle(userExamRankHistory, 1);
-                    getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 1);
-                });
-            };
-
-            return forewordCtrl;
-            singerInitPar = false;
-        }
-    }
-
-
+        elements.historyRankTableSinger.eq(1).find('.grade').on('click', function() {
+            var _this = $(this);
+            if(_this.hasClass('on')) {
+                return;
+            }
+            elements.historyRankTableSinger.eq(1).find('a').removeClass('on');
+            _this.addClass('on');
+            historyRankDataHandle(userExamRankHistory, 1);
+            getScoreImproveIntro(Request.QueryString("examId"), self.paperId, 1);
+        });
+    };
+    return forewordCtrl;
 
 })();
 
