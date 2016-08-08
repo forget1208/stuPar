@@ -730,8 +730,6 @@ Report.subjectList = function () {
 /**
  * 绑定对比数据（与同学的对比）
  */
-var compareTableData = true;
-var compareTableDataPar = true;
 Report.bindCompareTableData = function () {
     var subjectNameList = [];
     var classAverageList = [];
@@ -783,121 +781,6 @@ Report.bindCompareTableData = function () {
         compareWithClassmate = elements.compareWithClassmate;
         loadCompareTable = $('#loadCompareTable');
         downPartShow = elements.downPartShow;
-        if(compareTableData) {
-            getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-
-            compareWithClassmate.find(fircompareLook).on('click', function() {
-
-                var _this = $(this);
-                if(downPartShow.is(':hidden')) {
-                    //暂时屏蔽联考区
-                    if(compareScore == 'union') {
-                        return;
-                    }
-                    downPartShow.show();
-                    _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
-                }
-                else {
-                    downPartShow.hide();
-                    _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
-                }
-            });
-
-            loadCompareTable.find(currentClass).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                compareWithClassmate.find(fircompareLook).show();
-                compareScore = 'class';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
-                elements.loadPosition.eq(0).find(proposiTit).text('成绩在全班的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(0).find(procompTit).text('成绩与全班平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            loadCompareTable.find(currentGrade).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                compareWithClassmate.find(fircompareLook).show();
-                compareScore = 'grade';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
-                elements.loadPosition.eq(0).find(proposiTit).text('成绩在全年级的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(0).find(procompTit).text('成绩与全年级平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            loadCompareTable.find(currentUnion).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                //暂时屏蔽联考区
-                compareWithClassmate.find(fircompareLook).hide();
-                if(downPartShow.is(':visible')) {
-                    downPartShow.hide();
-                    compareWithClassmate.find('em').removeClass();
-                    compareWithClassmate.find('em').addClass('arror-down');
-                }
-                compareScore = 'union';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
-                elements.loadPosition.eq(0).find(proposiTit).text('成绩在联考区的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(0).find(procompTit).text('成绩与联考区平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            compareWithClassmate.find('a.next').on('click', function() {
-                if(currentPage == pageNumber - 1) {
-                    return;
-                }
-                ++currentPage;
-                switch (compareScore) {
-                    case 'class':
-                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                        break;
-                    case 'grade':
-                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                        break;
-                    case 'union':
-                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                        break;
-                    default:
-                        break;
-                }
-            });
-
-            compareWithClassmate.find('a.pre').on('click', function() {
-                if(currentPage == 0) {
-                    return;
-                }
-                --currentPage;
-                switch (compareScore) {
-                    case 'class':
-                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                        break;
-                    case 'grade':
-                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                        break;
-                    case 'union':
-                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                        break;
-                    default:
-                        break;
-                }
-            });
-            compareTableData = false;
-        }
     }
     else {
         currentClass = '#currentClassPar';
@@ -909,122 +792,120 @@ Report.bindCompareTableData = function () {
         compareWithClassmate = elements.compareWithClassmatePar;
         loadCompareTable = $('#loadCompareTablePar');
         downPartShow = elements.downPartShowPar;
-        if(compareTableDataPar) {
-            getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-
-            compareWithClassmate.find(fircompareLook).on('click', function() {
-
-                var _this = $(this);
-                if(downPartShow.is(':hidden')) {
-                    //暂时屏蔽联考区
-                    if(compareScore == 'union') {
-                        return;
-                    }
-                    downPartShow.show();
-                    _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
-                }
-                else {
-                    downPartShow.hide();
-                    _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
-                }
-            });
-
-            loadCompareTable.find(currentClass).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                compareWithClassmate.find(fircompareLook).show();
-                compareScore = 'class';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
-                elements.loadPosition.eq(1).find(proposiTit).text('成绩在全班的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(1).find(procompTit).text('成绩与全班平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            loadCompareTable.find(currentGrade).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                compareWithClassmate.find(fircompareLook).show();
-                compareScore = 'grade';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
-                elements.loadPosition.eq(1).find(proposiTit).text('成绩在全年级的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(1).find(procompTit).text('成绩与全年级平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            loadCompareTable.find(currentUnion).on('click', function() {
-                var _this = $(this);
-                if(_this.hasClass('on')) {
-                    return;
-                }
-                loadCompareTable.find('a').removeClass('on');
-                _this.addClass('on');
-                //暂时屏蔽联考区
-                compareWithClassmate.find(fircompareLook).hide();
-                if(downPartShow.is(':visible')) {
-                    downPartShow.hide();
-                    compareWithClassmate.find('em').removeClass();
-                    compareWithClassmate.find('em').addClass('arror-down');
-                }
-                compareScore = 'union';currentPage = 0;
-                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
-                elements.loadPosition.eq(1).find(proposiTit).text('成绩在联考区的位置');
-                Report.bindPositionData();
-                elements.loadCompare.eq(1).find(procompTit).text('成绩与联考区平均分、最高分的对比');
-                Report.bindCompareData();
-            });
-
-            compareWithClassmate.find('a.next').on('click', function() {
-                if(currentPage == pageNumber - 1) {
-                    return;
-                }
-                ++currentPage;
-                switch (compareScore) {
-                    case 'class':
-                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                        break;
-                    case 'grade':
-                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                        break;
-                    case 'union':
-                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                        break;
-                    default:
-                        break;
-                }
-            });
-
-            compareWithClassmate.find('a.pre').on('click', function() {
-                if(currentPage == 0) {
-                    return;
-                }
-                --currentPage;
-                switch (compareScore) {
-                    case 'class':
-                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                        break;
-                    case 'grade':
-                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                        break;
-                    case 'union':
-                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                        break;
-                    default:
-                        break;
-                }
-            });
-            compareTableDataPar = false;
-        }
     }
+
+    getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+
+    compareWithClassmate.find(fircompareLook).on('click', function() {
+
+        var _this = $(this);
+        if(downPartShow.is(':hidden')) {
+            //暂时屏蔽联考区
+            if(compareScore == 'union') {
+                return;
+            }
+            downPartShow.show();
+            _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
+        }
+        else {
+            downPartShow.hide();
+            _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
+        }
+    });
+
+    loadCompareTable.find(currentClass).on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        compareWithClassmate.find(fircompareLook).show();
+        compareScore = 'class';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
+        elements.loadPosition.find(proposiTit).text('成绩在全班的位置');
+        Report.bindPositionData();
+        elements.loadCompare.find(procompTit).text('成绩与全班平均分、最高分的对比');
+        Report.bindCompareData();
+    });
+
+    loadCompareTable.find(currentGrade).on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        compareWithClassmate.find(fircompareLook).show();
+        compareScore = 'grade';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
+        elements.loadPosition.find(proposiTit).text('成绩在全年级的位置');
+        Report.bindPositionData();
+        elements.loadCompare.find(procompTit).text('成绩与全年级平均分、最高分的对比');
+        Report.bindCompareData();
+    });
+
+    loadCompareTable.find(currentUnion).on('click', function() {
+        var _this = $(this);
+        if(_this.hasClass('on')) {
+            return;
+        }
+        loadCompareTable.find('a').removeClass('on');
+        _this.addClass('on');
+        //暂时屏蔽联考区
+        compareWithClassmate.find(fircompareLook).hide();
+        if(downPartShow.is(':visible')) {
+            downPartShow.hide();
+            compareWithClassmate.find('em').removeClass();
+            compareWithClassmate.find('em').addClass('arror-down');
+        }
+        compareScore = 'union';currentPage = 0;
+        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
+        elements.loadPosition.find(proposiTit).text('成绩在联考区的位置');
+        Report.bindPositionData();
+        elements.loadCompare.find(procompTit).text('成绩与联考区平均分、最高分的对比');
+        Report.bindCompareData();
+    });
+
+    compareWithClassmate.find('a.next').on('click', function() {
+        if(currentPage == pageNumber - 1) {
+            return;
+        }
+        ++currentPage;
+        switch (compareScore) {
+            case 'class':
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                break;
+            case 'grade':
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                break;
+            case 'union':
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                break;
+            default:
+                break;
+        }
+    });
+
+    compareWithClassmate.find('a.pre').on('click', function() {
+        if(currentPage == 0) {
+            return;
+        }
+        --currentPage;
+        switch (compareScore) {
+            case 'class':
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                break;
+            case 'grade':
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                break;
+            case 'union':
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                break;
+            default:
+                break;
+        }
+    });
 
     /**
      * 获取附近人的分数信息，生成HTML返回
@@ -1594,8 +1475,6 @@ Report.bindCompareData = function () {
 /**
  * 绑定历史考试记录（这次考试有进步吗?）
  */
-var historyRankData = true;
-var historyRankDataPar = true;
 Report.bindHistoryRankData = function () {
     var userExamRankHistory = '';
     getScoreImproveIntro(Request.QueryString("examId"), 0);
@@ -1780,7 +1659,7 @@ Report.bindHistoryRankData = function () {
             _index = 0;
         }
         else {
-            _index = 0;
+            _index = 1;
         }
         var scoreImproveIntroData = '';
 
@@ -3509,7 +3388,7 @@ var forewordCtrl = (function(){
                 _index = 0;
             }
             else {
-                _index = 0;
+                _index = 1;
             }
 
             var scoreImproveIntroData = '';
