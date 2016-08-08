@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <%--<meta http-equiv="X-UA-Compatible" content="IE=7"></meta>--%>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta name="format-detection" content="telephone=no" />
@@ -175,38 +174,45 @@
                 </div>
                 <div class="rep-stu-container">
                     <!--学生全科 -->
-                    <div class="rep-stu-content bgWhite" style="display: block;">
-                        <!--主体内容头部-->
-                        <div class="rep-sa-tit rel">
-                            <div class="rep-name">全学科成绩报告</div>
-                            <div class="schooltest examName" id="examName"></div>
-                            <!--导读-->
-                            <div class="rep-sa-read">
-                                <div class="hd">导读</div>
-                                <div class="bd" id="introduction"></div>
-                                <div class="ft"></div>
+                    <div class="rep-stu-content" style="display: block;">
+                        <div class="bgWhite">
+                            <!--主体内容头部-->
+                            <div class="rep-sa-tit rel">
+                                <div class="rep-name">全学科成绩报告</div>
+                                <div class="schooltest examName" id="examName"></div>
+                                <!--导读-->
+                                <div class="rep-sa-read">
+                                    <div class="hd">导读</div>
+                                    <div class="bd" id="introduction"></div>
+                                    <div class="ft"></div>
+                                </div>
                             </div>
-                        </div>
-                        <!--我考得怎么样？-->
-                        <div class="report-unvip-basetit bindParentShow">
-                            <div class="report-unvip-line fl"></div>
-                            <div class="tc report-unvip-basetit-txt fl">
-                                <p class="pa">我考得怎么样？</p>
-                                <br>
-                                <p class="pb">总体情况概述、各班成绩对比</p>
+                            <!--我考得怎么样？-->
+                            <div class="report-unvip-basetit bindParentShow">
+                                <div class="report-unvip-line fl"></div>
+                                <div class="tc report-unvip-basetit-txt fl">
+                                    <p class="pa">我考得怎么样？</p>
+                                    <br>
+                                    <p class="pb">总体情况概述、各班成绩对比</p>
+                                </div>
+                                <div class="report-unvip-line fl"></div>
                             </div>
-                            <div class="report-unvip-line fl"></div>
-                        </div>
-                        <div class="bindParentShow">
-                            <ul class="stu-paper clearfix" id="examTable">
+                            <div class="bindParentShow">
+                                <ul class="stu-paper clearfix" id="examTable">
 
-                            </ul>
-                        </div>
+                                </ul>
+                            </div>
 
-                        <!--优先查分-->
-                        <div id="checkScoreContainer" class="checkScoreContainer"></div>
-                        <!--随机排列-->
-                        <div id="randomDisplay" class="randomDisplay"></div>
+                            <!--优先查分-->
+                            <div id="checkScoreContainer" class="checkScoreContainer"></div>
+                            <!--随机排列-->
+                            <div id="randomDisplay" class="randomDisplay"></div>
+                        </div>
+                        <!--考点闯关提分-->
+                        <div class="rep-main mt40 rel" id="loadExamTask">
+                            <div class="rep-main-label">考点闯关提分</div>
+                            <div class="cg-report"></div>
+                        </div>
                     </div>
                     <!--学生单科-->
                     <div class="rep-stu-content">
@@ -392,20 +398,20 @@
                                 <!-- 用户反馈-->
                                 {include file="/zhixuebao/feesreport/foot/index.html"}
                             </div>
-                            <div class="bgWhite mt40">
-                                <!--考点闯关提分-->
-                                <div class="rep-main">
-                                    <div class="rep-main-label">考点闯关提分</div>
-                                    <div class="cg-report">
-                                        <div class="cg-report-pane clearfix" id="knowList1">
-                                            <div class="cg-mod">
-                                                <p style="color: gray;font-size: 24px;margin: 40px 0 0 100px;">暂时无法获取到闯关任务</p>
-                                            </div>
+                        </div>
+                        <div class="bgWhite mt40">
+                            <!--考点闯关提分-->
+                            <div class="rep-main">
+                                <div class="rep-main-label">考点闯关提分</div>
+                                <div class="cg-report">
+                                    <div class="cg-report-pane clearfix" id="knowList1">
+                                        <div class="cg-mod">
+                                            <p style="color: gray;font-size: 24px;margin: 40px 0 0 100px;">暂时无法获取到闯关任务</p>
                                         </div>
-
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
