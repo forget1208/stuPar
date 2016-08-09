@@ -258,21 +258,13 @@ Report.stuParTab = function () {
         Report.bindUserExamData(); //孩子考得怎么样
         Report.bindLoseScoreData(paperId); //丢分题难度
         Report.bindExamTask(); //考点闯关
-        Transcripts.bindPKEvent();
-        Transcripts.randomChangeEvent();
+        $('#loadPK').show();
     } else {
         Report.role = 'parent';
         Report.bindUserExamDataPar(); //孩子考得怎么样
         Report.bindLoseScoreDataPar(); //孩子的分数丢哪了
+        $('#loadPK').hide();
     }
-
-    Report.bindIntroductionData(); //导读
-    Report.bindCompareTableData(); //与同学的对比
-    Report.bindPositionData(); //成绩在XX的位置
-    Report.bindCompareData(); //成绩与全班平均分、最高分的对比
-    Report.bindHistoryRankData(); //这次考试有进步吗
-    Report.bindHowDoIData(); //我该怎么办/我该怎么督促孩子
-    Report.bindSummary(); //小结
     if (showEach) {
         elements.loadEachSubject.show();
         elements.loadEachSubjectPar.show();
@@ -291,6 +283,13 @@ Report.stuParTab = function () {
         }
     }
     else {
+        Report.bindIntroductionData(); //导读
+        Report.bindCompareTableData(); //与同学的对比
+        Report.bindPositionData(); //成绩在XX的位置
+        Report.bindCompareData(); //成绩与全班平均分、最高分的对比
+        Report.bindHistoryRankData(); //这次考试有进步吗
+        Report.bindHowDoIData(); //我该怎么办/我该怎么督促孩子
+        Report.bindSummary(); //小结
         var foot = new Foot();
         foot.init();
     }
@@ -320,9 +319,14 @@ Report.allSingerTab = function () {
         elements.subjectName2.text($(this).text());
         paperId = elements.top_subjectList.find('a.on').attr('paperId');
         subjectCode = elements.top_subjectList.find('a.on').attr('subjectCode');
+        $('#loadPK').show();
         if (elements.top_subjectList.find('a.on').html() == '全科') {
             Report.allSinger = 'All';
             $('.rep-stu-content').eq(0).show().siblings('.rep-stu-content').hide();
+            // Report.bindCompareTableData(); //与同学的对比
+            // Report.bindPositionData(); //成绩在XX的位置
+            // Report.bindCompareData(); //成绩与全班平均分、最高分的对比
+            // Report.bindHistoryRankData(); //这次考试有进步吗
             var foot = new Foot();
             foot.init();
         }
@@ -359,8 +363,13 @@ Report.allSingerTab = function () {
     }
     else {
         elements.subjectName2Par.text($(this).text());
+        $('#loadPK').hide();
         if (elements.top_subjectListPar.find('a.on').html() == '全科') {
             $('.rep-par-content').eq(0).show().siblings('.rep-par-content').hide();
+            // Report.bindCompareTableData(); //与同学的对比
+            // Report.bindPositionData(); //成绩在XX的位置
+            // Report.bindCompareData(); //成绩与全班平均分、最高分的对比
+            // Report.bindHistoryRankData(); //这次考试有进步吗
             var foot = new Foot();
             foot.init();
         }
@@ -403,8 +412,6 @@ Report.allSingerTab = function () {
     }
     else {
         Report.bindLoseScoreData(paperId); //丢分题难度
-        Transcripts.bindPKEvent();
-        Transcripts.randomChangeEvent();
     }
 
     var dif = new Difficulty();
@@ -461,6 +468,7 @@ Report.allSingerTabHandler = function (subjectName) {
         how.createTaskHtml("#knowList1", Request.QueryString("examId"), paperId);
         var topTopic = new TopTopic();
         topTopic.init(paperId); //TOP10
+        $('#loadPK').show();
     }
     else {
         $('.rep-par-content').eq(1).show().siblings('.rep-par-content').hide();
@@ -488,6 +496,7 @@ Report.allSingerTabHandler = function (subjectName) {
         topTopic.init(paperId); //TOP10
         var recommondControl = new RecommondControl();
         recommondControl.init(paperId); //推荐内容
+        $('#loadPK').hide();
     }
     var foot = new Foot(userExamData);
     foot.init();
@@ -523,15 +532,17 @@ Report.getStuSingleReportDataHandler = function(data,paperId) {
         }
     });
 
+    var compareCtrl;
     if (Report.role == 'student') {
         chartUtilStu.init(localSubjectRatios, localClassRatios);
 
         tipsUtilStu.init(paperId);
-
-        var compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, paperId, currentRealStudent.id, localSubjectRatios);
+        $("._compare li a").removeClass("on");
+        $("._compare li a").eq(0).addClass("on");
+        compareCtrl = '';
+        compareCtrl = new CompareCtrl(classInfo.school.id, classInfo.id, paperId, currentRealStudent.id, localSubjectRatios);
         compareCtrl.init(); //得分率 对比班级、年级
 
-        $(".rep-ps-dc").hide(); //隐藏知识点统计
     }
 }
 
@@ -670,12 +681,10 @@ Report.bindUserExamData = function (data) {
         }
 
         //演示用的账号
-        if((data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8"|| data.paperId == "00b97f50-5d1d-4068-9124-fa45e35f2a67"||data.paperId == "a29b5218-3c53-43fa-a0fd-0cc214345e59"||data.paperId == "3384b58f-1acc-4b60-bf31-bcf098b9bf8e"||data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8")
-            && (currentRealStudent.id == "4444000020010042980"|| currentRealStudent.id == "2034000020000004442"||currentRealStudent.id == "2244000020000155153"||currentRealStudent.id == "4444000020001475914"||currentRealStudent.id == "2244000020000036254"))
+        if((data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8"|| data.paperId == "00b97f50-5d1d-4068-9124-fa45e35f2a67"||data.paperId == "a29b5218-3c53-43fa-a0fd-0cc214345e59"||data.paperId == "3384b58f-1acc-4b60-bf31-bcf098b9bf8e"||data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8"||data.paperId == "774a08f8-eeb3-4653-8758-08a9d0735b6e")
+            && (currentRealStudent.id == "4444000020010042980"|| currentRealStudent.id == "2034000020000004442"||currentRealStudent.id == "2244000020000155153"||currentRealStudent.id == "4444000020001475914"||currentRealStudent.id == "2244000020000036254")||currentRealStudent.id == '2000000020000265988')
         {
-            if( data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8" || data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8" ){
-                examScoreHTML += '<a href="javascript:void(0);" class="know knowledgeMap" type="0">知识图谱</a>';
-            }else{
+            if( data.paperId == "8c816ae8-ed90-45ee-a900-5e42c0d31de8" || data.paperId == "869dd70c-33db-4315-bb8c-c42c81659ca8" || data.paperId == '4585faa2-e444-40ae-a9bd-8b16007cce7d' ){
                 examScoreHTML += '<a href="javascript:void(0);" class="know knowledgeMap" type="0">知识图谱</a>';
             }
         }
@@ -730,6 +739,8 @@ Report.subjectList = function () {
 /**
  * 绑定对比数据（与同学的对比）
  */
+var compareTableData = true;
+var compareTableDataPar = true;
 Report.bindCompareTableData = function () {
     var subjectNameList = [];
     var classAverageList = [];
@@ -781,6 +792,121 @@ Report.bindCompareTableData = function () {
         compareWithClassmate = elements.compareWithClassmate;
         loadCompareTable = $('#loadCompareTable');
         downPartShow = elements.downPartShow;
+        if(compareTableData) {
+            getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+
+            compareWithClassmate.find(fircompareLook).on('click', function() {
+
+                var _this = $(this);
+                if(downPartShow.is(':hidden')) {
+                    //暂时屏蔽联考区
+                    if(compareScore == 'union') {
+                        return;
+                    }
+                    downPartShow.show();
+                    _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
+                }
+                else {
+                    downPartShow.hide();
+                    _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
+                }
+            });
+
+            loadCompareTable.find(currentClass).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                compareWithClassmate.find(fircompareLook).show();
+                compareScore = 'class';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
+                elements.loadPosition.eq(0).find(proposiTit).text('成绩在全班的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(0).find(procompTit).text('成绩与全班平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            loadCompareTable.find(currentGrade).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                compareWithClassmate.find(fircompareLook).show();
+                compareScore = 'grade';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
+                elements.loadPosition.eq(0).find(proposiTit).text('成绩在全年级的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(0).find(procompTit).text('成绩与全年级平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            loadCompareTable.find(currentUnion).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                //暂时屏蔽联考区
+                compareWithClassmate.find(fircompareLook).hide();
+                if(downPartShow.is(':visible')) {
+                    downPartShow.hide();
+                    compareWithClassmate.find('em').removeClass();
+                    compareWithClassmate.find('em').addClass('arror-down');
+                }
+                compareScore = 'union';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
+                elements.loadPosition.eq(0).find(proposiTit).text('成绩在联考区的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(0).find(procompTit).text('成绩与联考区平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            compareWithClassmate.find('a.next').on('click', function() {
+                if(currentPage == pageNumber - 1) {
+                    return;
+                }
+                ++currentPage;
+                switch (compareScore) {
+                    case 'class':
+                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                        break;
+                    case 'grade':
+                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                        break;
+                    case 'union':
+                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            compareWithClassmate.find('a.pre').on('click', function() {
+                if(currentPage == 0) {
+                    return;
+                }
+                --currentPage;
+                switch (compareScore) {
+                    case 'class':
+                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                        break;
+                    case 'grade':
+                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                        break;
+                    case 'union':
+                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                        break;
+                    default:
+                        break;
+                }
+            });
+            compareTableData = false;
+        }
     }
     else {
         currentClass = '#currentClassPar';
@@ -792,120 +918,122 @@ Report.bindCompareTableData = function () {
         compareWithClassmate = elements.compareWithClassmatePar;
         loadCompareTable = $('#loadCompareTablePar');
         downPartShow = elements.downPartShowPar;
+        if(compareTableDataPar) {
+            getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+
+            compareWithClassmate.find(fircompareLook).on('click', function() {
+
+                var _this = $(this);
+                if(downPartShow.is(':hidden')) {
+                    //暂时屏蔽联考区
+                    if(compareScore == 'union') {
+                        return;
+                    }
+                    downPartShow.show();
+                    _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
+                }
+                else {
+                    downPartShow.hide();
+                    _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
+                }
+            });
+
+            loadCompareTable.find(currentClass).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                compareWithClassmate.find(fircompareLook).show();
+                compareScore = 'class';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
+                elements.loadPosition.eq(1).find(proposiTit).text('成绩在全班的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(1).find(procompTit).text('成绩与全班平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            loadCompareTable.find(currentGrade).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                compareWithClassmate.find(fircompareLook).show();
+                compareScore = 'grade';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
+                elements.loadPosition.eq(1).find(proposiTit).text('成绩在全年级的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(1).find(procompTit).text('成绩与全年级平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            loadCompareTable.find(currentUnion).on('click', function() {
+                var _this = $(this);
+                if(_this.hasClass('on')) {
+                    return;
+                }
+                loadCompareTable.find('a').removeClass('on');
+                _this.addClass('on');
+                //暂时屏蔽联考区
+                compareWithClassmate.find(fircompareLook).hide();
+                if(downPartShow.is(':visible')) {
+                    downPartShow.hide();
+                    compareWithClassmate.find('em').removeClass();
+                    compareWithClassmate.find('em').addClass('arror-down');
+                }
+                compareScore = 'union';currentPage = 0;
+                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
+                elements.loadPosition.eq(1).find(proposiTit).text('成绩在联考区的位置');
+                Report.bindPositionData();
+                elements.loadCompare.eq(1).find(procompTit).text('成绩与联考区平均分、最高分的对比');
+                Report.bindCompareData();
+            });
+
+            compareWithClassmate.find('a.next').on('click', function() {
+                if(currentPage == pageNumber - 1) {
+                    return;
+                }
+                ++currentPage;
+                switch (compareScore) {
+                    case 'class':
+                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                        break;
+                    case 'grade':
+                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                        break;
+                    case 'union':
+                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            compareWithClassmate.find('a.pre').on('click', function() {
+                if(currentPage == 0) {
+                    return;
+                }
+                --currentPage;
+                switch (compareScore) {
+                    case 'class':
+                        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
+                        break;
+                    case 'grade':
+                        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
+                        break;
+                    case 'union':
+                        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
+                        break;
+                    default:
+                        break;
+                }
+            });
+            compareTableDataPar = false;
+        }
     }
-
-    getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-
-    compareWithClassmate.find(fircompareLook).on('click', function() {
-
-        var _this = $(this);
-        if(downPartShow.is(':hidden')) {
-            //暂时屏蔽联考区
-            if(compareScore == 'union') {
-                return;
-            }
-            downPartShow.show();
-            _this.html('关闭和我成绩接近的十名同学的成绩<em class="arror-up"></em>');
-        }
-        else {
-            downPartShow.hide();
-            _this.html('查看和我成绩接近的十名同学的成绩<em class="arror-down"></em>');
-        }
-    });
-
-    loadCompareTable.find(currentClass).on('click', function() {
-        var _this = $(this);
-        if(_this.hasClass('on')) {
-            return;
-        }
-        loadCompareTable.find('a').removeClass('on');
-        _this.addClass('on');
-        compareWithClassmate.find(fircompareLook).show();
-        compareScore = 'class';currentPage = 0;
-        getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, 0);
-        elements.loadPosition.find(proposiTit).text('成绩在全班的位置');
-        Report.bindPositionData();
-        elements.loadCompare.find(procompTit).text('成绩与全班平均分、最高分的对比');
-        Report.bindCompareData();
-    });
-
-    loadCompareTable.find(currentGrade).on('click', function() {
-        var _this = $(this);
-        if(_this.hasClass('on')) {
-            return;
-        }
-        loadCompareTable.find('a').removeClass('on');
-        _this.addClass('on');
-        compareWithClassmate.find(fircompareLook).show();
-        compareScore = 'grade';currentPage = 0;
-        getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, 0);
-        elements.loadPosition.find(proposiTit).text('成绩在全年级的位置');
-        Report.bindPositionData();
-        elements.loadCompare.find(procompTit).text('成绩与全年级平均分、最高分的对比');
-        Report.bindCompareData();
-    });
-
-    loadCompareTable.find(currentUnion).on('click', function() {
-        var _this = $(this);
-        if(_this.hasClass('on')) {
-            return;
-        }
-        loadCompareTable.find('a').removeClass('on');
-        _this.addClass('on');
-        //暂时屏蔽联考区
-        compareWithClassmate.find(fircompareLook).hide();
-        if(downPartShow.is(':visible')) {
-            downPartShow.hide();
-            compareWithClassmate.find('em').removeClass();
-            compareWithClassmate.find('em').addClass('arror-down');
-        }
-        compareScore = 'union';currentPage = 0;
-        getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, 0);
-        elements.loadPosition.find(proposiTit).text('成绩在联考区的位置');
-        Report.bindPositionData();
-        elements.loadCompare.find(procompTit).text('成绩与联考区平均分、最高分的对比');
-        Report.bindCompareData();
-    });
-
-    compareWithClassmate.find('a.next').on('click', function() {
-        if(currentPage == pageNumber - 1) {
-            return;
-        }
-        ++currentPage;
-        switch (compareScore) {
-            case 'class':
-                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                break;
-            case 'grade':
-                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                break;
-            case 'union':
-                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                break;
-            default:
-                break;
-        }
-    });
-
-    compareWithClassmate.find('a.pre').on('click', function() {
-        if(currentPage == 0) {
-            return;
-        }
-        --currentPage;
-        switch (compareScore) {
-            case 'class':
-                getNearbyScore(compareScore, subjectNameList, classAverageList, classHighList, classNearbyList, currentPage);
-                break;
-            case 'grade':
-                getNearbyScore(compareScore, subjectNameList, gradeAverageList, gradeHighList, gradeNearbyList, currentPage);
-                break;
-            case 'union':
-                getNearbyScore(compareScore, subjectNameList, unionAverageList, unionHighList, unionNearbyList, currentPage);
-                break;
-            default:
-                break;
-        }
-    });
 
     /**
      * 获取附近人的分数信息，生成HTML返回
@@ -3983,7 +4111,7 @@ Report.UpdateSelectBox= function () {
 };
 
 //我的得分率与其他同学的对比文案信息
-var tipsStudentInfo =[];
+var tipsStudentInfo =[{},{}];
 
 var tipsUtilStu = {
 
@@ -3997,34 +4125,31 @@ var tipsUtilStu = {
      */
     initTipData: function (ratioInfo,id) {
         var _this = this;
-        var tips =[];
 
         if(id){
-            if(tipsStudentInfo[1]){
-                tips[1]=tipsStudentInfo[1];
-                $('#_tipId').text(tips[1]['title']);
-                $('#_tipId1').text(tips[1]['desc']);
+            if(tipsStudentInfo[1][_this.paperId]){
+                // tips[1]=tipsStudentInfo[1];
+                $('#_tipId').text(tipsStudentInfo[1][_this.paperId]['title']);
+                $('#_tipId1').text(tipsStudentInfo[1][_this.paperId]['desc']);
             }else{
                 $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
                     {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:1},function(data){
-                        tipsStudentInfo[1] =$.parseJSON(data);
-                        tips[1]=$.parseJSON(data);
-                        $('#_tipId').text(tips[1]['title']);
-                        $('#_tipId1').text(tips[1]['desc']);
+                        tipsStudentInfo[1][_this.paperId] =$.parseJSON(data);
+                        $('#_tipId').text(tipsStudentInfo[1][_this.paperId]['title']);
+                        $('#_tipId1').text(tipsStudentInfo[1][_this.paperId]['desc']);
                     });
             }
         }else{
-            if(tipsStudentInfo[0]){
-                tips[0]=tipsStudentInfo[0];
-                $('#_tipId').text(tips[0]['title']);
-                $('#_tipId1').text(tips[0]['desc']);
+            if(tipsStudentInfo[0][_this.paperId]){
+                // tips[0]=tipsStudentInfo[0];
+                $('#_tipId').text(tipsStudentInfo[0][_this.paperId]['title']);
+                $('#_tipId1').text(tipsStudentInfo[0][_this.paperId]['desc']);
             }else{
                 $.get(basePath+"/zhixuebao/feesReport/getCompareToOthersIntro/",
                     {examId:Request.QueryString("examId"),paperId:_this.paperId,role:"student", scope:0},function(data){
-                        tipsStudentInfo[0] =$.parseJSON(data);
-                        tips[0] = $.parseJSON(data);
-                        $('#_tipId').text(tips[0]['title']);
-                        $('#_tipId1').text(tips[0]['desc']);
+                        tipsStudentInfo[0][_this.paperId] =$.parseJSON(data);
+                        $('#_tipId').text(tipsStudentInfo[0][_this.paperId]['title']);
+                        $('#_tipId1').text(tipsStudentInfo[0][_this.paperId]['desc']);
                     });
             }
         }
@@ -4244,7 +4369,8 @@ var CompareCtrl = (function () {
 
     compareCtrl.prototype.initEvent = function () {
         var _this = this;
-        $("._compare").click(function (event) {
+        $("._compare").unbind();
+        $("._compare").on("click",function (event) {
             //$(this).parent().children().removeClass("on");
             event.target = event.target ? event.target : event.srcElement;
             $("._compare li a").removeClass("on");
@@ -4277,7 +4403,7 @@ var CompareCtrl = (function () {
                     tipsUtilStu.initTipData(data);
                 });
             }
-        });
+        })
 
 
     };
@@ -5163,11 +5289,11 @@ Report.singer = function () {
 
 //判断初始页面
 Report.defaultPage = function () {
+    Transcripts.bindPKEvent();
+    Transcripts.randomChangeEvent();
     if (Report.role == 'student') {
         $('.stu').addClass('on');
         $('.rep-content').eq(0).show().siblings('.rep-content').hide();
-        Transcripts.bindPKEvent();
-        Transcripts.randomChangeEvent();
         if (elements.top_subjectList.find('a.on').html() == '全科') {
             Report.allSinger = 'All';
             Report.bindIntroductionData(); //导读信息
@@ -5187,6 +5313,7 @@ Report.defaultPage = function () {
             Report.isCoexistAndIsGolden(); //弹窗
             var foot = new Foot();
             foot.init();
+            $('#loadPK').show();
         }
         // else {
         //     if (!isFinal) {
@@ -5222,6 +5349,7 @@ Report.defaultPage = function () {
     else {
         $('.par').addClass('on');
         $('.rep-content').eq(1).show().siblings('.rep-content').hide();
+        $('#loadPK').hide();
         if (elements.top_subjectListPar.find('a.on').html() == '全科') {
             Report.bindIntroductionData(); //导读信息
             Report.bindUserExamDataPar(); //孩子考得怎么样
