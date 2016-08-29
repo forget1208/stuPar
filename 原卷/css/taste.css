@@ -1,0 +1,40 @@
+.taste .pic {
+	text-align: right;
+	width: 545px;
+}
+.taste .txt {
+	padding: 60px 0 0 0;
+	margin-left:50px;
+	float:left;
+}
+.taste .txt h1 {
+	color: #1db775;
+	font-size: 24px;
+	padding: 5px 0;
+	width:350px;
+}
+.taste .txt h3 {
+	color: #ff5736;
+	font-size: 24px;
+	padding: 5px 0;
+}
+.taste .txt h2 {
+	color: #333;
+	font-size: 18px;
+	padding: 5px 0;
+}
+.taste .taste_btn_a {
+	background: #ffaa3c;
+	color: #eee;
+	width: 152px;
+	height: 45px;
+	line-height: 45px;
+	display: inline-block;
+	font-size: 20px;
+	text-align: center;
+	border-radius:3px;
+}
+.taste .taste_btn_a:hover{background: #ffbe69;}
+.taste .taste_btn_a:active{background: #e6962f;}
+
+
