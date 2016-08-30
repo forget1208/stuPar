@@ -72,7 +72,9 @@ Checksheet.initSheet = function(){
             },
             position:{
                 left:0,
-                top:0
+                top:0,
+                width:0,
+                height:0
             }
         });
         iconList[0].reverse();
@@ -89,7 +91,7 @@ Checksheet.initSheet = function(){
  */
 Checksheet._countTotalScore = function(scoleList){
     //计算试卷总分以及分数位置信息
-    var size = scoleList && scoleList.length,userScore=0,fullScore=0,left=0,top= 0;
+    var size = scoleList && scoleList.length,userScore=0,fullScore=0,left=0,top= 0,width=0,height=0,widthScale=sheetDatas.widthMM2PX,heightScale=sheetDatas.heightMM2PX;
     for(var i=0; i<size; i++){
         var length = scoleList[i] && scoleList[i].length;
         for(var j=0; j<length; j++){
@@ -101,14 +103,19 @@ Checksheet._countTotalScore = function(scoleList){
             fullScore += tempScore.fullScore;
         }
     }
-    left = Math.round(scoleList[0][0].position.left/2);
-    top = Math.round(scoleList[0][0].position.top/2) - TOTAL_SCORE_FONT_SIZE - 10;
+    left = Math.round(scoleList[0][0].position.left);
+    top = Math.round(scoleList[0][0].position.top);
+    width = Math.round(scoleList[0][0].position.width/2);
+    height = Math.round(scoleList[0][0].position.height*heightScale);
     userScore = Math.round(userScore*10)/10;
     fullScore = Math.round(fullScore*10)/10;
+    console.log(scoleList[0][0]);
     return {
         position:{
             left:left,
-            top:top
+            top:top,
+            width:width,
+            height:height
         },
         score:{
             userScore:userScore,
@@ -499,15 +506,15 @@ Checksheet.initSheetMark=function(textLabels,iconLabels){
                             html += '<p class="total" style="position: absolute;color:red;top: '+ (tempTextLabels[j].position.top-10) +'px;left:'+ (tempTextLabels[j].position.left+40) +'px;font-size:'+ TOTAL_SCORE_FONT_SIZE +'px;">'+
                                 tempTextLabels[j].score.userScore +'</p>';
                         }else{
-                            html += '<p class="total" style="position: absolute;color:red;top: '+ tempTextLabels[j].position.top +'px;left:'+ tempTextLabels[j].position.left +'px;font-size:'+ TOTAL_SCORE_FONT_SIZE +'px;">'+
-                                tempTextLabels[j].score.userScore +'</p>';
+                            html += '<p class="total rel" style="position: absolute;color:red;top: '+ Math.round(tempTextLabels[j].position.top/2) +'px;width: '+ (tempTextLabels[j].position.width-15) +'px;height: '+ tempTextLabels[j].position.height +'px;left:'+ tempTextLabels[j].position.left +'px;font-size:'+ (TOTAL_SCORE_FONT_SIZE/1.5) +'px;margin:0;line-height:' + tempTextLabels[j].position.height +'px">'+
+                                tempTextLabels[j].score.userScore +'<a href="#" target="_blank" class="bgGrey">点击此区域跳转<br/>本科考试报告</a></p>';
                         }
                     }else if( SHEET_FLAG == 1 && (tempTextLabels[j].score.type=="SingleChoice" || tempTextLabels[j].score.type=="MultiChoice" || tempTextLabels[j].score.type=="Object")){//第三方答题卡选择题不展示满分
                         html += '<p class="section" style="position: absolute;font-weight:bold;color:red;top: '+ (tempTextLabels[j].position.top - 10) +'px;left:'+ (tempTextLabels[j].position.left + 45) +'px;font-size:'+ USER_SCORE_FONT_SIZE +'px;">'+
                             tempTextLabels[j].score.userScore +'分</p>';
                     }else{
-                        html += '<p class="section" style="position: absolute;font-weight:bold;color:red;top: '+ tempTextLabels[j].position.top +'px;left:'+ tempTextLabels[j].position.left +'px;font-size:'+ USER_SCORE_FONT_SIZE +'px;">'+
-                            tempTextLabels[j].score.userScore +'分<span style="font-size: '+ FULL_SCORE_FONT_SIZE +'px;">'+ '（满分'+tempTextLabels[j].score.fullScore +'分）'+'</span></p>';
+                        html += '<p class="section" style="position: absolute;font-weight:bold;color:red;top: '+ (tempTextLabels[j].position.top+3) +'px;left:'+ tempTextLabels[j].position.left +'px;font-size:'+ USER_SCORE_FONT_SIZE +'px;width: '+ (tempTextLabels[j].position.width-15) +'px;height: '+ tempTextLabels[j].position.height +'px;box-sizing: border-box;padding-top:5px;">'+
+                            tempTextLabels[j].score.userScore +'分<span style="font-size: '+ FULL_SCORE_FONT_SIZE +'px;">'+ '（满分'+tempTextLabels[j].score.fullScore +'分）'+'</span><a href="#" target="_blank" class="bgGrey bgGrey2" style="line-height:' +  tempTextLabels[j].position.height + 'px;">点此区域跳转到本部分试题解析</a></p>';
                     }
                 }
                 //添加图片标记
@@ -622,17 +629,21 @@ Checksheet._handleTopics = function(topics){
  * @param widthScale 宽度位置比例转换 答题卡自有属性
  */
 Checksheet._countSectionPosition = function(position,type,heightScale,widthScale){
-    var left = 0,top = 0;
+    var left = 0,top = 0,width = 0,height = 0;
+    width = Math.abs(Math.round((position.width+5)*widthScale));
+    height = Math.abs(Math.round((position.height-5)*heightScale));
     if(type==1){
-        left = Math.abs(Math.round((position.left + position.width/2)*widthScale))-60;
-        top = Math.abs(Math.round((position.top)*heightScale))-5;
+        left = Math.abs(Math.round((position.left+6)*widthScale));
+        top = Math.abs(Math.round((position.top-6)*heightScale));
     }else{
         left = Math.abs(Math.round((position.left + position.width)*widthScale))-50;
-        top = Math.abs(Math.round((position.top + position.height)*heightScale))-35;
+        top = Math.abs(Math.round((position.top + position.height)*heightScale))-30;
     }
     return {
         left:left,
-        top:top
+        top:top,
+        width:width,
+        height:height
     }
 }
 /**
