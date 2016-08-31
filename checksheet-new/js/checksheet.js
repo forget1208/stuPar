@@ -531,9 +531,8 @@ Checksheet.initSheetMark=function(textLabels,iconLabels){
                     }else{
                         classLabel = "normal-half";
                     }
-                    html += '<i style="position: absolute;width:45px;height:30px;top: '+ tempIconLabels[k].position.top +'px;left: '+ tempIconLabels[k].position.left +'px;" class="'+ classLabel +'">'+tempIconLabels[k].url+'</i>';
+                    html += '<i style="position: absolute;width:45px;height:30px;top: '+ tempIconLabels[k].position.top +'px;left: '+ tempIconLabels[k].position.left +'px;" class="'+ classLabel +'"></i>';
                 }
-                console.log(tempIconLabels[k].url);
                 $(this).append(html);
             }
         });
