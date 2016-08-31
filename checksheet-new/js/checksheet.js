@@ -103,13 +103,12 @@ Checksheet._countTotalScore = function(scoleList){
             fullScore += tempScore.fullScore;
         }
     }
-    left = Math.round(scoleList[0][0].position.left);
-    top = Math.round(scoleList[0][0].position.top);
-    width = Math.round(scoleList[0][0].position.width/2);
-    height = Math.round(scoleList[0][0].position.height*heightScale);
+    left = Math.round(scoleList[0][0].position.left-8);
+    top = Math.round(scoleList[0][0].position.top+20);
+    width = Math.round(scoleList[0][0].position.width/widthScale);
+    height = 70;
     userScore = Math.round(userScore*10)/10;
     fullScore = Math.round(fullScore*10)/10;
-    console.log(scoleList[0][0]);
     return {
         position:{
             left:left,
@@ -408,8 +407,9 @@ Checksheet._countScorePositionByCondition = function(curSection,topics,heightSca
                 //计算正误标示位置以及当前块是否展示正误标示
                 tempIcon={
                     position:Checksheet._countSectionPosition(curSection.contents.position,0,heightScale,widthScale),
-                    mark:Checksheet._isMarkIcon(curSection.contents.branch,topics)
-                }
+                    mark:Checksheet._isMarkIcon(curSection.contents.branch,topics),
+                    url:'<a href="#">链接</a>'
+                };
             }
 
             break;
@@ -531,8 +531,9 @@ Checksheet.initSheetMark=function(textLabels,iconLabels){
                     }else{
                         classLabel = "normal-half";
                     }
-                    html += '<i style="position: absolute;width:45px;height:30px;top: '+ tempIconLabels[k].position.top +'px;left: '+ tempIconLabels[k].position.left +'px;" class="'+ classLabel +'"></i>';
+                    html += '<i style="position: absolute;width:45px;height:30px;top: '+ tempIconLabels[k].position.top +'px;left: '+ tempIconLabels[k].position.left +'px;" class="'+ classLabel +'">'+tempIconLabels[k].url+'</i>';
                 }
+                console.log(tempIconLabels[k].url);
                 $(this).append(html);
             }
         });
@@ -639,6 +640,8 @@ Checksheet._countSectionPosition = function(position,type,heightScale,widthScale
         left = Math.abs(Math.round((position.left + position.width)*widthScale))-50;
         top = Math.abs(Math.round((position.top + position.height)*heightScale))-30;
     }
+    console.log('position.height: '+position.height);
+    console.log('height: '+height);
     return {
         left:left,
         top:top,
